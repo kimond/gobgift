@@ -1,0 +1,33 @@
+{% load url from future %}
+<!doctype html>
+<html>
+  <head>
+    <title>GobGift</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+      h1 { padding: 0 30px; }
+      .user-details { text-align: center; font-size: 16px; font-weight: bold; }
+      .disconnect-form { padding: 0; margin: 0px 10px; }
+      .disconnect-form > a { display: block; margin: 5px 0 !important; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>GobGift <small>Les listes</small></h1>
+      <a class="btn btn-primary" href="{% url 'home' %}">Accueil</a>
+      <hr/>
+      <table class="table">
+        {% for liste in listes %}
+        <tr>
+            <th>{{liste.name}}</th>
+            <td>{{liste.owner.first_name}} {{liste.owner.last_name}}</td>
+            <td><a class="btn btn-default" href="{{liste.get_view_url}}">Consulter</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </body>
+</html>
