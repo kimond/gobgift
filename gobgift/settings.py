@@ -51,14 +51,15 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.google.GoogleOpenId',
-    'social.backends.google.GoogleOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'AIzaSyCDLnH7sLbJyR9T3FPyK_BRrUuWkSc720A'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ld8vCeohc8xJavMu9AegKQM-'
+SOCIAL_AUTH_FACEBOOK_KEY = '572487016217179'
+SOCIAL_AUTH_FACEBOOK_SECRET = '7bee4c8711c24111d56abb0badae9f0c'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_USE_DEPRECATED_API = True
+SOCIAL_AUTH_GOOGLE_PLUS_USE_DEPRECATED_API = True
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/done/'
