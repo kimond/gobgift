@@ -1,26 +1,10 @@
+{% extends "gobgift/_layout.html" %}
 {% load backend_utils %}
-<!doctype html>
-<html>
-  <head>
-    <title>GobGift</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-      h1 { padding: 0 30px; }
-      .user-details { text-align: center; font-size: 16px; font-weight: bold; }
-      .disconnect-form { padding: 0; margin: 0px 10px; }
-      .disconnect-form > a { display: block; margin: 5px 0 !important; }
-    </style>
-  </head>
-  <body>
-
+{% block content %}
     <div class="container">
-    <h1>GobGift</h1>
       {% if user.is_authenticated %}
         <div class="row user-details">
-          You are logged in as <i>{{ user.username }}</i>!
+          <h2>Bienvenue <i>{{ user.username }}</i>!</h2>
         </div>
         <div class="row">
         <a class="btn btn-success" href="/listes/"> Voir les listes </a>
@@ -130,31 +114,6 @@
       </form>
     </div>
 
-    <div id="livejournal-modal" class="modal fade">
-      <form action="{% url "social:begin" "livejournal" %}" method="post" role="form">{% csrf_token %}
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">LiveJournal OpenId Authentication</h4>
-            </div>
-
-            <div class="modal-body">
-              <div class="form-group">
-                <label class="control-label" for="openid_lj_identifier">LiveJournal ID:</label>
-                <input class="form-control" id="openid_lj_identifier" type="text" value="" name="openid_lj_user" />
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Login</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-
     <div id="openid-modal" class="modal fade">
       <form action="{% url "social:begin" backend="openid" %}" method="post" role="form">{% csrf_token %}
         <div class="modal-dialog">
@@ -169,29 +128,6 @@
                 <label class="control-label" for="openid_identifier">OpenId Provider:</label>
                 <input class="form-control" id="openid_identifier" type="text" value="" name="openid_identifier" />
               </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Login</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div id="persona-modal" class="modal fade">
-      <form action="{% url "social:complete" backend="persona" %}" method="post">{% csrf_token %}
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Mozilla Persona Authentication</h4>
-            </div>
-
-            <div class="modal-body">
-              <p>Login with Mozilla Persona by clicking the <code>Login</code> button below.</p>
-              <input type="hidden" name="assertion" value="" />
             </div>
 
             <div class="modal-footer">
@@ -268,10 +204,6 @@
     </form>
     {% endif %}
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="https://plus.google.com/js/client:plusone.js?onload=start" type="text/javascript"></script>
-    <script src="https://login.persona.org/include.js" type="text/javascript"></script>
 
     <script type="text/javascript">
       var signInCallback = function (result) {
@@ -337,21 +269,6 @@
           }, 'json')
         });
 
-        modalDialog('#persona-modal', 'persona', function (event) {
-          var $form;
-          event.preventDefault();
-
-          $form = $(this).closest('form');
-          navigator.id.get(function (assertion) {
-            if (assertion) {
-              $form.find('[name="assertion"]').val(assertion)
-              $form.submit();
-            } else {
-              alert('An error occurred while getting your assertion, try again.');
-            }
-          });
-        });
-
         $('.disconnect-form').on('click', 'a.btn', function (event) {
           event.preventDefault();
           $(event.target).closest('form').submit();
@@ -366,5 +283,4 @@
         {% endif %}
       });
     </script>
-  </body>
-</html>
+{% endblock %}

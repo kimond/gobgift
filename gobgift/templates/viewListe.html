@@ -1,51 +1,30 @@
+{% extends "gobgift/_layout.html" %}
 {% load url from future %}
 {% load staticfiles %}
-<!doctype html>
-<html>
-  <head>
-    <title>GobGift</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{% static "gobgift/css/style.css" %}" rel="stylesheet">
-    <style>
-      h1 { padding: 0 30px; }
-      .user-details { text-align: center; font-size: 16px; font-weight: bold; }
-      .disconnect-form { padding: 0; margin: 0px 10px; }
-      .disconnect-form > a { display: block; margin: 5px 0 !important; }
-    </style>
-  </head>
-  <body>
+
+{% block content  %}
     <div class="container">
-      <div class="page-header">
-        <h1>GobGift</h1>
-      </div>
-      <a class="btn btn-primary" href="{% url 'listes' %}">Retour à la liste des listes</a>
-      <h2>Liste {{liste.name}} de {{liste.owner.first_name}} {{liste.owner.last_name}}</h2>
+      <h2>Liste {{liste.name}} de <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h2>
+      <a class="btn " href="{% url 'listes' %}">Retour à la liste des listes</a>
       {% if liste.owner.pk == user.pk %}
-        <a class="btn btn-success" href="{{liste.get_addgift_url}}">Ajouter cadeau</a>
+      <a class="btn" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>Ajouter cadeau</a>
         <hr/>
       {% endif %}
       {% for gift in liste.gift_set.all %}
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="col-md-4">
-            <a href="{{gift.photo.url}}" class="thumbnail">
-              <img src="{{gift.photo.url}}" alt="{{gift.photo.name}}">
-            </a>
-          </div>
-          <div class="col-md-4">
-            <h3>{{gift.name}}</h3>
+      <div class="col s12 m6">
+        <div class="card cyan">
+          <div class="card-footer">
+            <h1>{{gift.name}}</h1>
+            <a href="{{gift.photo.url}}" ><img width="200" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
             <p>{% if gift.price %}{{gift.price}}${% endif %}</p>
             <p>{% if gift.siteweb %}<a href="{{gift.siteweb}}">{{gift.siteweb}}</a>{% endif %}</p>
             <p>{% if gift.store %}<b>Magasin:</b> {{gift.store}}{% endif %}</p>
             {% if liste.owner.pk == user.pk %}
-              <a class="btn btn-success" href="{{gift.get_edit_url}}">Modifier cadeau</a>
-              <a class="btn btn-danger" href="{{gift.get_delete_url}}">Supprimer cadeau</a>
+              <a class="card-action" href="{{gift.get_edit_url}}">Modifier</a>
+              <a class="card-action" href="{{gift.get_delete_url}}">Supprimer</a>
             {% endif %}
             {% if liste.owner.pk != user.pk %}
-              <a class="btn btn-info" href="{{gift.get_addcomment_url}}">Ajouter commentaire</a>
+              <a class="card-action" href="{{gift.get_addcomment_url}}">Ajouter commentaire</a>
               {% for comment in gift.comment_set.all %}
               <p>
               <i>{{comment.user}} <span class="comment_date">{{comment.datetime}}</span></i><br/>
@@ -58,5 +37,4 @@
       </div>
       {% endfor %}
     </div>
-  </body>
-</html>
+{% endblock %}
