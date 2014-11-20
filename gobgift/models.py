@@ -24,7 +24,7 @@ class Liste(models.Model):
 class Gift(models.Model):
     liste = models.ForeignKey(Liste)
     name = models.CharField(max_length=150)
-    photo = models.ImageField(upload_to='gifts')
+    photo = models.ImageField(upload_to='gifts', null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
     siteweb = models.CharField(null=True, blank=True, max_length=350)
     store = models.CharField(null=True, blank=True, max_length=150)
