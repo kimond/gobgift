@@ -36,12 +36,18 @@
           </div>
         {% endfor %}
       <hr/>
+      {% if user.is_authenticated %}
       <div class="row">
         <a class="btn btn-primary" href="/logout/">
           <i class="fa fa-sign-out"></i>
           Logout
         </a>
       </div>
+      <div class="row">
+        <h4>Version Android</h4>
+        <a href="/media/gobgift.apk">Download</a> 
+      </div>
+      {% endif %}
     </div>
 
     <div id="username-modal" class="modal fade">

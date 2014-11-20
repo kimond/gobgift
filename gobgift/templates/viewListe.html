@@ -4,7 +4,7 @@
 
 {% block content  %}
     <div class="container">
-      <h2>Liste {{liste.name}} de <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h2>
+      <h3>Liste {{liste.name}} de <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
       <a class="btn " href="{% url 'listes' %}">Retour à la liste des listes</a>
       {% if liste.owner.pk == user.pk %}
       <a class="btn" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>Ajouter cadeau</a>
