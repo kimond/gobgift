@@ -15,7 +15,9 @@
         <div class="card cyan">
           <div class="card-footer">
             <h1>{{gift.name}}</h1>
+            {% if gift.photo %}
             <a href="{{gift.photo.url}}" ><img width="200" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
+            {% endif %}
             <p>{% if gift.price %}{{gift.price}}${% endif %}</p>
             <p>{% if gift.siteweb %}<a href="{{gift.siteweb}}">{{gift.siteweb}}</a>{% endif %}</p>
             <p>{% if gift.store %}<b>Magasin:</b> {{gift.store}}{% endif %}</p>
