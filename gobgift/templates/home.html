@@ -2,53 +2,56 @@
 {% load backend_utils %}
 {% block content %}
     <div class="container">
-      {% if user.is_authenticated %}
         <div class="row user-details">
-          <h2>Bienvenue <i>{{ user.username }}</i>!</h2>
+            <div class="col s12 m6 offset-m3 ">
+                <div class="card">
+                    <div class="card-content ">
+                    {% if user.is_authenticated %}
+                    <h2>Bienvenue <i>{{ user.username }}</i>!</h2>
+                    <hr/>
+                    <div class="row">
+                        <a class="btn btn-success" href="/listes/"> Voir les listes </a>
+                        {% if user.liste_set.count == 0  %}
+                        <a class="btn btn-success" href="/listes/add/">Créer votre liste</a>
+                        {% endif  %}
+                    </div>
+                        {% for sublist in available_backends|social_backends %}
+                        <div class="row">
+                            {% for name, backend in sublist %}
+                            {% associated backend %}
+                            {% if association %}
+                            <form class="disconnect-form col md2" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}" method="post">{% csrf_token %}
+                                <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
+                                    <i class="fa fa-{{ name|icon_name }}"></i>
+                                    Disconnect {{ backend|backend_name }}
+                                </a>
+                            </form>
+                            {% else %}
+                            <a class="col md2 btn btn-default" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
+                                <i class="fa fa-{{ name|icon_name }}"></i>
+                                {{ backend|backend_name }}
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                        {% if user.is_authenticated %}
+                        <div class="row">
+                            <a class="btn btn-primary" href="/logout/">
+                                <i class="fa fa-sign-out"></i>
+                                Logout
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="card-action">
+                        <a href="/media/gobgift.apk">Download Android version 0.1</a> 
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-        <a class="btn btn-success" href="/listes/"> Voir les listes </a>
-        {% if user.liste_set.count == 0  %}
-          <a class="btn btn-success" href="/listes/add/">Créer votre liste</a>
-        {% endif  %}
-        </div>
-      {% endif %}
-      <hr/>
 
-        {% for sublist in available_backends|social_backends %}
-          <div class="row">
-            {% for name, backend in sublist %}
-              {% associated backend %}
-              {% if association %}
-                <form class="disconnect-form col-md-2" action="{% url "social:disconnect_individual" backend=association.provider association_id=association.id %}" method="post">{% csrf_token %}
-                  <a class="btn btn-danger" name="{{ backend|backend_class }}" href="#">
-                    <i class="fa fa-{{ name|icon_name }}"></i>
-                    Disconnect {{ backend|backend_name }}
-                  </a>
-                </form>
-              {% else %}
-                <a class="col-md-2 btn btn-default" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
-                  <i class="fa fa-{{ name|icon_name }}"></i>
-                  {{ backend|backend_name }}
-                </a>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endfor %}
-      <hr/>
-      {% if user.is_authenticated %}
-      <div class="row">
-        <a class="btn btn-primary" href="/logout/">
-          <i class="fa fa-sign-out"></i>
-          Logout
-        </a>
-      </div>
-      <div class="row">
-        <h4>Version Android 0.1</h4>
-        <a href="/media/gobgift.apk">Download</a> 
-      </div>
-      {% endif %}
-    </div>
 
     <div id="username-modal" class="modal fade">
       <form action="{% url "social:complete" "username" %}" method="post" role="form">{% csrf_token %}

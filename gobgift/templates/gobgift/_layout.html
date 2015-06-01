@@ -5,7 +5,7 @@
   <head>
     <title>GobGift</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="{% static "gobgift/css/materialize.min.css" %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static "gobgift/lib/materialize/css/materialize.min.css" %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static "gobgift/css/style.css" %}" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://plus.google.com/js/client:plusone.js?onload=start" type="text/javascript"></script>
@@ -27,7 +27,7 @@
   {% block content %}
 
   {% endblock %}
-  <script type="text/javascript" src="{% static "gobgift/js/materialize.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "gobgift/lib/materialize/js/materialize.min.js" %}"></script>
   <script type="text/javascript">
   $( document ).ready(function(){
       $(".button-collapse").sideNav();
