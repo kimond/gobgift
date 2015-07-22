@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from django.db import models
 import datetime
 
+class ListGroup(models.Model):
+    name = models.CharField(max_length=150)
+    admins = models.ManyToManyField(User, related_name="listgroup_admins")
+    users = models.ManyToManyField(User, blank=True, related_name="listgroup_users")
+
+    def __unicode__(self):
+        return self.name
 
 class Liste(models.Model):
     owner = models.ForeignKey(User)

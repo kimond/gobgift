@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from .views import ListeCreate, GiftCreate, GiftEdit, GiftDelete, CommentCreate
+from .views import *
 
 urlpatterns = patterns('',
     # Examples:
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^gift/edit/(?P<pk>\d+)/$', GiftEdit.as_view(), name='editGift'),
     url(r'^gift/delete/(?P<pk>\d+)/$', GiftDelete.as_view(), name='deleteGift'),
     url(r'^gift/(?P<gift_pk>\d+)/comment/add/$', CommentCreate.as_view(), name='addComment'),
+    url(r'^group/add/$', GroupCreate.as_view(), name='addGroup'),
 )
 
 if settings.DEBUG :

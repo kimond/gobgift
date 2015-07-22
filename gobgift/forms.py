@@ -1,5 +1,5 @@
 from django import forms
-from .models import Liste, Gift, Comment
+from .models import ListGroup, Liste, Gift, Comment
 
 
 class ListeForm(forms.ModelForm):
@@ -74,3 +74,9 @@ class CommentForm(forms.ModelForm):
 
 
         return cleaned_data
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = ListGroup
+        fields = ['name','admins','users']

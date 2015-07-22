@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .models import Liste, Gift, Comment
+from .models import ListGroup, Liste, Gift, Comment
 from .forms import *
 
 from social.backends.oauth import BaseOAuth1, BaseOAuth2
@@ -160,3 +160,11 @@ class CommentCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         return super(CommentCreate, self).form_valid(form)
 
+
+class GroupCreate(LoginRequiredMixin, CreateView):
+    model = ListGroup
+    template_name = "createListe.html"
+    form_class = GroupForm
+
+    def form_valid(self, form):
+        return super(GroupCreate, self).form_valid(form);
