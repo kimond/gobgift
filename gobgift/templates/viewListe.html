@@ -3,40 +3,49 @@
 {% load staticfiles %}
 
 {% block content  %}
-    <div class="container">
-      <h3>Liste {{liste.name}} de <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
-      <a class="btn " href="{% url 'listes' %}">Retour à la liste des listes</a>
-      {% if liste.owner.pk == user.pk %}
-      <a class="btn" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>Ajouter cadeau</a>
-        <hr/>
-      {% endif %}
-      {% for gift in liste.gift_set.all %}
-      <div class="col s12 m6">
-        <div class="card cyan">
-          <div class="card-footer">
-            <h1>{{gift.name}}</h1>
-            {% if gift.photo %}
-            <a href="{{gift.photo.url}}" ><img width="200" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
-            {% endif %}
-            <p>{% if gift.price %}{{gift.price}}${% endif %}</p>
-            <p>{% if gift.siteweb %}<a href="{{gift.siteweb}}">{{gift.siteweb}}</a>{% endif %}</p>
-            <p>{% if gift.store %}<b>Magasin:</b> {{gift.store}}{% endif %}</p>
+    <div class="mdl-grid mdl-grid--no-spacing">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--8-col">
+            <h3>Liste {{liste.name}} de <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
+            <a class="btn " href="{% url 'listes' %}">Retour à la liste des listes</a>
             {% if liste.owner.pk == user.pk %}
-              <a class="card-action" href="{{gift.get_edit_url}}">Modifier</a>
-              <a class="card-action" href="{{gift.get_delete_url}}">Supprimer</a>
+            <a class="btn" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>Ajouter cadeau</a>
             {% endif %}
-            {% if liste.owner.pk != user.pk %}
-              <a class="card-action" href="{{gift.get_addcomment_url}}">Ajouter commentaire</a>
-              {% for comment in gift.comment_set.all %}
-              <p>
-              <i>{{comment.user}} <span class="comment_date">{{comment.datetime}}</span></i><br/>
-              {{comment.text}}
-              </p>
-              {% endfor %}
-            {% endif %}
-          </div>
         </div>
-      </div>
-      {% endfor %}
+    </div>
+    <hr/>
+        {% for gift in liste.gift_set.all %}
+        <div class=mdl-grid>
+        <div class="mdl-cell mdl-cell--3-col"></div>
+        <div class="mdl-card mdl-shadow--2dp cyan mdl-cell mdl-cell--6-col">
+            <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">{{gift.name}}</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                {% if gift.photo %}
+                <a href="{{gift.photo.url}}" ><img width="200" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
+                {% endif %}
+                <p>{% if gift.price %}{{gift.price}}${% endif %}</p>
+                <p>{% if gift.siteweb %}<a href="{{gift.siteweb}}">{{gift.siteweb}}</a>{% endif %}</p>
+                <p>{% if gift.store %}<b>Magasin:</b> {{gift.store}}{% endif %}</p>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                {% if liste.owner.pk == user.pk %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_edit_url}}">Edit</a>
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_delete_url}}">Delete</a>
+                {% endif %}
+                {% if liste.owner.pk != user.pk %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_addcomment_url}}">Add a comment</a>
+                <hr/>
+                {% for comment in gift.comment_set.all %}
+                <p>
+                <i>{{comment.user}} <span class="comment_date">{{comment.datetime}}</span></i><br/>
+                {{comment.text}}
+                </p>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
     </div>
 {% endblock %}

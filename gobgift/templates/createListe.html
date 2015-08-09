@@ -1,10 +1,18 @@
 {% extends "gobgift/_layout.html" %}
 {%block content%}
-    <div class="container">
-      <h1>GobGift <small>Ajouter liste</small></h1>
-      <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn" type="submit" value="confirmer" />
-      </form>
+    <div class="mdl-grid mdl-grid--no-spacing">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--8-col">
+            <h1>GobGift <small>add</small></h1>
+        </div>
+    </div>
+    <div class="mdl-grid mdl-grid--no-spacing">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--8-col">
+            <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form.as_p }}
+                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
+            </form>
+      </div>
     </div>
 {% endblock %}

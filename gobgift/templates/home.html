@@ -1,20 +1,17 @@
 {% extends "gobgift/_layout.html" %}
 {% load backend_utils %}
 {% block content %}
-    <div class="container">
-        <div class="row user-details">
-            <div class="col s12 m6 offset-m3 ">
-                <div class="card">
-                    <div class="card-content ">
-                    {% if user.is_authenticated %}
-                    <h2>Bienvenue <i>{{ user.username }}</i>!</h2>
-                    <hr/>
-                    <div class="row">
-                        <a class="btn btn-success" href="/listes/"> Voir les listes </a>
-                        {% if user.liste_set.count == 0  %}
-                        <a class="btn btn-success" href="/listes/add/">Créer votre liste</a>
-                        {% endif  %}
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--3-col"></div>
+                <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Welcome <i>{{ user.username }}</i>!</h2>
                     </div>
+                    <div class="mdl-card__supporting-text ">
+                        <ul>
+                            <li><a class="btn btn-success" href="/listes/"> Voir les listes </a></li>
+                            <li><a class="btn btn-success" href="/listes/add/">Créer votre liste</a></li>
+                        </ul>
                         {% for sublist in available_backends|social_backends %}
                         <div class="row">
                             {% for name, backend in sublist %}
@@ -35,22 +32,11 @@
                             {% endfor %}
                         </div>
                         {% endfor %}
-                        {% if user.is_authenticated %}
-                        <div class="row">
-                            <a class="btn btn-primary" href="/logout/">
-                                <i class="fa fa-sign-out"></i>
-                                Logout
-                            </a>
-                        </div>
-                        {% endif %}
-                        {% endif %}
                     </div>
-                    <div class="card-action">
-                        <a href="/media/gobgift.apk">Download Android version 0.1</a> 
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/media/gobgift.apk">Download Android version 0.1</a> 
                     </div>
                 </div>
-            </div>
-        </div>
 
     {% if backend %}
       <div id="email-required-modal" class="modal fade">
@@ -80,43 +66,25 @@
       </div>
     {% endif %}
 
-    <div id="validation-sent-modal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Email Validation Sent</h4>
-          </div>
-
-          <div class="modal-body">
-            <p>An email validation was sent{% if email %} to <code>{{ email }}</code>{% endif %}.</p>
-            <p>Click the link sent to finish the authentication process.</p>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {% if plus_id %}
-    <form id="google-plus" method="post" action="{% url "social:complete" backend="google-plus" %}">{% csrf_token %}
-      <input id="at" type="hidden" name="access_token" value="" />
-      <input id="code" type="hidden" name="code" value="" />
-
-      <div id="signinButton">
-        <span class="g-signin" data-scope="{{ plus_scope }}"
-                               data-clientid="{{ plus_id }}"
-                               data-redirecturi="postmessage"
-                               data-accesstype="offline"
-                               data-cookiepolicy="single_host_origin"
-                               data-callback="signInCallback">
-        </span>
-      </div>
-    </form>
-    {% endif %}
-
+    {# <div id="validation-sent-modal" class="modal fade"> #}
+    {#   <div class="modal-dialog"> #}
+    {#     <div class="modal-content"> #}
+    {#       <div class="modal-header"> #}
+    {#         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> #}
+    {#         <h4 class="modal-title">Email Validation Sent</h4> #}
+    {#       </div> #}
+    {#  #}
+    {#       <div class="modal-body"> #}
+    {#         <p>An email validation was sent{% if email %} to <code>{{ email }}</code>{% endif %}.</p> #}
+    {#         <p>Click the link sent to finish the authentication process.</p> #}
+    {#       </div> #}
+    {#  #}
+    {#       <div class="modal-footer"> #}
+    {#         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> #}
+    {#       </div> #}
+    {#     </div> #}
+    {#   </div> #}
+    {# </div> #}
 
     <script type="text/javascript">
       var signInCallback = function (result) {

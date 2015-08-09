@@ -5,33 +5,44 @@
   <head>
     <title>GobGift</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="{% static "gobgift/lib/materialize/css/materialize.min.css" %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static "gobgift/lib/mdl/material.min.css" %}"  media="screen,projection"/>
+    <script src="{% static "gobgift/lib/mdl/material.min.js" %}"></script>
     <link type="text/css" rel="stylesheet" href="{% static "gobgift/css/style.css" %}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://plus.google.com/js/client:plusone.js?onload=start" type="text/javascript"></script>
   </head>
   <body>
-  <nav>
-    <div class="nav-wrapper green">
-      <a href="#" class="brand-logo">GobGift</a>
-      <ul id="nav-mobile" class="right side-nav">
-        <li><a href="{% url 'home' %}">Accueil</a></li>
-        {% if user.is_authenticated %}
-        <li><a href="/listes/"> Voir les listes </a></li>
-        <li><a href="/logout/"> <i class="fa fa-sign-out"></i> Déconnexion </a></li>
-        {% endif %}
-      </ul>
-      <a class="button-collapse" href="#" data-activates="nav-mobile"><i class="mdi-navigation-menu"></i></a>
-    </div>
-  </nav>
-  {% block content %}
-
-  {% endblock %}
-  <script type="text/javascript" src="{% static "gobgift/lib/materialize/js/materialize.min.js" %}"></script>
-  <script type="text/javascript">
-  $( document ).ready(function(){
-      $(".button-collapse").sideNav();
-      });
-  </script>
+      <!-- Always shows a header, even in smaller screens. -->
+      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+          <header class="mdl-layout__header">
+              <div class="mdl-layout__header-row">
+                  <!-- Title -->
+                  <span class="mdl-layout-title">GobGift</span>
+                  <!-- Add spacer, to align navigation to the right -->
+                  <div class="mdl-layout-spacer"></div>
+                  <!-- Navigation. We hide it in small screens. -->
+                  <nav class="mdl-navigation mdl-layout--large-screen-only">
+                      <a class="mdl-navigation__link" href="{% url 'home' %}">Home</a>
+                      <a class="mdl-navigation__link" href="/listes/">Lists</a>
+                      <a class="mdl-navigation__link" href="/logout/">Logout</a>
+                  </nav>
+              </div>
+          </header>
+          <div class="mdl-layout__drawer">
+              <span class="mdl-layout-title">Gobgift</span>
+              <nav class="mdl-navigation">
+                  <a class="mdl-navigation__link" href="{% url 'home' %}">Home</a>
+                  <a class="mdl-navigation__link" href="/listes/">Lists</a>
+                  <a class="mdl-navigation__link" href="/logout/">Logout</a>
+              </nav>
+          </div>
+          <main class="mdl-layout__content">
+          <div class="page-content">
+              {% block content %}
+              {% endblock %}
+          </div>
+          </main>
+      </div>
   </body>
 </html>
