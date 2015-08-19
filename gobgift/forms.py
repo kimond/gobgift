@@ -1,5 +1,6 @@
 from django import forms
-from .models import ListGroup, Liste, Gift, Comment
+from django.forms.models import inlineformset_factory
+from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
 
 
 class ListeForm(forms.ModelForm):
@@ -79,4 +80,19 @@ class CommentForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model = ListGroup
-        fields = ['name','admins','users']
+        fields = ['name', 'owner']
+
+    def __init__(self, user=None, *args, **kwargs):
+        super (GroupForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+        self.fields['owner'].required = False
+        self.fields['owner'].widget = forms.HiddenInput()
+
+    def clean(self):
+        cleaned_data = super(GroupForm, self).clean()
+        cleaned_data['owner'] = self.user
+
+        return cleaned_data
+
+GroupUserFormSet = inlineformset_factory(ListGroup, ListGroupUser, extra=1)

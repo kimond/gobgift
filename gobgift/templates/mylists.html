@@ -1,0 +1,27 @@
+{% extends "gobgift/_layout.html" %}
+{% load url from future %}
+{%block content%}
+    <div class="mdl-grid mdl-grid--no-spacing">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h3>GobGift <small>my lists</small></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="mdl-grid mdl-grid--no-spacing">
+        <div class="mdl-cell mdl-cell--2-col"></div>
+        <div class="mdl-cell mdl-cell--8-col">
+        {% for liste in listes %}
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">{{liste.name}}</div>
+            <div class="mdl-cell mdl-cell--4-col">{{liste.owner.first_name}} {{liste.owner.last_name}}</div>
+            <div class="mdl-cell mdl-cell--4-col"><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{liste.get_view_url}}">Show</a></div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

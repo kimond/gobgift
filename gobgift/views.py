@@ -60,22 +60,31 @@ def require_email(request):
     backend = request.session['partial_pipeline']['backend']
     return context(email_required=True, backend=backend)
 
+
+@login_required
+@render_to('mylists.html')
+def mylists(request):
+    user = User.objects.get(pk=request.user.pk)
+    listsList = Liste.objects.filter(owner=user)
+    return context(lists=listsList, user=user)
+
+
 @login_required
 @render_to('listes.html')
-def listes(request):
+def lists(request):
     listesList = Liste.objects.all()
     user = User.objects.get(pk=request.user.pk)
     return context(listes=listesList, user=user)
 
 @login_required
 @render_to('viewListe.html')
-def viewliste(request, pk):
+def viewlist(request, pk):
     liste = Liste.objects.get(id=pk)
     return context(liste=liste)
 
 @login_required
 @render_to('viewListe.html')
-def editListe(request, pk):
+def editList(request, pk):
     liste = Liste.objects.get(id=pk)
     if liste.owner != request.user:
         return redirect('listes')
@@ -83,7 +92,7 @@ def editListe(request, pk):
 
 
 
-class ListeCreate(LoginRequiredMixin, CreateView):
+class ListCreate(LoginRequiredMixin, CreateView):
     model = Liste
     template_name = "createListe.html"
     form_class = ListeForm
@@ -163,8 +172,33 @@ class CommentCreate(LoginRequiredMixin, CreateView):
 
 class GroupCreate(LoginRequiredMixin, CreateView):
     model = ListGroup
-    template_name = "createListe.html"
+    template_name = "create_edit_group.html"
     form_class = GroupForm
 
+    def get_form_kwargs(self):
+        kwargs = super(GroupCreate, self).get_form_kwargs()
+        kwargs['user'] = User.objects.get(pk=self.request.user.pk)
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupCreate, self).get_context_data(**kwargs)
+
+        if self.request.POST:
+            context['groupuser_form'] = GroupUserFormSet(self.request.POST)
+        else:
+            context['groupuser_form'] = GroupUserFormSet()
+
+        return context
+
     def form_valid(self, form):
-        return super(GroupCreate, self).form_valid(form);
+        groupuser_form = GroupUserFormSet(self.request.POST, instance=self.object)
+        if menuitem_form.is_valid():
+            self.object = form.save()
+            groupuser_form.instance = self.object
+            groupuser_form.save()
+            response = super(GroupCreate, self).form_valid(form);
+        else:
+            return self.form_invalid(form)
+
+        messages.success(self.request, _('The menu has been created with success.'))
+        return response

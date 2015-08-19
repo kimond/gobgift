@@ -9,8 +9,9 @@
                     </div>
                     <div class="mdl-card__supporting-text ">
                         <ul>
-                            <li><a class="btn btn-success" href="/listes/"> Voir les listes </a></li>
-                            <li><a class="btn btn-success" href="/listes/add/">Créer votre liste</a></li>
+                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mylists"%}"> My lists </a></li>
+                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "lists" %}"> My groups </a></li>
+                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "addGroup" %}"> Create a group </a></li>
                         </ul>
                         {% for sublist in available_backends|social_backends %}
                         <div class="row">
