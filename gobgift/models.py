@@ -11,6 +11,9 @@ class ListGroup(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_view_url(self):
+        return reverse('viewGroup', kwargs={'pk': self.id})
+
 
 class ListGroupUser(models.Model):
     group = models.ForeignKey(ListGroup, related_name="users")
@@ -21,6 +24,7 @@ class ListGroupUser(models.Model):
 class Liste(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=150)
+    groups = models.ManyToManyField(ListGroup, related_name='lists')
 
     def get_view_url(self):
         return reverse('viewListe', kwargs={'pk': self.id})

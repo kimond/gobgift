@@ -6,7 +6,7 @@
         <div class="mdl-cell mdl-cell--8-col">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col">
-                    <h3>GobGift <small>lists</small></h3>
+                    <h3>GobGift <small>my groups</small></h3>
                 </div>
             </div>
         </div>
@@ -15,11 +15,13 @@
     <div class="mdl-grid mdl-grid--no-spacing">
         <div class="mdl-cell mdl-cell--2-col"></div>
         <div class="mdl-cell mdl-cell--8-col">
-        {% for list in lists %}
+        {% for group in groups %}
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--4-col">{{list.name}}</div>
-            <div class="mdl-cell mdl-cell--4-col">{{list.owner.first_name}} {{list.owner.last_name}}</div>
-            <div class="mdl-cell mdl-cell--4-col"><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_view_url}}">Show</a></div>
+            <div class="mdl-cell mdl-cell--4-col">{{group.name}}</div>
+            <div class="mdl-cell mdl-cell--4-col">{{group.owner.first_name}} {{group.owner.last_name}}</div>
+            <div class="mdl-cell mdl-cell--4-col">
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{group.get_view_url}}">Show lists</a>
+            </div>
         </div>
         {% endfor %}
         </div>

@@ -19,6 +19,11 @@
                 {{ form.as_p }}
 
                 <h3>Group users</h3>
+                {{groupuser_form.management_form}}
+                {% for form in groupuser_form %}
+                {{ form }}
+                {% endfor %}
+                <br/>
                 <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
             </form>
       </div>

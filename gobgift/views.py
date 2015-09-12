@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.db.models import Q
 
 from .models import ListGroup, Liste, Gift, Comment
 from .forms import *
@@ -70,11 +71,26 @@ def mylists(request):
 
 
 @login_required
+@render_to('mygroups.html')
+def mygroups(request):
+    user = User.objects.get(pk=request.user.pk)
+    groupList = ListGroup.objects.filter(Q(users=user)|Q(owner=user))
+    return context(groups=groupList, user=user)
+
+
+@login_required
 @render_to('listes.html')
 def lists(request):
-    listesList = Liste.objects.all()
+    listsList = Liste.objects.all()
     user = User.objects.get(pk=request.user.pk)
-    return context(listes=listesList, user=user)
+    return context(lists=listsList, user=user)
+
+@login_required
+@render_to('listes.html')
+def viewGroup(request, pk):
+    listsList = ListGroup.objects.get(id=pk).lists.all()
+    user = User.objects.get(pk=request.user.pk)
+    return context(lists=listsList, user=user)
 
 @login_required
 @render_to('viewListe.html')
@@ -174,6 +190,7 @@ class GroupCreate(LoginRequiredMixin, CreateView):
     model = ListGroup
     template_name = "create_edit_group.html"
     form_class = GroupForm
+    success_url = '/'
 
     def get_form_kwargs(self):
         kwargs = super(GroupCreate, self).get_form_kwargs()
@@ -192,7 +209,7 @@ class GroupCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         groupuser_form = GroupUserFormSet(self.request.POST, instance=self.object)
-        if menuitem_form.is_valid():
+        if groupuser_form.is_valid():
             self.object = form.save()
             groupuser_form.instance = self.object
             groupuser_form.save()
@@ -200,5 +217,5 @@ class GroupCreate(LoginRequiredMixin, CreateView):
         else:
             return self.form_invalid(form)
 
-        messages.success(self.request, _('The menu has been created with success.'))
+        # messages.success(self.request, _('The group has been created with success.'))
         return response
