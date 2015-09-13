@@ -95,4 +95,4 @@ class GroupForm(forms.ModelForm):
 
         return cleaned_data
 
-GroupUserFormSet = inlineformset_factory(ListGroup, ListGroupUser, extra=1)
+GroupUserFormSet = inlineformset_factory(ListGroup, ListGroupUser, extra=2)

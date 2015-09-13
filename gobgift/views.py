@@ -77,35 +77,28 @@ def mygroups(request):
     groupList = ListGroup.objects.filter(Q(users=user)|Q(owner=user))
     return context(groups=groupList, user=user)
 
-
 @login_required
-@render_to('listes.html')
-def lists(request):
-    listsList = Liste.objects.all()
-    user = User.objects.get(pk=request.user.pk)
-    return context(lists=listsList, user=user)
-
-@login_required
-@render_to('listes.html')
+@render_to('grouplists.html')
 def viewGroup(request, pk):
     listsList = ListGroup.objects.get(id=pk).lists.all()
     user = User.objects.get(pk=request.user.pk)
     return context(lists=listsList, user=user)
 
+
 @login_required
-@render_to('viewListe.html')
+@render_to('viewList.html')
 def viewlist(request, pk):
     liste = Liste.objects.get(id=pk)
     return context(liste=liste)
+
 
 @login_required
 @render_to('viewListe.html')
 def editList(request, pk):
     liste = Liste.objects.get(id=pk)
     if liste.owner != request.user:
-        return redirect('listes')
+        return redirect('home')
     return context(liste=liste)
-
 
 
 class ListCreate(LoginRequiredMixin, CreateView):

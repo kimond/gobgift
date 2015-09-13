@@ -24,7 +24,7 @@
                   <!-- Navigation. We hide it in small screens. -->
                   <nav class="mdl-navigation mdl-layout--large-screen-only">
                       <a class="mdl-navigation__link" href="{% url 'home' %}">Home</a>
-                      <a class="mdl-navigation__link" href="/listes/">Lists</a>
+                      <a class="mdl-navigation__link" href="{% url 'mylists' %}">My lists</a>
                       <a class="mdl-navigation__link" href="/logout/">Logout</a>
                   </nav>
               </div>
@@ -33,7 +33,7 @@
               <span class="mdl-layout-title">Gobgift</span>
               <nav class="mdl-navigation">
                   <a class="mdl-navigation__link" href="{% url 'home' %}">Home</a>
-                  <a class="mdl-navigation__link" href="/listes/">Lists</a>
+                  <a class="mdl-navigation__link" href="{% url 'mylists' %}">My lists</a>
                   <a class="mdl-navigation__link" href="/logout/">Logout</a>
               </nav>
           </div>

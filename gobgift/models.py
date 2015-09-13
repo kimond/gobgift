@@ -27,10 +27,10 @@ class Liste(models.Model):
     groups = models.ManyToManyField(ListGroup, related_name='lists')
 
     def get_view_url(self):
-        return reverse('viewListe', kwargs={'pk': self.id})
+        return reverse('viewList', kwargs={'pk': self.id})
 
     def get_edit_url(self):
-        return reverse('editListe', kwargs={'pk': self.id})
+        return reverse('editList', kwargs={'pk': self.id})
 
     def get_addgift_url(self):
         return reverse('addGift', kwargs={'liste_pk': self.id})
