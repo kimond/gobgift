@@ -26,6 +26,12 @@ urlpatterns = patterns('',
     url(r'^mygroups/$', 'gobgift.views.mygroups', name='mygroups'),
     url(r'^group/add/$', GroupCreate.as_view(), name='addGroup'),
     url(r'^group/view/(?P<pk>\d+)/$', 'gobgift.views.viewGroup', name='viewGroup'),
+
+    # DjangoRestFramework
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # Django autocomplete light
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 )
 
 if settings.DEBUG :

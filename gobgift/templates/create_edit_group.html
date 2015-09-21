@@ -1,8 +1,10 @@
 {% extends "gobgift/_layout.html" %}
 {% load staticfiles %}
+{% load floppyforms %}
 {%block content%}
 <script type="text/javascript" src="{% static "gobgift/lib/jquery-1.11.3.js" %}"></script>
 <script type="text/javascript" src="{% static "gobgift/lib/jquery.formset-1.1/jquery.formset.min.js" %}"></script>
+{% include 'autocomplete_light/static.html' %}
 <script type="text/javascript">
     $(function() {
         $('#groupuser_form tbody tr').formset({
@@ -22,8 +24,7 @@
         <div class="mdl-cell mdl-cell--2-col"></div>
         <div class="mdl-cell mdl-cell--8-col">
             <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-                {{ form.as_p }}
-
+                {% form form using "gobgift/form_layout/div.html" %}
                 <h3>Group users</h3>
                 <table id="groupuser_form" class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
                       <thead>

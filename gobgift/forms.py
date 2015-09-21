@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.models import inlineformset_factory
 from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
+import autocomplete_light
 
 
 class ListeForm(forms.ModelForm):
@@ -78,6 +79,7 @@ class CommentForm(forms.ModelForm):
 
 
 class GroupForm(forms.ModelForm):
+    # name = forms.CharField(widget=forms.TextInput(attrs={'class': 'mdl-textfield__input'}))
     class Meta:
         model = ListGroup
         fields = ['name', 'owner']
@@ -95,4 +97,10 @@ class GroupForm(forms.ModelForm):
 
         return cleaned_data
 
-GroupUserFormSet = inlineformset_factory(ListGroup, ListGroupUser, extra=2)
+class GroupUserForm(forms.ModelForm):
+    user = autocomplete_light.ModelChoiceField('UserAutocomplete')
+    class Meta:
+        model = ListGroupUser
+
+
+GroupUserFormSet = inlineformset_factory(ListGroup, ListGroupUser, form=GroupUserForm, extra=2)

@@ -1,10 +1,14 @@
 Django==1.7.1
-PyJWT==0.3.0
-argparse==1.2.1
+django-autocomplete-light==2.2.6
+django-filter==0.11.0
+django-floppyforms==1.5.2
+djangorestframework==3.2.3
+Markdown==2.6.2
 oauthlib==0.7.1
+Pillow==2.8.1
+PyJWT==0.3.0
 python-openid==2.2.5
 python-social-auth==0.2.1
 requests==2.4.3
 requests-oauthlib==0.4.2
 six==1.8.0
-wsgiref==0.1.2
