@@ -110,7 +110,7 @@ class ListCreate(LoginRequiredMixin, CreateView):
         return reverse('listes')
 
     def get_form_kwargs(self):
-        kwargs = super(ListeCreate, self).get_form_kwargs()
+        kwargs = super(ListCreate, self).get_form_kwargs()
         kwargs['user'] = User.objects.get(pk=self.request.user.pk)
         return kwargs
 
