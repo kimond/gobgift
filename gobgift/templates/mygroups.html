@@ -1,4 +1,5 @@
 {% extends "gobgift/_layout.html" %}
+{% load i18n %}
 {% load url from future %}
 {%block content%}
     <div class="mdl-grid mdl-grid--no-spacing">
@@ -21,6 +22,10 @@
             <div class="mdl-cell mdl-cell--4-col">{{group.owner.first_name}} {{group.owner.last_name}}</div>
             <div class="mdl-cell mdl-cell--4-col">
                 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{group.get_view_url}}">Show lists</a>
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{group.get_edit_url}}">{% trans "Edit" %}</a>
+                {% if group.owner == user %}
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{group.get_delete_url}}">{% trans "Delete" %}</a>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

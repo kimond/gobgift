@@ -14,6 +14,12 @@ class ListGroup(models.Model):
     def get_view_url(self):
         return reverse('viewGroup', kwargs={'pk': self.id})
 
+    def get_edit_url(self):
+        return reverse('editGroup', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('deleteGroup', kwargs={'pk': self.id})
+
 
 class ListGroupUser(models.Model):
     group = models.ForeignKey(ListGroup, related_name="users")
@@ -31,6 +37,9 @@ class Liste(models.Model):
 
     def get_edit_url(self):
         return reverse('editList', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('deleteList', kwargs={'pk': self.id})
 
     def get_addgift_url(self):
         return reverse('addGift', kwargs={'liste_pk': self.id})

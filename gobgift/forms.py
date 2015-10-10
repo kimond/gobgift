@@ -28,11 +28,15 @@ class NumField(forms.CharField):
     widget = NumericInput
 
 
-class ListeForm(forms.ModelForm):
+class ListeForm(autocomplete_light.SelectMultipleHelpTextRemovalMixin,
+                autocomplete_light.VirtualFieldHandlingMixin,
+                autocomplete_light.GenericM2MRelatedObjectDescriptorHandlingMixin,
+                forms.ModelForm):
     name = CharField()
+    groups = autocomplete_light.ModelMultipleChoiceField('ListGroupAutocomplete')
     class Meta:
         model = Liste
-        fields = ['owner','name']
+        fields = ['owner','name', 'groups']
 
     def __init__(self, user=None, *args, **kwargs):
         super (ListeForm, self).__init__(*args, **kwargs)
@@ -42,6 +46,7 @@ class ListeForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(ListeForm, self).clean()
+        instance = getattr(self, 'instance', None)
         cleaned_data['owner'] = self.user
 
         return cleaned_data

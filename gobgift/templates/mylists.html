@@ -21,7 +21,8 @@
             <div class="mdl-cell mdl-cell--4-col">{{list.owner.first_name}} {{list.owner.last_name}}</div>
             <div class="mdl-cell mdl-cell--4-col">
                 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_view_url}}">Show</a>
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_view_url}}">Delete</a>
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_edit_url}}">Edit</a>
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_delete_url}}">Delete</a>
             </div>
         </div>
         {% endfor %}

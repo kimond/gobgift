@@ -93,7 +93,7 @@ def viewlist(request, pk):
 
 
 @login_required
-@render_to('viewListe.html')
+@render_to('viewList.html')
 def editList(request, pk):
     liste = Liste.objects.get(id=pk)
     if liste.owner != request.user:
@@ -103,7 +103,7 @@ def editList(request, pk):
 
 class ListCreate(LoginRequiredMixin, CreateView):
     model = Liste
-    template_name = "createListe.html"
+    template_name = "create_edit_list.html"
     form_class = ListeForm
 
     def get_success_url(self):
@@ -113,6 +113,34 @@ class ListCreate(LoginRequiredMixin, CreateView):
         kwargs = super(ListCreate, self).get_form_kwargs()
         kwargs['user'] = User.objects.get(pk=self.request.user.pk)
         return kwargs
+
+
+class ListEdit(LoginRequiredMixin, UpdateView):
+    model = Liste
+    template_name = "create_edit_list.html"
+    form_class = ListeForm
+
+    def get_success_url(self):
+        return reverse('mylists')
+
+    def get_form_kwargs(self):
+        kwargs = super(ListEdit, self).get_form_kwargs()
+        kwargs['user'] = User.objects.get(pk=self.request.user.pk)
+        return kwargs
+
+    def form_valid(self, form):
+        return super(ListEdit, self).form_valid(form)
+
+
+class ListDelete(LoginRequiredMixin, DeleteView):
+    model = Liste
+    template_name = "deleteList.html"
+
+    def get_success_url(self):
+        return reverse('mylists')
+
+    def form_valid(self, form):
+        return super(ListDelete, self).form_valid(form)
 
 
 class GiftCreate(LoginRequiredMixin, CreateView):
@@ -183,12 +211,14 @@ class GroupCreate(LoginRequiredMixin, CreateView):
     model = ListGroup
     template_name = "create_edit_group.html"
     form_class = GroupForm
-    success_url = '/'
 
     def get_form_kwargs(self):
         kwargs = super(GroupCreate, self).get_form_kwargs()
         kwargs['user'] = User.objects.get(pk=self.request.user.pk)
         return kwargs
+
+    def get_success_url(self):
+        return reverse('mygroups')
 
     def get_context_data(self, **kwargs):
         context = super(GroupCreate, self).get_context_data(**kwargs)
@@ -212,3 +242,50 @@ class GroupCreate(LoginRequiredMixin, CreateView):
 
         # messages.success(self.request, _('The group has been created with success.'))
         return response
+
+
+class GroupEdit(LoginRequiredMixin, UpdateView):
+    model = ListGroup
+    template_name = "create_edit_group.html"
+    form_class = GroupForm
+
+    def get_form_kwargs(self):
+        kwargs = super(GroupEdit, self).get_form_kwargs()
+        kwargs['user'] = User.objects.get(pk=self.request.user.pk)
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('mygroups')
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupEdit, self).get_context_data(**kwargs)
+
+        if self.request.POST:
+            context['groupuser_form'] = GroupUserFormSet(self.request.POST, instance=self.get_object())
+        else:
+            context['groupuser_form'] = GroupUserFormSet(instance=self.get_object())
+
+        return context
+
+    def form_valid(self, form):
+        groupuser_form = GroupUserFormSet(self.request.POST, instance=self.get_object())
+        if groupuser_form.is_valid():
+            groupuser_form.instance = self.get_object()
+            groupuser_form.save()
+            response = super(GroupEdit, self).form_valid(form);
+        else:
+            return self.form_invalid(form)
+
+        # messages.success(self.request, _('The group has been created with success.'))
+        return response
+
+
+class GroupDelete(LoginRequiredMixin, DeleteView):
+    model = ListGroup
+    template_name = "deleteGroup.html"
+
+    def get_success_url(self):
+        return reverse('mygroups')
+
+    def form_valid(self, form):
+        return super(GroupDelete, self).form_valid(form)
