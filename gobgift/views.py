@@ -74,7 +74,7 @@ def mylists(request):
 @render_to('mygroups.html')
 def mygroups(request):
     user = User.objects.get(pk=request.user.pk)
-    groupList = ListGroup.objects.filter(Q(users=user)|Q(owner=user))
+    groupList = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user))
     return context(groups=groupList, user=user)
 
 @login_required

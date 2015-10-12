@@ -1,5 +1,5 @@
 .comment_date{
-  font-size:10px;
+  font-size:11px;
   color:#a6a6a6;
 }
 
@@ -13,4 +13,48 @@ ul.mainmenu li{
 
 .mdl_autocomplete_light{
     margin-top:25px;
+}
+
+/* List gifts grid */
+.list_gifts_grid{
+    max-width:900px;
+    margin: 0 auto;
+}
+
+/* Facebook button  */
+.facebook-btn{
+    color: #ffffff;
+    background-color: #337AB6;
+}
+
+.facebook-btn:hover{
+    background-color: #255c95 !important;
+}
+
+
+/* Comments section in gift card */
+.comments-section{
+    width:100%;
+    background-color: #eeeeee;
+}
+
+.confirm-add-comment-btn{
+    width:32px !important;
+    min-width:32px !important;
+    height:32px !important;
+}
+
+.add-comment-input{
+    width:90%;
+}
+
+.comment-badge{
+    margin: 0px;
+    padding:0px;
+    color: #868686;
+}
+
+.comment-badge::after{
+    margin-top: 3px;
+    margin-right: 8px;
 }

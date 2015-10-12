@@ -20,6 +20,16 @@ class ListGroup(models.Model):
     def get_delete_url(self):
         return reverse('deleteGroup', kwargs={'pk': self.id})
 
+    def is_user_admin(self, user):
+        """
+        Valide if the user has admin rights
+        """
+        listGroupUser = self.users.filter(user=user)
+        if len(listGroupUser) > 0:
+            return listGroupUser[0].is_admin
+        else:
+            return False
+
 
 class ListGroupUser(models.Model):
     group = models.ForeignKey(ListGroup, related_name="users")
