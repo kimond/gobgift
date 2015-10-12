@@ -1,8 +1,20 @@
-.comment_date{
-  font-size:11px;
-  color:#a6a6a6;
+/* Generic */
+.container-grid{
+    max-width:900px;
+    margin: 0 auto;
+}
+.hide{
+    display:none;
+}
+.show{
+    display:block;
 }
 
+/* forms */
+.form-confirm-btn{
+    margin-top:10px;
+}
+/* Main menu */
 ul.mainmenu{
     list-style-type: none;
 }
@@ -33,6 +45,11 @@ ul.mainmenu li{
 
 
 /* Comments section in gift card */
+.comment_date{
+  font-size:11px;
+  color:#a6a6a6;
+}
+
 .comments-section{
     width:100%;
     background-color: #eeeeee;
@@ -57,4 +74,8 @@ ul.mainmenu li{
 .comment-badge::after{
     margin-top: 3px;
     margin-right: 8px;
+}
+
+/*  list list card  */
+.list-card{
 }

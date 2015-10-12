@@ -74,15 +74,16 @@ def mylists(request):
 @render_to('mygroups.html')
 def mygroups(request):
     user = User.objects.get(pk=request.user.pk)
-    groupList = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user))
+    groupList = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user)).distinct()
     return context(groups=groupList, user=user)
 
 @login_required
 @render_to('grouplists.html')
 def viewGroup(request, pk):
-    listsList = ListGroup.objects.get(id=pk).lists.all()
+    listgroup = ListGroup.objects.get(id=pk)
+    listsList = listgroup.lists.all()
     user = User.objects.get(pk=request.user.pk)
-    return context(lists=listsList, user=user)
+    return context(listgroup=listgroup, lists=listsList, user=user)
 
 
 @login_required
@@ -107,7 +108,7 @@ class ListCreate(LoginRequiredMixin, CreateView):
     form_class = ListeForm
 
     def get_success_url(self):
-        return reverse('listes')
+        return reverse('mylists')
 
     def get_form_kwargs(self):
         kwargs = super(ListCreate, self).get_form_kwargs()
@@ -209,7 +210,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
 
 class GroupCreate(LoginRequiredMixin, CreateView):
     model = ListGroup
-    template_name = "create_edit_group.html"
+    template_name = "create_group.html"
     form_class = GroupForm
 
     def get_form_kwargs(self):
@@ -220,33 +221,14 @@ class GroupCreate(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('mygroups')
 
-    def get_context_data(self, **kwargs):
-        context = super(GroupCreate, self).get_context_data(**kwargs)
-
-        if self.request.POST:
-            context['groupuser_form'] = GroupUserFormSet(self.request.POST)
-        else:
-            context['groupuser_form'] = GroupUserFormSet()
-
-        return context
-
     def form_valid(self, form):
-        groupuser_form = GroupUserFormSet(self.request.POST, instance=self.object)
-        if groupuser_form.is_valid():
-            self.object = form.save()
-            groupuser_form.instance = self.object
-            groupuser_form.save()
-            response = super(GroupCreate, self).form_valid(form);
-        else:
-            return self.form_invalid(form)
-
-        # messages.success(self.request, _('The group has been created with success.'))
+        response = super(GroupCreate, self).form_valid(form);
         return response
 
 
 class GroupEdit(LoginRequiredMixin, UpdateView):
     model = ListGroup
-    template_name = "create_edit_group.html"
+    template_name = "edit_group.html"
     form_class = GroupForm
 
     def get_form_kwargs(self):
@@ -257,26 +239,9 @@ class GroupEdit(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('mygroups')
 
-    def get_context_data(self, **kwargs):
-        context = super(GroupEdit, self).get_context_data(**kwargs)
-
-        if self.request.POST:
-            context['groupuser_form'] = GroupUserFormSet(self.request.POST, instance=self.get_object())
-        else:
-            context['groupuser_form'] = GroupUserFormSet(instance=self.get_object())
-
-        return context
-
     def form_valid(self, form):
-        groupuser_form = GroupUserFormSet(self.request.POST, instance=self.get_object())
-        if groupuser_form.is_valid():
-            groupuser_form.instance = self.get_object()
-            groupuser_form.save()
-            response = super(GroupEdit, self).form_valid(form);
-        else:
-            return self.form_invalid(form)
-
         # messages.success(self.request, _('The group has been created with success.'))
+        response = super(GroupEdit, self).form_valid(form);
         return response
 
 
@@ -289,3 +254,35 @@ class GroupDelete(LoginRequiredMixin, DeleteView):
 
     def form_valid(self, form):
         return super(GroupDelete, self).form_valid(form)
+
+
+class GroupUserDelete(LoginRequiredMixin, DeleteView):
+    model = ListGroupUser
+    template_name = "deleteGroupUser.html"
+
+    def get_success_url(self):
+        return self.get_object().group.get_edit_url()
+
+    def form_valid(self, form):
+        return super(GroupUserDelete, self).form_valid(form)
+
+
+class ListGroupUserCreate(LoginRequiredMixin, CreateView):
+    model = ListGroupUser
+    template_name = "create_edit_groupuser.html"
+    form_class = ListGroupUserForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.listgroup = ListGroup.objects.get(pk=kwargs['listgroup_pk'])
+        return super(ListGroupUserCreate,self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return self.listgroup.get_edit_url()
+
+    def get_form_kwargs(self):
+        kwargs = super(ListGroupUserCreate, self).get_form_kwargs()
+        kwargs['listgroup'] = self.listgroup
+        return kwargs
+
+    def form_valid(self, form):
+        return super(ListGroupUserCreate, self).form_valid(form)

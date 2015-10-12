@@ -1,4 +1,5 @@
 {% extends "gobgift/_layout.html" %}
+{% load i18n %}
 {% load url from future %}
 {%block content%}
     <div class="mdl-grid mdl-grid--no-spacing">
@@ -7,25 +8,27 @@
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col">
                     <h3>GobGift <small>my lists</small></h3>
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'addList' %}"><i class="mdi-content-add right"></i>{% trans "create a new list" %}</a>
                 </div>
             </div>
         </div>
     </div>
     <hr/>
-    <div class="mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--8-col">
         {% for list in lists %}
-        <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--4-col">{{list.name}}</div>
-            <div class="mdl-cell mdl-cell--4-col">{{list.owner.first_name}} {{list.owner.last_name}}</div>
-            <div class="mdl-cell mdl-cell--4-col">
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_view_url}}">Show</a>
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_edit_url}}">Edit</a>
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{list.get_delete_url}}">Delete</a>
+        <div class="mdl-grid container-grid">
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card">
+                <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">{{list.name}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p><b>Groups:</b> {{list.groups.all|join:", "}}</p>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_view_url}}">{% trans "Show" %}</a>
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_edit_url}}">{% trans "Edit" %}</a>
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_delete_url}}">{% trans "Delete" %}</a>
+                </div>
             </div>
         </div>
         {% endfor %}
-        </div>
-    </div>
 {% endblock %}

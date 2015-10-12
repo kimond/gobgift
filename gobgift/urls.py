@@ -35,6 +35,8 @@ urlpatterns = patterns('',
     url(r'^group/view/(?P<pk>\d+)/$', 'gobgift.views.viewGroup', name='viewGroup'),
     url(r'^group/edit/(?P<pk>\d+)/$',GroupEdit.as_view(), name='editGroup'),
     url(r'^group/delete/(?P<pk>\d+)/$',GroupDelete.as_view(), name='deleteGroup'),
+    url(r'^group/(?P<listgroup_pk>\d+)/user/add/$', ListGroupUserCreate.as_view(), name='addGroupUser'),
+    url(r'^groupuser/delete/(?P<pk>\d+)/$',GroupUserDelete.as_view(), name='deleteGroupUser'),
 
     # DjangoRestFramework
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

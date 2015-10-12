@@ -14,8 +14,16 @@
     <div class="mdl-grid container-grid">
         <div class="mdl-cell mdl-cell--12-col">
             <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-                {% form form using "gobgift/form_layout/div.html" %}
-                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
+                {% form form using %}
+                {% formconfig row using "gobgift/form_layout/row.html" %}
+                {% formrow form.user %}
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="id_is_admin">
+                    <input type="checkbox" name="is_admin" id="id_is_admin" class="mdl-checkbox__input" />
+                    <span class="mdl-checkbox__label">{{form.is_admin.label}}</span>
+                </label>
+                {% endform %}
+                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" type="submit" value="confirm" />
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" href="javascript:history.go(-1)">Cancel</a>
             </form>
       </div>
     </div>

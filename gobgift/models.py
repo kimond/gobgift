@@ -20,6 +20,9 @@ class ListGroup(models.Model):
     def get_delete_url(self):
         return reverse('deleteGroup', kwargs={'pk': self.id})
 
+    def get_adduser_url(self):
+        return reverse('addGroupUser', kwargs={'listgroup_pk': self.id})
+
     def is_user_admin(self, user):
         """
         Valide if the user has admin rights
@@ -35,6 +38,12 @@ class ListGroupUser(models.Model):
     group = models.ForeignKey(ListGroup, related_name="users")
     user = models.ForeignKey(User, related_name="listgroups")
     is_admin = models.BooleanField(default=False)
+
+    def get_delete_url(self):
+        return reverse('deleteGroupUser', kwargs={'pk': self.id})
+
+    def __unicode__(self):
+        return self.user.first_name + " " + self.user.last_name
 
 
 class Liste(models.Model):

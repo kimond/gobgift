@@ -1,15 +1,33 @@
 {% extends "gobgift/_layout.html" %}
+{% load i18n %}
 {% load url from future %}
 {% load staticfiles %}
 
 {% block content  %}
+    <link type="text/css" rel="stylesheet" href="{% static "gobgift/lib/animate.css" %}" />
+    <script type="text/javascript">
+        function show_comment_div(divId){
+            $("#hide_comment_btn_"+divId).removeClass('hide');
+            $("#show_comment_btn_"+divId).addClass('hide');
+            $("#comment_section_container_"+divId).removeClass('hide');
+            $("#comment_section_"+divId).removeClass('hide');
+            $("#comment_section_container_"+divId).addClass('animated fadeIn');
+            $("#comment_section_"+divId).addClass('animated fadeInDown');
+        }
+        function hide_comment_div(divId){
+            $("#show_comment_btn_"+divId).removeClass('hide');
+            $("#hide_comment_btn_"+divId).addClass('hide');
+            $("#comment_section_container_"+divId).addClass('hide');
+            $("#comment_section_"+divId).addClass('hide');
+        }
+    </script>
     <div class="mdl-grid mdl-grid--no-spacing">
         <div class="mdl-cell mdl-cell--2-col"></div>
         <div class="mdl-cell mdl-cell--8-col">
-            <h3>Liste {{liste.name}} de <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'home' %}">Back</a>
+            <h3>{% trans "List" %} {{liste.name}} {% trans "from" %} <small>{{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
+            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'mylists' %}">{% trans "Back" %}</a>
             {% if liste.owner.pk == user.pk %}
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>Ajouter cadeau</a>
+            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>{% trans "add gift" %}</a>
             {% endif %}
         </div>
     </div>
@@ -30,23 +48,24 @@
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 {% if liste.owner.pk == user.pk %}
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_edit_url}}">Edit</a>
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_delete_url}}">Delete</a>
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_edit_url}}">{% trans "Edit" %}</a>
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_delete_url}}">{% trans "Delete" %}</a>
                 {% endif %}
                 {% if liste.owner.pk != user.pk %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">{% trans "purchased" %}</a>
                 <span class="mdl-badge comment-badge" data-badge="{{gift.comment_set.count}}">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">Buy it</a>
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_addcomment_url}}">comments</a>
+                    <a  id="show_comment_btn_{{gift.pk}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="show_comment_div('{{gift.pk}}')">{% trans "comments" %}</a>
+                    <a id="hide_comment_btn_{{gift.pk}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect hide" onclick="hide_comment_div('{{gift.pk}}')">{% trans "hide comments" %}</a>
                 </span>
                 {% endif %}
             </div>
             {% if liste.owner.pk != user.pk %}
-            <div class="mdl-card__supporting-text comments-section">
-                Comments
+            <div id="comment_section_container_{{gift.pk}}" class="mdl-card__supporting-text comments-section hide">
+                <div id="comment_section_{{gift.pk}}" class=hide">
                 <form method="post" action="{{gift.get_addcomment_url}}">{% csrf_token %}
                     <div class="mdl-textfield mdl-js-textfield add-comment-input">
                         <input class="mdl-textfield__input" type="text" name="text" id="comment_text_{{gift.pk}}" />
-                        <label class="mdl-textfield__label" for="comment_text_{{gift.pk}}">Add a comment</label>
+                        <label class="mdl-textfield__label" for="comment_text_{{gift.pk}}">{% trans "write a comment" %}</label>
                     </div>
                     <button class="mdl-button mdl-js-button mdl-button--fab confirm-add-comment-btn">
                         <i class="material-icons">check</i>
@@ -58,6 +77,7 @@
                 {{comment.text}}
                 </p>
                 {% endfor %}
+                </div>
             </div>
             {% endif %}
         </div>

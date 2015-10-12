@@ -131,10 +131,28 @@ class GroupForm(forms.ModelForm):
 
         return cleaned_data
 
-class GroupUserForm(forms.ModelForm):
+class ListGroupUserForm(forms.ModelForm):
     user = autocomplete_light.ModelChoiceField('UserAutocomplete')
     class Meta:
         model = ListGroupUser
+        fields = ['user','is_admin','group']
+
+    def __init__(self, listgroup=None, *args, **kwargs):
+        super (ListGroupUserForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+
+        self.listgroup = listgroup
+        self.fields['group'].required = False
+        self.fields['group'].widget = forms.HiddenInput()
+
+    def clean(self):
+        cleaned_data = super(ListGroupUserForm, self).clean()
+        instance = getattr(self, 'instance', None)
+
+        if instance and instance.pk:
+            cleaned_data['group'] = instance.listgroup
+        else:
+            cleaned_data['group'] = self.listgroup
 
 
-GroupUserFormSet = inlineformset_factory(ListGroup, ListGroupUser, form=GroupUserForm, extra=2)
+        return cleaned_data
