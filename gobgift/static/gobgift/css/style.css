@@ -77,5 +77,8 @@ ul.mainmenu li{
 }
 
 /*  list list card  */
-.list-card{
+.list-card > .mdl-card__actions{
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
 }

@@ -89,8 +89,15 @@ def viewGroup(request, pk):
 @login_required
 @render_to('viewList.html')
 def viewlist(request, pk):
+    """
+    View that show a list
+    """
+    from_group = None
     liste = Liste.objects.get(id=pk)
-    return context(liste=liste)
+    #get the from_group parameter for the back button
+    if request.GET.get('from_group'):
+        from_group = request.GET.get('from_group')
+    return context(liste=liste, from_group=from_group)
 
 
 @login_required
