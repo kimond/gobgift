@@ -1,15 +1,14 @@
 {% extends "gobgift/_layout.html" %}
 {% load i18n %}
 {% block content %}
-<div class=mdl-grid>
-    <div class="mdl-cell mdl-cell--2-col"></div>
-    <div class="mdl-cell mdl-cell--8-col">
-        <h1>GobGift <small>{% trans "deletion" %}</small></h1>
-      <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-          <p>{% trans "Do you want to remove the user" %} "{{ object.user.first_name }} {{object.user.last_name}}" {% trans "from the group" %} "{{object.group}}" ?</p>
-        <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="Confirm" />
-        <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="javascript:history.go(-1)">Cancel</a>
-      </form>
+<div class="mdl-grid container-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        <h3>GobGift > {% trans "deletion" %}</h3>
+        <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <p>{% trans "Do you want to remove the user" %} "{{ object.user.first_name }} {{object.user.last_name}}" {% trans "from the group" %} "{{object.group}}" ?</p>
+            <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="Confirm" />
+            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="javascript:history.go(-1)">Cancel</a>
+        </form>
     </div>
-    </div>
+</div>
 {% endblock %}

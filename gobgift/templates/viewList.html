@@ -21,21 +21,21 @@
             $("#comment_section_"+divId).addClass('hide');
         }
     </script>
-    <div class="mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--8-col">
-            <h3>{% trans "List" %} {{liste.name}}  <small>{% trans "from" %} {{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
-            {% if from_group %}
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'viewGroup' from_group %}">{% trans "Back" %}</a>
-            {% else %}
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'mylists' %}">{% trans "Back" %}</a>
-            {% endif %}
-            {% if liste.owner.pk == user.pk %}
-            <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>{% trans "add gift" %}</a>
-            {% endif %}
+    <div class="page-header mdl-shadow--2dp">
+        <div class="mdl-grid container-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h3 class="page-header-title">{% trans "List" %} {{liste.name}}  <small> | {{liste.owner.first_name}} {{liste.owner.last_name}}</small></h3>
+                    {% if from_group %}
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'viewGroup' from_group %}">{% trans "Back" %}</a>
+                    {% else %}
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'mylists' %}">{% trans "Back" %}</a>
+                    {% endif %}
+                    {% if liste.owner.pk == user.pk %}
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>{% trans "add gift" %}</a>
+                    {% endif %}
+                </div>
         </div>
     </div>
-    <hr/>
         {% for gift in liste.gift_set.all %}
         <div class="mdl-grid list_gifts_grid">
         <div class="mdl-card mdl-shadow--2dp cyan mdl-cell mdl-cell--12-col">

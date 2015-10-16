@@ -1,14 +1,16 @@
 {% extends "gobgift/_layout.html" %}
+{% load i18n %}
 {% load staticfiles %}
 {% load floppyforms %}
 {%block content%}
 <script type="text/javascript" src="{% static "gobgift/lib/jquery-1.11.3.js" %}"></script>
 <script type="text/javascript" src="{% static "gobgift/lib/jquery.formset-1.1/jquery.formset.min.js" %}"></script>
 {% include 'autocomplete_light/static.html' %}
-    <div class="mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--8-col">
-            <h1>GobGift <small>add</small></h1>
+    <div class="page-header mdl-shadow--2dp">
+        <div class="mdl-grid container-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <h3 class="page-header-title">GobGift > {% trans "Add List" %}</h3>
+            </div>
         </div>
     </div>
     <div class="mdl-grid container-grid">

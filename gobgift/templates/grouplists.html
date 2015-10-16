@@ -2,18 +2,14 @@
 {% load i18n %}
 {% load url from future %}
 {%block content%}
-    <div class="mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell mdl-cell--2-col"></div>
-        <div class="mdl-cell mdl-cell--8-col">
-            <div class="mdl-grid">
+    <div class="page-header mdl-shadow--2dp">
+            <div class="mdl-grid container-grid">
                 <div class="mdl-cell mdl-cell--12-col">
-                    <h3>{% trans "Lists of the group:" %} {{listgroup}}</h3>
+                    <h3 class="page-header-title">{% trans "Lists of the group" %} : {{listgroup}}</h3>
                     <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'mygroups' %}">{% trans "Back" %}</a>
                 </div>
             </div>
-        </div>
     </div>
-    <hr/>
         {% for list in lists %}
         <div class="mdl-grid container-grid">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card">

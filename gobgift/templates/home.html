@@ -17,7 +17,6 @@
                         <ul class="mainmenu">
                             <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mygroups" %}"> My groups </a></li>
                             <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mylists"%}"> My lists </a></li>
-                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "addGroup" %}"> Create a group </a></li>
                         </ul>
                         {% endif %}
                         {% for sublist in available_backends|social_backends %}

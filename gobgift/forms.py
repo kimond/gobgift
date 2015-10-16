@@ -1,6 +1,8 @@
 #from django import forms
 from django.forms.models import inlineformset_factory
 from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
+from PIL import Image
+import StringIO
 import autocomplete_light
 import floppyforms.__future__ as forms
 
@@ -11,7 +13,7 @@ class TextInput(forms.TextInput):
         ctx['attrs']['class'] = 'mdl-textfield__input'
         return ctx
 
-class NumericInput(forms.TextInput):
+class NumericInput(forms.NumberInput):
     template_name = 'gobgift/form_layout/numinput.html'
     def get_context(self, name, value, attrs):
         ctx = super(NumericInput, self).get_context(name, value, attrs)
@@ -26,6 +28,24 @@ class CharField(forms.CharField):
 
 class NumField(forms.CharField):
     widget = NumericInput
+
+    def to_python(self, value):
+        """
+        Validates that the input is a decimal number. Returns a Decimal
+        instance. Returns None for empty values. Ensures that there are no more
+        than max_digits in the number, and no more than decimal_places digits
+        after the decimal point.
+        """
+        if value in self.empty_values:
+            return None
+        if self.localize:
+            value = formats.sanitize_separators(value)
+            value = smart_text(value).strip()
+            try:
+                value = Decimal(value)
+            except DecimalException:
+                raise ValidationError(self.error_messages['invalid'], code='invalid')
+        return value
 
 
 class ListeForm(autocomplete_light.SelectMultipleHelpTextRemovalMixin,
@@ -53,9 +73,9 @@ class ListeForm(autocomplete_light.SelectMultipleHelpTextRemovalMixin,
 
 class GiftForm(forms.ModelForm):
     name = CharField()
-    price = NumField()
-    siteweb = CharField()
-    store = CharField()
+    price = NumField(required=False)
+    siteweb = CharField(required=False)
+    store = CharField(required=False)
     class Meta:
         model = Gift
         fields = ['liste','name', 'photo', 'price', 'siteweb', 'store']
@@ -76,6 +96,21 @@ class GiftForm(forms.ModelForm):
             cleaned_data['liste'] = instance.liste
         else:
             cleaned_data['liste'] = self.liste
+
+        photo = cleaned_data.get('photo')
+        if not photo:
+            return cleaned_data
+        photo_file = StringIO.StringIO(photo.read())
+        photoio = Image.open(photo_file)
+        # valid if image width is grester than 1024
+        photo_width, photo_height = photoio.size
+        if photo_width > 1024:
+            new_width = 1024
+            new_height = new_width * photo_height / photo_width
+            photoio = photoio.resize((new_width, new_height), Image.ANTIALIAS)
+            photo_file = StringIO.StringIO()
+            photoio.save(photo_file, 'JPEG')
+            photo.file = photo_file
 
 
         return cleaned_data

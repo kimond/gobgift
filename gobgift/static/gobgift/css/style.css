@@ -10,6 +10,15 @@
     display:block;
 }
 
+/* Page header */
+.page-header{
+    background-color:#ffffff;
+}
+.page-header-title{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
 /* forms */
 .form-confirm-btn{
     margin-top:10px;
