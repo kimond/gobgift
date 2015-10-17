@@ -9,7 +9,15 @@
 .show{
     display:block;
 }
-
+/* Nav */
+.top-nav > a{
+    font-size:16px;
+    height:60px;
+    border-bottom: 5px solid rgba(0,0,0,0);
+}
+.top-nav > a:hover{
+    border-bottom: 5px solid rgba(255,82,82,.80);
+}
 /* Page header */
 .page-header{
     background-color:#ffffff;
@@ -86,8 +94,19 @@ ul.mainmenu li{
 }
 
 /*  list list card  */
-.list-card > .mdl-card__actions{
+.list-card{
+    background-color: #ffffff;
+    margin:0px;
+    padding:3px;
     display: flex;
     box-sizing: border-box;
     align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+.list-card > h3{
+    margin:10px;
+}
+.list-card > p{
+    color:rgba(0,0,0,.54);
+    margin-bottom:-15px;
 }

@@ -188,6 +188,8 @@ class ListGroupUserForm(forms.ModelForm):
             cleaned_data['group'] = instance.listgroup
         else:
             cleaned_data['group'] = self.listgroup
+            if ListGroupUser.objects.filter(group=cleaned_data['group'], user=cleaned_data['user']).exists():
+                raise forms.ValidationError( 'Solution with this Name already exists for this problem')
 
 
         return cleaned_data

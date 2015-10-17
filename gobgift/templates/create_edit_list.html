@@ -18,6 +18,7 @@
             <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                 {% form form using "gobgift/form_layout/div.html" %}
                 <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
             </form>
       </div>
     </div>

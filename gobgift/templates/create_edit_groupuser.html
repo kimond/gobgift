@@ -18,6 +18,10 @@
             <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                 {% form form using %}
                 {% formconfig row using "gobgift/form_layout/row.html" %}
+                {% block errors %}{% if form.non_field_errors or form|hidden_field_errors %}<ul class="errorlist">
+                    {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                    {% for error in form|hidden_field_errors %}<li>{{ error }}</li>{% endfor %}
+                </ul>{% endif %}{% endblock %}
                 {% formrow form.user %}
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="id_is_admin">
                     <input type="checkbox" name="is_admin" id="id_is_admin" class="mdl-checkbox__input" />
@@ -25,7 +29,7 @@
                 </label>
                 {% endform %}
                 <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" type="submit" value="confirm" />
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" href="javascript:history.go(-1)">Cancel</a>
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
             </form>
       </div>
     </div>
