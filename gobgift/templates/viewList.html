@@ -38,11 +38,14 @@
     </div>
         {% for gift in liste.gift_set.all %}
         <div class="mdl-grid list_gifts_grid">
-        <div class="mdl-card mdl-shadow--2dp cyan mdl-cell mdl-cell--12-col">
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col {% if gift.purchased %}mdl-color--yellow-50{% endif %}">
             <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text">{{gift.name}}</h2>
+                <h2 class="mdl-card__title-text">{{gift.name}} </h2>
             </div>
             <div class="mdl-card__supporting-text">
+                {% if gift.purchased %}
+                <h4>{% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{gift.purchase.first.user.last_name}}</h4>
+                {% endif %}
                 {% if gift.photo %}
                 <a href="{{gift.photo.url}}" ><img width="200" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
                 {% endif %}
@@ -56,7 +59,13 @@
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_delete_url}}">{% trans "Delete" %}</a>
                 {% endif %}
                 {% if liste.owner.pk != user.pk %}
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#">{% trans "purchased" %}</a>
+                {% if not gift.purchased %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_purchased_url}}">{% trans "purchased" %}</a>
+                {% elif gift.purchased and gift.purchase.first.user == user %}
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_cancelpurchased_url}}">{% trans "cancel purchase" %}</a>
+                {% else %}
+                <a class="mdl-button mdl-button--colored mdl-js-button" disabled href="{{gift.get_purchased_url}}">{% trans "already purchased" %}</a>
+                {% endif %}
                 <span class="mdl-badge comment-badge" data-badge="{{gift.comment_set.count}}">
                     <a  id="show_comment_btn_{{gift.pk}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="show_comment_div('{{gift.pk}}')">{% trans "comments" %}</a>
                     <a id="hide_comment_btn_{{gift.pk}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect hide" onclick="hide_comment_div('{{gift.pk}}')">{% trans "hide comments" %}</a>
@@ -72,7 +81,7 @@
                         <label class="mdl-textfield__label" for="comment_text_{{gift.pk}}">{% trans "write a comment" %}</label>
                     </div>
                     <button class="mdl-button mdl-js-button mdl-button--fab confirm-add-comment-btn">
-                        <i class="material-icons">check</i>
+                        <i class="material-icons">add</i>
                     </button>
                 </form>
                 {% for comment in gift.comment_set.all %}

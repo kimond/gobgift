@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     url(r'^gift/edit/(?P<pk>\d+)/$', GiftEdit.as_view(), name='editGift'),
     url(r'^gift/delete/(?P<pk>\d+)/$', GiftDelete.as_view(), name='deleteGift'),
     url(r'^gift/(?P<gift_pk>\d+)/comment/add/$', CommentCreate.as_view(), name='addComment'),
+    url(r'^gift/(?P<gift_pk>\d+)/purchased/$', 'gobgift.views.purchasedGift', name='purchasedGift'),
+    url(r'^gift/(?P<gift_pk>\d+)/purchased/cancel/$', 'gobgift.views.cancelPurchasedGift', name='cancelPurchasedGift'),
 
     # Group urls
     url(r'^mygroups/$', 'gobgift.views.mygroups', name='mygroups'),

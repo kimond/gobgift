@@ -3,6 +3,10 @@
     max-width:900px;
     margin: 0 auto;
 }
+.container-grid-padding-top{
+    padding-top:10px !important;
+}
+
 .hide{
     display:none;
 }
@@ -30,6 +34,11 @@
 /* forms */
 .form-confirm-btn{
     margin-top:10px;
+}
+ul.errorlist{
+    list-style-type: none;
+    color:#ff0000;
+    font-size:16px;
 }
 /* Main menu */
 ul.mainmenu{
@@ -81,6 +90,12 @@ ul.mainmenu li{
 .add-comment-input{
     width:90%;
 }
+@media (max-width: 479px){
+    .add-comment-input{
+        width:82%;
+    }
+}
+
 
 .comment-badge{
     margin: 0px;
@@ -103,10 +118,14 @@ ul.mainmenu li{
     align-items: center;
     border-bottom: 1px solid rgba(0,0,0,.12);
 }
-.list-card > h3{
+.list-card > h4{
     margin:10px;
 }
 .list-card > p{
     color:rgba(0,0,0,.54);
     margin-bottom:-15px;
+}
+
+.list-card > .phone-actions{
+    min-width:105px;
 }

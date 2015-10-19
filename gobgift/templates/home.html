@@ -7,7 +7,7 @@
                 <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
                     <div class="mdl-card__title">
                         {% if user.is_authenticated %}
-                        <h2 class="mdl-card__title-text">{% trans "Welcome" %} <i>{{ user.username }}</i> !</h2>
+                        <h2 class="mdl-card__title-text">{% trans "Welcome" %}&nbsp; <i>{{ user.first_name }} {{user.last_name}}</i> !</h2>
                         {%else%}
                         <h2 class="mdl-card__title-text">{% trans "Please sign in with Facebook to begin!" %}</h2>
                         {% endif %}

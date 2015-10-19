@@ -74,6 +74,7 @@ class Gift(models.Model):
     price = models.FloatField(null=True, blank=True)
     siteweb = models.CharField(null=True, blank=True, max_length=350)
     store = models.CharField(null=True, blank=True, max_length=150)
+    purchased = models.BooleanField(default=False)
 
     def get_edit_url(self):
         return reverse('editGift', kwargs={'pk': self.id})
@@ -84,8 +85,19 @@ class Gift(models.Model):
     def get_addcomment_url(self):
         return reverse('addComment', kwargs={'gift_pk': self.id})
 
+    def get_purchased_url(self):
+        return reverse('purchasedGift', kwargs={'gift_pk': self.id})
+
+    def get_cancelpurchased_url(self):
+        return reverse('cancelPurchasedGift', kwargs={'gift_pk': self.id})
+
     def __unicode__(self):
         return self.name
+
+
+class Purchase(models.Model):
+    gift = models.ForeignKey(Gift, related_name="purchase")
+    user = models.ForeignKey(User)
 
 
 class Comment(models.Model):

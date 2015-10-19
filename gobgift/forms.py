@@ -1,6 +1,7 @@
 #from django import forms
 from django.forms.models import inlineformset_factory
 from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
+from django.utils.translation import ugettext_lazy as _
 from PIL import Image
 import StringIO
 import autocomplete_light
@@ -188,8 +189,12 @@ class ListGroupUserForm(forms.ModelForm):
             cleaned_data['group'] = instance.listgroup
         else:
             cleaned_data['group'] = self.listgroup
+            if not cleaned_data.get('user'):
+                raise forms.ValidationError( _('Please choose an user.'))
             if ListGroupUser.objects.filter(group=cleaned_data['group'], user=cleaned_data['user']).exists():
-                raise forms.ValidationError( 'Solution with this Name already exists for this problem')
+                raise forms.ValidationError( _('This user is already in the group.'))
+            elif self.listgroup.owner == cleaned_data['user']:
+                raise forms.ValidationError( _('This user is the owner of the group'))
 
 
         return cleaned_data

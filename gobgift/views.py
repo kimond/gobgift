@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
 
-from .models import ListGroup, Liste, Gift, Comment
+from .models import ListGroup, Liste, Gift, Comment, Purchase
 from .forms import *
 
 from social.backends.oauth import BaseOAuth1, BaseOAuth2
@@ -149,6 +149,40 @@ class ListDelete(LoginRequiredMixin, DeleteView):
 
     def form_valid(self, form):
         return super(ListDelete, self).form_valid(form)
+
+
+@login_required
+def purchasedGift(request, gift_pk):
+    gift = Gift.objects.get(id=gift_pk)
+    if gift.purchased:
+        return redirect(gift.liste.get_view_url())
+
+    # set the gift purchased
+    gift.purchased = True
+    gift.save()
+    # create the link between the purchase and an user
+    purchase = Purchase(gift=gift, user=request.user)
+    purchase.save()
+    return redirect(gift.liste.get_view_url())
+
+
+@login_required
+def cancelPurchasedGift(request, gift_pk):
+    gift = Gift.objects.get(id=gift_pk)
+    if not gift.purchased:
+        return redirect(gift.liste.get_view_url())
+
+    # set the gift not purchased
+    gift.purchased = False
+    gift.save()
+    # create the link between the purchase and an user
+    purchase = Purchase.objects.filter(gift=gift, user=request.user).first()
+    if purchase.user != request.user:
+        return redirect(gift.liste.get_view_url())
+    else:
+        purchase.delete()
+
+    return redirect(gift.liste.get_view_url())
 
 
 class GiftCreate(LoginRequiredMixin, CreateView):

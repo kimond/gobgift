@@ -10,13 +10,18 @@
                 </div>
             </div>
     </div>
-        <div class="mdl-grid container-grid">
+        <div class="mdl-grid mdl-grid--no-spacing container-grid container-grid-padding-top">
         {% for list in lists %}
             <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card">
-                <h3>{{list.name}}</h3>
+                <h4>{{list.name}}</h4>
                 <p><b>Owner:</b> {{list.owner.first_name}} {{list.owner.last_name}}</p>
                 <div class="mdl-layout-spacer"></div>
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_view_url}}?from_group={{listgroup.pk}}">{% trans "Show" %}</a>
+                <div class="mdl-layout--large-screen-only">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_view_url}}?from_group={{listgroup.pk}}">{% trans "Show" %}</a>
+                </div>
+                <div class="mdl-layout--small-screen-only">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--icon" href="{{list.get_view_url}}"><i class="material-icons">visibility</i></a>
+                </div>
             </div>
         {% endfor %}
         </div>
