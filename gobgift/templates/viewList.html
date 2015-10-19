@@ -38,12 +38,12 @@
     </div>
         {% for gift in liste.gift_set.all %}
         <div class="mdl-grid list_gifts_grid">
-            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col {% if gift.purchased %}mdl-color--yellow-50{% endif %}">
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col {% if liste.owner.pk != user.pk and gift.purchased %}mdl-color--yellow-50{% endif %}">
             <div class="mdl-card__title mdl-card--expand">
                 <h2 class="mdl-card__title-text">{{gift.name}} </h2>
             </div>
             <div class="mdl-card__supporting-text">
-                {% if gift.purchased %}
+                {% if liste.owner.pk != user.pk and gift.purchased %}
                 <h4>{% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{gift.purchase.first.user.last_name}}</h4>
                 {% endif %}
                 {% if gift.photo %}
