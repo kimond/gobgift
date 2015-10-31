@@ -14,7 +14,7 @@
         {% for list in lists %}
             <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card">
                 <h4>{{list.name}}</h4>
-                <p><b>Groups:</b> {{list.groups.all|join:", "}}</p>
+                <p><b>{% trans "Groups" %}:</b> {{list.groups.all|join:", "}}</p>
                 <div class="mdl-layout-spacer"></div>
                 <div class="mdl-layout--large-screen-only">
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_view_url}}">{% trans "Show" %}</a>

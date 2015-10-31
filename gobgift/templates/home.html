@@ -15,8 +15,8 @@
                     <div class="mdl-card__supporting-text ">
                         {% if user.is_authenticated %}
                         <ul class="mainmenu">
-                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mygroups" %}"> My groups </a></li>
-                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mylists"%}"> My lists </a></li>
+                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mygroups" %}">{% trans "My groups" %} </a></li>
+                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mylists"%}">{% trans "My lists" %} </a></li>
                         </ul>
                         {% endif %}
                         {% for sublist in available_backends|social_backends %}
@@ -28,7 +28,7 @@
                             <a class="mdl-button mdl-js-button facebook-btn" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
                                 <i class="fa fa-{{ name|icon_name }}"></i>
                                 {# {{ backend|backend_name }} #}
-                                Sign in with Facebook
+                                {%trans "Sign in with Facebook" %}
                             </a>
                             {% endif %}
                             {% endfor %}

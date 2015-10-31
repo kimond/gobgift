@@ -99,11 +99,11 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'fr-CA'
+LANGUAGE_CODE = 'fr'
 
 gettext = lambda s: s
 LANGUAGES = (
-    ('fr-CA', gettext('French')),
+    ('fr', gettext('French')),
     #('en', gettext('English')),
 )
 

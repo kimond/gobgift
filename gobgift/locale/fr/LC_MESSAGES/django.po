@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-31 14:49-0400\n"
+"POT-Creation-Date: 2015-10-31 16:08-0400\n"
 "PO-Revision-Date: 2015-10-31 14:49-0400 \n"
-"Last-Translator: Kim Desrosiers <kimdesro@gmail.com>\n" 
+"Last-Translator: Kim Desrosiers <kimdesro@gmail.com>\n"
 "Language-Team: French <LL@li.org>\n"
 "Language: French \n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,24 @@ msgstr "Administrateur"
 msgid "add user to the group"
 msgstr "Ajout d'utilisateur au groupe"
 
+#: templates/gobgift/_layout.html:31 templates/gobgift/_layout.html.py:43
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/gobgift/_layout.html:32 templates/gobgift/_layout.html.py:44
+#: templates/home.html:18 templates/mygroups.html:9
+msgid "My groups"
+msgstr "Mes groupes"
+
+#: templates/gobgift/_layout.html:33 templates/gobgift/_layout.html.py:45
+#: templates/home.html:19 templates/mylists.html:8
+msgid "My lists"
+msgstr "Mes listes"
+
+#: templates/gobgift/_layout.html:34 templates/gobgift/_layout.html.py:46
+msgid "Logout"
+msgstr "Déconnexion"
+
 #: templates/gobgift/form_layout/numinput.html:6
 msgid "Input is not a number!"
 msgstr "L'entré n'est pas un nombre!"
@@ -111,13 +129,21 @@ msgstr "Bienvenue"
 msgid "Please sign in with Facebook to begin!"
 msgstr "S'il vous plaît connectez vous avec Facebook pour commencer!"
 
-#: templates/mygroups.html:9
-msgid "My groups"
-msgstr "Mes groupes"
+#: templates/home.html:31
+msgid "Sign in with Facebook"
+msgstr "Connexion avec Facebook"
 
 #: templates/mygroups.html:10
 msgid "Create a group"
 msgstr "Créer un groupe"
+
+#: templates/mygroups.html:21
+msgid "Owner"
+msgstr "Propriétaire"
+
+#: templates/mygroups.html:22
+msgid "Members"
+msgstr "Membres"
 
 #: templates/mygroups.html:25
 msgid "Show lists"
@@ -133,13 +159,13 @@ msgstr "Modifier"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/mylists.html:8
-msgid "My lists"
-msgstr "Mes listes"
-
 #: templates/mylists.html:9
 msgid "create a new list"
 msgstr "Créer une nouvelle liste"
+
+#: templates/mylists.html:17
+msgid "Groups"
+msgstr "Groupes"
 
 #: templates/viewList.html:27
 msgid "List"
