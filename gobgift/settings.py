@@ -99,9 +99,15 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-CA'
 
-TIME_ZONE = 'UTC'
+gettext = lambda s: s
+LANGUAGES = (
+    ('fr-CA', gettext('French')),
+    #('en', gettext('English')),
+)
+
+TIME_ZONE = 'America/Montreal'
 
 USE_I18N = True
 

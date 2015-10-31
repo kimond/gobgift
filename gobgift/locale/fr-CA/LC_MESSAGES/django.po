@@ -1,0 +1,182 @@
+# language file for gobgift application
+# Copyright (C) 2015 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Kim Desrosiers <kimdesro@gmail.com>, 2015.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-31 14:49-0400\n"
+"PO-Revision-Date: 2015-10-31 14:49-0400 \n"
+"Last-Translator: Kim Desrosiers <kimdesro@gmail.com>\n" 
+"Language-Team: French <LL@li.org>\n"
+"Language: French \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:193
+msgid "Please choose an user."
+msgstr "S'il vous plaît choisir un utilisateur"
+
+#: forms.py:195
+msgid "This user is already in the group."
+msgstr "Cet utilisateur est déjà dans le groupe."
+
+#: forms.py:197
+msgid "This user is the owner of the group"
+msgstr "Cet utilisateur est le propriétaire du group"
+
+#: settings.py:106
+msgid "French"
+msgstr "Français"
+
+#: templates/create_edit_groupuser.html:12
+msgid "Add group user"
+msgstr "Ajouter un groupe d'utilisateur"
+
+#: templates/create_edit_groupuser.html:32 templates/create_edit_list.html:21
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/create_edit_list.html:12
+msgid "Add List"
+msgstr "Ajout de liste"
+
+#: templates/create_group.html:11
+msgid "Add Group"
+msgstr "Ajout de groupe"
+
+#: templates/deleteGift.html:6 templates/deleteGroup.html:6
+#: templates/deleteGroupUser.html:6 templates/deleteList.html:6
+msgid "deletion"
+msgstr "suppression"
+
+#: templates/deleteGift.html:8
+msgid "Do you want to delete the gift "
+msgstr "Voulez-vous supprimer ce cadeau "
+
+#: templates/deleteGroup.html:8
+msgid "Do you want to delete the group "
+msgstr "Voulez-vous supprimer le groupe "
+
+#: templates/deleteGroupUser.html:8
+msgid "Do you want to remove the user"
+msgstr "Voulez-vous retirer cet utilisateur"
+
+#: templates/deleteGroupUser.html:8
+msgid "from the group"
+msgstr "du groupe"
+
+#: templates/deleteList.html:8
+msgid "Do you want to delete the list "
+msgstr "Voulez-vous supprimer la liste "
+
+#: templates/edit_group.html:23
+msgid "User"
+msgstr "Utilisateur"
+
+#: templates/edit_group.html:24
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: templates/edit_group.html:48
+msgid "add user to the group"
+msgstr "Ajout d'utilisateur au groupe"
+
+#: templates/gobgift/form_layout/numinput.html:6
+msgid "Input is not a number!"
+msgstr "L'entré n'est pas un nombre!"
+
+#: templates/grouplists.html:8
+msgid "Lists of the group"
+msgstr "Listes du groupe"
+
+#: templates/grouplists.html:9 templates/viewList.html:29
+#: templates/viewList.html.py:31
+msgid "Back"
+msgstr "Retour"
+
+#: templates/grouplists.html:20 templates/mylists.html:20
+msgid "Show"
+msgstr "Voir"
+
+#: templates/home.html:10
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: templates/home.html:12
+msgid "Please sign in with Facebook to begin!"
+msgstr "S'il vous plaît connectez vous avec Facebook pour commencer!"
+
+#: templates/mygroups.html:9
+msgid "My groups"
+msgstr "Mes groupes"
+
+#: templates/mygroups.html:10
+msgid "Create a group"
+msgstr "Créer un groupe"
+
+#: templates/mygroups.html:25
+msgid "Show lists"
+msgstr "Afficher les listes"
+
+#: templates/mygroups.html:27 templates/mylists.html:21
+#: templates/viewList.html:58
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/mygroups.html:30 templates/mylists.html:22
+#: templates/viewList.html:59
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/mylists.html:8
+msgid "My lists"
+msgstr "Mes listes"
+
+#: templates/mylists.html:9
+msgid "create a new list"
+msgstr "Créer une nouvelle liste"
+
+#: templates/viewList.html:27
+msgid "List"
+msgstr "Liste"
+
+#: templates/viewList.html:34
+msgid "add gift"
+msgstr "ajout d'un cadeau"
+
+#: templates/viewList.html:47
+msgid "Purchased by "
+msgstr "Acheté par "
+
+#: templates/viewList.html:54
+msgid "Store"
+msgstr "Magasin"
+
+#: templates/viewList.html:63
+msgid "purchased"
+msgstr "acheté"
+
+#: templates/viewList.html:65
+msgid "cancel purchase"
+msgstr "Annuler l'achat"
+
+#: templates/viewList.html:67
+msgid "already purchased"
+msgstr "déjà acheté"
+
+#: templates/viewList.html:70
+msgid "comments"
+msgstr "Commentaires"
+
+#: templates/viewList.html:71
+msgid "hide comments"
+msgstr "Cacher les commentaires"
+
+#: templates/viewList.html:81
+msgid "write a comment"
+msgstr "Écrire un commentaire"
