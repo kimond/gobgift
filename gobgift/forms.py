@@ -163,7 +163,12 @@ class GroupForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(GroupForm, self).clean()
-        cleaned_data['owner'] = self.user
+        instance = getattr(self, 'instance', None)
+        
+        if instance and instance.pk:
+            cleaned_data['owner'] = instance.owner
+        else:
+            cleaned_data['owner'] = self.user
 
         return cleaned_data
 
