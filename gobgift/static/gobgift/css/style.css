@@ -108,6 +108,14 @@ ul.mainmenu li{
     margin-right: 8px;
 }
 
+/* Gift card */
+.gift-card > .mdl-card__title > .price-text {
+    margin-left: 5px;
+    font-size: 1.0em;
+    line-height: 24px;
+    color: rgba(0,0,0,.60);
+}
+
 /*  list list card  */
 .list-card{
     background-color: #ffffff;

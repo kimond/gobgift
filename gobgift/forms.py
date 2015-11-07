@@ -13,14 +13,27 @@ class TextInput(forms.TextInput):
         ctx = super(TextInput, self).get_context(name, value, attrs)
         ctx['attrs']['class'] = 'mdl-textfield__input'
         return ctx
+    
+class TextAreaInput(forms.Textarea):
+    template_name = 'gobgift/form_layout/textarea.html'
+    def get_context(self, name, value, attrs):
+        ctx = super(TextAreaInput, self).get_context(name, value, attrs)
+        ctx['attrs']['class'] = 'mdl-textfield__input'
+        ctx['attrs']['rows'] = '4'
+        return ctx
 
 class NumericInput(forms.NumberInput):
     template_name = 'gobgift/form_layout/numinput.html'
     def get_context(self, name, value, attrs):
         ctx = super(NumericInput, self).get_context(name, value, attrs)
         ctx['attrs']['class'] = 'mdl-textfield__input'
+        ctx['attrs']['step'] = 'any'
         ctx['attrs']['pattern'] = '-?[0-9]*(\.[0-9]+)?'
         return ctx
+    
+
+class TextAreaField(forms.CharField):
+    widget = TextAreaInput
 
 
 class CharField(forms.CharField):
@@ -74,12 +87,13 @@ class ListeForm(autocomplete_light.SelectMultipleHelpTextRemovalMixin,
 
 class GiftForm(forms.ModelForm):
     name = CharField()
+    description = TextAreaField(required=False)
     price = NumField(required=False)
     siteweb = CharField(required=False)
     store = CharField(required=False)
     class Meta:
         model = Gift
-        fields = ['liste','name', 'photo', 'price', 'siteweb', 'store']
+        fields = ['liste','name', 'photo', 'description', 'price', 'siteweb', 'store']
 
     def __init__(self, liste=None, *args, **kwargs):
         super (GiftForm, self).__init__(*args, **kwargs)

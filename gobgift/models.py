@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.db import models
 import datetime
@@ -69,11 +70,12 @@ class Liste(models.Model):
 
 class Gift(models.Model):
     liste = models.ForeignKey(Liste)
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, verbose_name=_('Name'))
     photo = models.ImageField(upload_to='gifts', null=True, blank=True)
-    price = models.FloatField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
+    price = models.FloatField(null=True, blank=True, verbose_name=_('Price'))
     siteweb = models.CharField(null=True, blank=True, max_length=350)
-    store = models.CharField(null=True, blank=True, max_length=150)
+    store = models.CharField(null=True, blank=True, max_length=150, verbose_name=_('Store'))
     purchased = models.BooleanField(default=False)
 
     def get_edit_url(self):

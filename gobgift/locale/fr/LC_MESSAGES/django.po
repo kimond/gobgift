@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-31 16:08-0400\n"
+"POT-Creation-Date: 2015-11-07 11:33-0500\n"
 "PO-Revision-Date: 2015-10-31 14:49-0400 \n"
 "Last-Translator: Kim Desrosiers <kimdesro@gmail.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -17,17 +17,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:193
+#: forms.py:212
 msgid "Please choose an user."
 msgstr "S'il vous plaît choisir un utilisateur"
 
-#: forms.py:195
+#: forms.py:214
 msgid "This user is already in the group."
 msgstr "Cet utilisateur est déjà dans le groupe."
 
-#: forms.py:197
+#: forms.py:216
 msgid "This user is the owner of the group"
 msgstr "Cet utilisateur est le propriétaire du group"
+
+#: models.py:73
+msgid "Name"
+msgstr "Nom"
+
+#: models.py:75
+msgid "Description"
+msgstr ""
+
+#: models.py:76
+msgid "Price"
+msgstr "Prix"
+
+#: models.py:78 templates/viewList.html:57
+msgid "Store"
+msgstr "Magasin"
 
 #: settings.py:106
 msgid "French"
@@ -117,10 +133,6 @@ msgstr "Listes du groupe"
 msgid "Back"
 msgstr "Retour"
 
-#: templates/grouplists.html:20 templates/mylists.html:20
-msgid "Show"
-msgstr "Voir"
-
 #: templates/home.html:10
 msgid "Welcome"
 msgstr "Bienvenue"
@@ -149,13 +161,13 @@ msgstr "Membres"
 msgid "Show lists"
 msgstr "Afficher les listes"
 
-#: templates/mygroups.html:27 templates/mylists.html:21
-#: templates/viewList.html:58
+#: templates/mygroups.html:27 templates/mylists.html:20
+#: templates/viewList.html:61
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/mygroups.html:30 templates/mylists.html:22
-#: templates/viewList.html:59
+#: templates/mygroups.html:30 templates/mylists.html:21
+#: templates/viewList.html:62
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -179,30 +191,33 @@ msgstr "ajout d'un cadeau"
 msgid "Purchased by "
 msgstr "Acheté par "
 
-#: templates/viewList.html:54
-msgid "Store"
-msgstr "Magasin"
+#: templates/viewList.html:56
+msgid "Website"
+msgstr "Site web"
 
-#: templates/viewList.html:63
+#: templates/viewList.html:66
 msgid "purchased"
 msgstr "acheté"
 
-#: templates/viewList.html:65
+#: templates/viewList.html:68
 msgid "cancel purchase"
 msgstr "Annuler l'achat"
 
-#: templates/viewList.html:67
+#: templates/viewList.html:70
 msgid "already purchased"
 msgstr "déjà acheté"
 
-#: templates/viewList.html:70
+#: templates/viewList.html:73
 msgid "comments"
 msgstr "Commentaires"
 
-#: templates/viewList.html:71
+#: templates/viewList.html:74
 msgid "hide comments"
 msgstr "Cacher les commentaires"
 
-#: templates/viewList.html:81
+#: templates/viewList.html:84
 msgid "write a comment"
 msgstr "Écrire un commentaire"
+
+#~ msgid "Show"
+#~ msgstr "Voir"

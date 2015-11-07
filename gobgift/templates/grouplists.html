@@ -12,7 +12,7 @@
     </div>
         <div class="mdl-grid mdl-grid--no-spacing container-grid container-grid-padding-top">
         {% for list in lists %}
-            <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card" onclick="javascript:location.href='{{list.get_view_url}}'">
+            <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card" onclick="javascript:location.href='{{list.get_view_url}}?from_group={{listgroup.pk}}'">
                 <h6>{{list.name}}</h6>
                 <p><b>Owner:</b> {{list.owner.first_name}} {{list.owner.last_name}}</p>
                 <div class="mdl-layout-spacer"></div>
