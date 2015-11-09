@@ -113,6 +113,7 @@ ul.mainmenu li{
     margin-left: 5px;
     font-size: 1.0em;
     line-height: 24px;
+    min-width: 60px;
     color: rgba(0,0,0,.60);
 }
 
@@ -138,9 +139,21 @@ ul.mainmenu li{
 .list-card > h6{
     margin:8px;
 }
+
 .list-card > p{
     color:rgba(0,0,0,.54);
     margin-bottom:0px;
+    font-size: 0.9em;
+}
+
+.list-card > .gift-badge {
+    font-size:2em;
+    color: #868686;
+}
+
+.list-card > .gift-badge::after {
+    right: -11px;
+    top: -7px;
 }
 
 .list-card > .phone-actions{
