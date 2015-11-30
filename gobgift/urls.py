@@ -41,7 +41,9 @@ urlpatterns = patterns('',
     url(r'^groupuser/delete/(?P<pk>\d+)/$',GroupUserDelete.as_view(), name='deleteGroupUser'),
 
     # DjangoRestFramework
+    url(r'^api/', include('gobgift_api.urls', namespace='gobgift_api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-oauth/', include('rest_framework_social_oauth2.urls')),
 
     # Django autocomplete light
     url(r'^autocomplete/', include('autocomplete_light.urls')),

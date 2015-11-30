@@ -50,7 +50,7 @@ class ListGroupUser(models.Model):
 class Liste(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=150)
-    groups = models.ManyToManyField(ListGroup, related_name='lists')
+    groups = models.ManyToManyField(ListGroup, related_name='lists', blank=True)
 
     def get_view_url(self):
         return reverse('viewList', kwargs={'pk': self.id})
