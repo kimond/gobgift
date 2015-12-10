@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from gobgift.models import Liste, ListGroup, ListGroupUser, Gift
+from gobgift.models import Liste, ListGroup, ListGroupUser, Gift, Comment
 
 
 class ListeSerializer(serializers.ModelSerializer):
@@ -25,3 +25,9 @@ class GiftSerializer(serializers.ModelSerializer):
       model = Gift
       fields = ('liste', 'name', 'photo', 'description',
                 'price', 'siteweb', 'store', 'purchased')
+                
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('gift', 'user', 'text', 'datetime')
