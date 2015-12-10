@@ -22,6 +22,7 @@
                         {% for sublist in available_backends|social_backends %}
                         <div class="row">
                             {% for name, backend in sublist %}
+                            {% if name == "facebook" %}
                             {% associated backend %}
                             {% if association %}
                             {% else %}
@@ -30,6 +31,7 @@
                                 {# {{ backend|backend_name }} #}
                                 {%trans "Sign in with Facebook" %}
                             </a>
+                            {% endif %}
                             {% endif %}
                             {% endfor %}
                         </div>
