@@ -1,6 +1,5 @@
 {% extends "gobgift/_layout.html" %}
 {% load i18n %}
-{% load url from future %}
 {% load staticfiles %}
 
 {% block content  %}
@@ -36,9 +35,9 @@
                 </div>
         </div>
     </div>
-        {% for gift in liste.gift_set.all %}
         <div class="mdl-grid list_gifts_grid">
-            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col gift-card {% if liste.owner.pk != user.pk and gift.purchased %}mdl-color--yellow-50{% endif %}">
+        {% for gift in liste.gift_set.all %}
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--top gift-card {% if liste.owner.pk != user.pk and gift.purchased %}mdl-color--yellow-50{% endif %}">
             <div class="mdl-card__title mdl-card--expand">
                 <h2 class="mdl-card__title-text">{{gift.name}} </h2><div class="mdl-card__title-text price-text">{% if gift.price %}{{gift.price}}${% endif %}</div>
             </div>
@@ -47,7 +46,7 @@
                 <h4>{% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{gift.purchase.first.user.last_name}}</h4>
                 {% endif %}
                 {% if gift.photo %}
-                <a href="{{gift.photo.url}}" ><img width="200" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
+                <a href="{{gift.photo.url}}" ><img class="gift-photo" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
                 {% endif %}
                 <p>{% if gift.description %}
                     <b>Description</b> <br/>
@@ -77,7 +76,7 @@
             </div>
             {% if liste.owner.pk != user.pk %}
             <div id="comment_section_container_{{gift.pk}}" class="mdl-card__supporting-text comments-section hide">
-                <div id="comment_section_{{gift.pk}}" class=hide">
+                <div id="comment_section_{{gift.pk}}" class="hide">
                 <form method="post" action="{{gift.get_addcomment_url}}">{% csrf_token %}
                     <div class="mdl-textfield mdl-js-textfield add-comment-input">
                         <input class="mdl-textfield__input" type="text" name="text" id="comment_text_{{gift.pk}}" />
@@ -97,6 +96,6 @@
             </div>
             {% endif %}
         </div>
-        </div>
     {% endfor %}
+  </div>
 {% endblock %}

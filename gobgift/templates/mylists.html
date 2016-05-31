@@ -1,21 +1,25 @@
 {% extends "gobgift/_layout.html" %}
 {% load i18n %}
-{% load url from future %}
 {%block content%}
     <div class="page-header mdl-shadow--2dp">
         <div class="mdl-grid container-grid page-header">
             <div class="mdl-cell mdl-cell--12-col">
-                <h5 class="page-header-title">GobGift > {% trans "My lists" %}</h5>
+                <h5 class="page-header-title">{% trans "My lists" %}</h5>
                 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'addList' %}"><i class="mdi-content-add right"></i>{% trans "create a new list" %}</a>
             </div>
         </div>
     </div>
         <div class="mdl-grid mdl-grid--no-spacing container-grid container-grid-padding-top">
+        <ul class="mdl-list" style="width:100%">
         {% for list in lists %}
-            <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card" onclick="javascript:location.href='{{list.get_view_url}}'">
-                <h6>{{list.name}}</h6>
-                <p><b>{% trans "Groups" %}:</b> {{list.groups.all|join:", "}}</p>
-                <div class="mdl-layout-spacer"></div>
+            <div class="mdl-list__item mdl-list__item--two-line list-card" onclick="javascript:location.href='{{list.get_view_url}}'">
+              <span class="mdl-list__item-primary-content">
+                <span>{{list.name}}</span>
+                <span class="mdl-list__item-sub-title">
+                  <b>{% trans "Groups" %}:</b> {{list.groups.all|join:", "}}
+                </span>
+              </span>
+              <span class="mdl-list__item-secondary-content">
                 <div class="mdl-layout--large-screen-only">
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_edit_url}}">{% trans "Edit" %}</a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{list.get_delete_url}}">{% trans "Delete" %}</a>
@@ -24,7 +28,9 @@
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--icon" href="{{list.get_edit_url}}"><i class="material-icons">mode_edit</i></a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--icon" href="{{list.get_delete_url}}"><i class="material-icons">delete</i></a>
                 </div>
+              </span>
             </div>
         {% endfor %}
+        </ul>
         </div>
 {% endblock %}

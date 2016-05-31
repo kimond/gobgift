@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
+from dal import autocomplete
 
 from .models import ListGroup, Liste, Gift, Comment, Purchase
 from .forms import *
@@ -29,12 +30,14 @@ def logout(request):
     auth_logout(request)
     return redirect('/')
 
+
 def context(**extra):
     return dict({
         'plus_id': getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
         'plus_scope': ' '.join(GooglePlusAuth.DEFAULT_SCOPE),
         'available_backends': load_backends(settings.AUTHENTICATION_BACKENDS)
     }, **extra)
+
 
 @render_to('home.html')
 def home(request):
@@ -43,11 +46,13 @@ def home(request):
         return redirect('done')
     return context()
 
+
 @login_required
 @render_to('home.html')
 def done(request):
     """Login complete view, displays user data"""
     return context()
+
 
 @render_to('home.html')
 def validation_sent(request):
@@ -315,7 +320,7 @@ class ListGroupUserCreate(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.listgroup = ListGroup.objects.get(pk=kwargs['listgroup_pk'])
-        return super(ListGroupUserCreate,self).dispatch(request, *args, **kwargs)
+        return super(ListGroupUserCreate, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return self.listgroup.get_edit_url()
@@ -327,3 +332,24 @@ class ListGroupUserCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         return super(ListGroupUserCreate, self).form_valid(form)
+
+
+class UserAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        query = User.objects.all()
+        if self.q:
+            query = query.filter(
+                Q(last_name__istartswith=self.q) | Q(first_name__istartswith=self.q)
+            )
+
+        return query
+
+
+class ListGroupAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        user = self.request.user
+        query = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user)).distinct()
+        if self.q:
+            query = query.filter(name__istartswith=self.q)
+
+        return query

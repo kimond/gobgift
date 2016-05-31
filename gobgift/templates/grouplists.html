@@ -1,6 +1,5 @@
 {% extends "gobgift/_layout.html" %}
 {% load i18n %}
-{% load url from future %}
 {%block content%}
     <div class="page-header mdl-shadow--2dp">
             <div class="mdl-grid container-grid">
@@ -11,17 +10,18 @@
             </div>
     </div>
         <div class="mdl-grid mdl-grid--no-spacing container-grid container-grid-padding-top">
-        {% for list in lists %}
-            <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col list-card" onclick="javascript:location.href='{{list.get_view_url}}?from_group={{listgroup.pk}}'">
-                <h6>{{list.name}}</h6>
-                <p><b>Owner:</b> {{list.owner.first_name}} {{list.owner.last_name}}</p>
-                <div class="mdl-layout-spacer"></div>
-                <i class="fa fa-gift gift-badge mdl-badge" data-badge={{list.gift_set.count}}></i>
-                <div class="mdl-layout--large-screen-only">
-                </div>
-                <div class="mdl-layout--small-screen-only">
-                </div>
-            </div>
-        {% endfor %}
+          <ul class="mdl-list" style="width:100%">
+            {% for list in lists %}
+            <li class="mdl-list__item mdl-list__item--two-line list-card" onclick="javascript:location.href='{{list.get_view_url}}?from_group={{listgroup.pk}}'">
+              <span class="mdl-list__item-primary-content">
+                <span>{{list.name}}</span>
+                <span class="mdl-list__item-sub-title"><b>Owner:</b> {{list.owner.first_name}} {{list.owner.last_name}}</span>
+              </span>
+              <span class="mdl-list__item-secondary-content">
+                  <i class="fa fa-gift gift-badge mdl-badge" data-badge={{list.gift_set.count}}></i>
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
 {% endblock %}

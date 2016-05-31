@@ -106,6 +106,4 @@ class Comment(models.Model):
     gift = models.ForeignKey(Gift)
     user = models.ForeignKey(User)
     text = models.CharField(max_length=300)
-    datetime = models.DateTimeField(auto_now_add=True, default=datetime.datetime.today)
-
-
+    datetime = models.DateTimeField(auto_now_add=True)

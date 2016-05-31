@@ -59,6 +59,12 @@ ul.mainmenu li{
     margin: 0 auto;
 }
 
+.gift-photo{
+  margin:auto;
+  max-width: 100%;
+  max-height: 200px;
+}
+
 /* Facebook button  */
 .facebook-btn{
     color: #ffffff;
@@ -88,14 +94,13 @@ ul.mainmenu li{
 }
 
 .add-comment-input{
-    width:90%;
+    width:85%;
 }
 @media (max-width: 479px){
     .add-comment-input{
         width:82%;
     }
 }
-
 
 .comment-badge{
     margin: 0px;
@@ -120,42 +125,27 @@ ul.mainmenu li{
 /*  list list card  */
 .list-card{
     background-color: #ffffff;
-    margin:0px;
-    padding:3px;
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
     border-bottom: 1px solid rgba(0,0,0,.12);
 }
 
 .list-card:hover{
-    background-color: #F5F5F5;
+    background-color: #DAF1E5;
 }
 
 .list-card:active{
     background-color: #EEEEEE;
 }
 
-.list-card > h6{
-    margin:8px;
-}
-
-.list-card > p{
-    color:rgba(0,0,0,.54);
-    margin-bottom:0px;
-    font-size: 0.9em;
-}
-
-.list-card > .gift-badge {
+.list-card .gift-badge {
     font-size:2em;
     color: #868686;
 }
 
-.list-card > .gift-badge::after {
+.list-card .gift-badge::after {
     right: -11px;
     top: -7px;
 }
 
-.list-card > .phone-actions{
+.list-card .phone-actions{
     min-width:75px;
 }

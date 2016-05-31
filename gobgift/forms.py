@@ -1,36 +1,43 @@
-#from django import forms
+# from django import forms
 from django.forms.models import inlineformset_factory
+from django.contrib.auth.models import User
 from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
 from django.utils.translation import ugettext_lazy as _
 from PIL import Image
 import StringIO
-import autocomplete_light
+from dal import autocomplete
 import floppyforms.__future__ as forms
+
 
 class TextInput(forms.TextInput):
     template_name = 'gobgift/form_layout/textinput.html'
+
     def get_context(self, name, value, attrs):
         ctx = super(TextInput, self).get_context(name, value, attrs)
         ctx['attrs']['class'] = 'mdl-textfield__input'
         return ctx
-    
+
+
 class TextAreaInput(forms.Textarea):
     template_name = 'gobgift/form_layout/textarea.html'
+
     def get_context(self, name, value, attrs):
         ctx = super(TextAreaInput, self).get_context(name, value, attrs)
         ctx['attrs']['class'] = 'mdl-textfield__input'
         ctx['attrs']['rows'] = '4'
         return ctx
 
+
 class NumericInput(forms.NumberInput):
     template_name = 'gobgift/form_layout/numinput.html'
+
     def get_context(self, name, value, attrs):
         ctx = super(NumericInput, self).get_context(name, value, attrs)
         ctx['attrs']['class'] = 'mdl-textfield__input'
         ctx['attrs']['step'] = 'any'
         ctx['attrs']['pattern'] = '-?[0-9]*(\.[0-9]+)?'
         return ctx
-    
+
 
 class TextAreaField(forms.CharField):
     widget = TextAreaInput
@@ -58,22 +65,30 @@ class NumField(forms.CharField):
             try:
                 value = Decimal(value)
             except DecimalException:
-                raise ValidationError(self.error_messages['invalid'], code='invalid')
+                raise ValidationError(self.error_messages['invalid'],
+                                      code='invalid')
         return value
 
 
-class ListeForm(autocomplete_light.SelectMultipleHelpTextRemovalMixin,
-                autocomplete_light.VirtualFieldHandlingMixin,
-                autocomplete_light.GenericM2MRelatedObjectDescriptorHandlingMixin,
-                forms.ModelForm):
+class ListeForm(autocomplete.FutureModelForm):
     name = CharField()
-    groups = autocomplete_light.ModelMultipleChoiceField('ListGroupAutocomplete')
+    groups = forms.ModelMultipleChoiceField(
+        queryset=ListGroup.objects.all(),
+        required=False,
+        widget=autocomplete.ModelSelect2Multiple(
+            url='listgroup-autocomplete',
+            attrs={
+                'data-placeholder': 'Groups',
+            }
+        )
+    )
+
     class Meta:
         model = Liste
-        fields = ['owner','name', 'groups']
+        fields = ['owner', 'name', 'groups']
 
     def __init__(self, user=None, *args, **kwargs):
-        super (ListeForm, self).__init__(*args, **kwargs)
+        super(ListeForm, self).__init__(*args, **kwargs)
         self.user = user
         self.fields['owner'].required = False
         self.fields['owner'].widget = forms.HiddenInput()
@@ -178,7 +193,7 @@ class GroupForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(GroupForm, self).clean()
         instance = getattr(self, 'instance', None)
-        
+
         if instance and instance.pk:
             cleaned_data['owner'] = instance.owner
         else:
@@ -186,14 +201,24 @@ class GroupForm(forms.ModelForm):
 
         return cleaned_data
 
+
 class ListGroupUserForm(forms.ModelForm):
-    user = autocomplete_light.ModelChoiceField('UserAutocomplete')
+    user = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url='user-autocomplete',
+            attrs={
+                'data-placeholder': 'User',
+            }
+        )
+    )
+
     class Meta:
         model = ListGroupUser
-        fields = ['user','is_admin','group']
+        fields = ['user', 'is_admin', 'group']
 
     def __init__(self, listgroup=None, *args, **kwargs):
-        super (ListGroupUserForm, self).__init__(*args, **kwargs)
+        super(ListGroupUserForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
 
         self.listgroup = listgroup
