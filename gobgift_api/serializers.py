@@ -6,26 +6,26 @@ class ListeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Liste
         fields = ('id', 'owner', 'name', 'groups')
-        
-        
+
+
 class ListGroupSerializer(serializers.ModelSerializer):
     class Meta:
-      model = ListGroup
-      fields = ('name', 'owner')
-        
-        
+        model = ListGroup
+        fields = ('name', 'owner')
+
+
 class ListGroupUserSerializer(serializers.ModelSerializer):
     class Meta:
-      model = ListGroupUser
-      fields = ('group', 'user', 'is_admin')
-        
-        
+        model = ListGroupUser
+        fields = ('group', 'user', 'is_admin')
+
+
 class GiftSerializer(serializers.ModelSerializer):
     class Meta:
-      model = Gift
-      fields = ('liste', 'name', 'photo', 'description',
-                'price', 'siteweb', 'store', 'purchased')
-                
+        model = Gift
+        fields = ('liste', 'name', 'photo', 'description',
+                  'price', 'siteweb', 'store', 'purchased')
+
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:

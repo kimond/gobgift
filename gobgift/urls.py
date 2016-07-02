@@ -44,13 +44,17 @@ urlpatterns = [
     url(r'^api/', include('gobgift_api.urls', namespace='gobgift_api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-oauth/', include('rest_framework_social_oauth2.urls')),
+    url(r'^docs/', include('rest_framework_swagger.urls')),
 
     # Django autocomplete light
-    url(r'^user-autocomplete/$', UserAutocomplete.as_view(), name="user-autocomplete"),
-    url(r'^listgroup-autocomplete/$', ListGroupAutocomplete.as_view(), name="listgroup-autocomplete"),
+    url(r'^user-autocomplete/$', UserAutocomplete.as_view(),
+        name="user-autocomplete"),
+    url(r'^listgroup-autocomplete/$', ListGroupAutocomplete.as_view(),
+        name="listgroup-autocomplete"),
 ]
 
 if settings.DEBUG:
     urlpatterns += [
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
     ]
