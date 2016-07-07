@@ -3,15 +3,19 @@ from gobgift.models import Liste, ListGroup, ListGroupUser, Gift, Comment
 
 
 class ListeSerializer(serializers.ModelSerializer):
+    owner = serializers.StringRelatedField()
+
     class Meta:
         model = Liste
         fields = ('id', 'owner', 'name', 'groups')
 
 
 class ListGroupSerializer(serializers.ModelSerializer):
+    owner = serializers.StringRelatedField()
+
     class Meta:
         model = ListGroup
-        fields = ('name', 'owner')
+        fields = ('id', 'name', 'owner')
 
 
 class ListGroupUserSerializer(serializers.ModelSerializer):
@@ -23,7 +27,7 @@ class ListGroupUserSerializer(serializers.ModelSerializer):
 class GiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gift
-        fields = ('liste', 'name', 'photo', 'description',
+        fields = ('id', 'liste', 'name', 'photo', 'description',
                   'price', 'siteweb', 'store', 'purchased')
 
 

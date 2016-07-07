@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^api/', include('gobgift_api.urls', namespace='gobgift_api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-oauth/', include('rest_framework_social_oauth2.urls')),
+    url(r'^api-oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
 
     # Django autocomplete light
