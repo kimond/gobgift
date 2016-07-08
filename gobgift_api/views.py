@@ -1,6 +1,8 @@
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import PermissionDenied
 from rest_framework import viewsets
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from gobgift_api.serializers import (ListeSerializer, GiftSerializer,
@@ -23,7 +25,7 @@ class ListGroupViewSet(viewsets.ModelViewSet):
         List the user's listgroups
         """
         user = User.objects.get(pk=request.user.pk)
-        queryset = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user)).distinct()
+        queryset = ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -63,12 +65,22 @@ class ListeViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class GiftViewSet(viewsets.ModelViewSet):
+class GiftViewSet(mixins.RetrieveModelMixin,
+                  viewsets.GenericViewSet):
     """
     A viewset for viewing and editing gift instances.
     """
     serializer_class = GiftSerializer
-    queryset = Gift.objects.none()
+    queryset = Gift.objects.all()
+
+    def retrieve(self, request, pk=None):
+        queryset = Gift.objects.all()
+        gift = get_object_or_404(queryset, pk=pk)
+        serializer = GiftSerializer(gift)
+        if gift.liste.owner == request.user:
+            serializer = GiftSerializer(gift, exclude_purchase=True)
+
+        return Response(serializer.data)
 
 
 class ListGiftList(generics.ListAPIView):
@@ -79,14 +91,36 @@ class ListGiftList(generics.ListAPIView):
     queryset = Gift.objects.all()
 
     def list(self, request, pk=None):
+        listqueryset = Liste.objects.all()
+        wishlist = get_object_or_404(listqueryset, pk=pk)
         queryset = Liste.objects.get(id=pk).gift_set.all()
         serializer = self.get_serializer(queryset, many=True)
+        if wishlist.owner == request.user:
+            serializer = self.get_serializer(queryset, many=True, exclude_purchase=True)
         return Response(serializer.data)
 
 
-class CommentViewSet(viewsets.ModelViewSet):
+class GiftCommentList(generics.ListAPIView):
+    """
+    List comments on a gift
+    """
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
+    def list(self, request, pk=None):
+        giftqueryset = Gift.objects.all()
+        gift = get_object_or_404(giftqueryset, pk=pk)
+        queryset = Gift.objects.get(pk=pk).comment_set.all()
+        serializer = self.get_serializer(queryset, many=True)
+        if gift.liste.owner == request.user:
+            raise PermissionDenied("Owner of this gift can't see the comments")
+        return Response(serializer.data)
+
+
+class CommentViewSet(mixins.CreateModelMixin,
+                     viewsets.GenericViewSet):
     """
     A viewset for viewing and editing comment instances.
     """
     serializer_class = CommentSerializer
-    queryset = Comment.objects.none()
+    queryset = Comment.objects.all()

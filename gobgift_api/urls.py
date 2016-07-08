@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from gobgift_api.views import (ListeViewSet, GiftViewSet, ListGroupViewSet,
                                CommentViewSet, ListGroupUserViewSet,
-                               ListGiftList, ListGroupList)
+                               ListGiftList, ListGroupList, GiftCommentList)
 
 router = routers.DefaultRouter()
 router.register(r'lists', ListeViewSet)
@@ -18,5 +18,7 @@ urlpatterns = [
   url(r'^lists/(?P<pk>\d+)/gifts', ListGiftList.as_view(),
       name='list-gift-list'),
   url(r'^listgroups/(?P<pk>\d+)/lists', ListGroupList.as_view(),
-      name='listgroup-list-list')
+      name='listgroup-list-list'),
+  url(r'^gifts/(?P<pk>\d+)/comments', GiftCommentList.as_view(),
+      name='gift-comment-list')
 ]

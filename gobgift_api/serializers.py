@@ -30,6 +30,14 @@ class GiftSerializer(serializers.ModelSerializer):
         fields = ('id', 'liste', 'name', 'photo', 'description',
                   'price', 'siteweb', 'store', 'purchased')
 
+    def __init__(self, *args, **kwargs):
+        exclude_purchase = kwargs.pop('exclude_purchase', None)
+
+        super(GiftSerializer, self).__init__(*args, **kwargs)
+
+        if exclude_purchase:
+            self.fields.pop('purchased')
+
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
