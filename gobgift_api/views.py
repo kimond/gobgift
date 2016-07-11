@@ -59,8 +59,8 @@ class ListeViewSet(viewsets.ModelViewSet):
         """
         List the user's lists
         """
-        my_lists = Liste.objects.all()
-
+        user = User.objects.get(pk=request.user.pk)
+        my_lists = Liste.objects.filter(owner=user)
         serializer = self.get_serializer(my_lists, many=True)
         return Response(serializer.data)
 

@@ -25,6 +25,7 @@ class ListGroupUserSerializer(serializers.ModelSerializer):
 
 
 class GiftSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Gift
         fields = ('id', 'liste', 'name', 'photo', 'description',
