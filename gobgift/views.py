@@ -61,6 +61,7 @@ def validation_sent(request):
         email=request.session.get('email_validation_address')
     )
 
+
 @render_to('home.html')
 def require_email(request):
     backend = request.session['partial_pipeline']['backend']
@@ -79,8 +80,9 @@ def mylists(request):
 @render_to('mygroups.html')
 def mygroups(request):
     user = User.objects.get(pk=request.user.pk)
-    groupList = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user)).distinct()
+    groupList = ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
     return context(groups=groupList, user=user)
+
 
 @login_required
 @render_to('grouplists.html')
@@ -99,7 +101,7 @@ def viewlist(request, pk):
     """
     from_group = None
     liste = Liste.objects.get(id=pk)
-    #get the from_group parameter for the back button
+    # get the from_group parameter for the back button
     if request.GET.get('from_group'):
         from_group = request.GET.get('from_group')
     return context(liste=liste, from_group=from_group)
@@ -197,7 +199,7 @@ class GiftCreate(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.liste = Liste.objects.get(pk=kwargs['liste_pk'])
-        return super(GiftCreate,self).dispatch(request, *args, **kwargs)
+        return super(GiftCreate, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return self.liste.get_view_url()
@@ -210,6 +212,7 @@ class GiftCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         return super(GiftCreate, self).form_valid(form)
 
+
 class GiftEdit(LoginRequiredMixin, UpdateView):
     model = Gift
     template_name = "createListe.html"
@@ -220,6 +223,7 @@ class GiftEdit(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         return super(GiftEdit, self).form_valid(form)
+
 
 class GiftDelete(LoginRequiredMixin, DeleteView):
     model = Gift
@@ -239,7 +243,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.gift = Gift.objects.get(pk=kwargs['gift_pk'])
-        return super(CommentCreate,self).dispatch(request, *args, **kwargs)
+        return super(CommentCreate, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return self.gift.liste.get_view_url()
@@ -348,7 +352,7 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
 class ListGroupAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         user = self.request.user
-        query = ListGroup.objects.filter(Q(users__user=user)|Q(owner=user)).distinct()
+        query = ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
         if self.q:
             query = query.filter(name__istartswith=self.q)
 

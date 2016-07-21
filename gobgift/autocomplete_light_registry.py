@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_text
 from gobgift.models import ListGroup
 
+
 class UserAutocomplete(autocomplete_light.AutocompleteModelBase):
     search_fields = ['first_name', 'last_name', 'username']
     attrs = {
@@ -22,6 +23,7 @@ class UserAutocomplete(autocomplete_light.AutocompleteModelBase):
         text = choice.first_name + " " + choice.last_name
         return force_text(text)
 
+
 class ListGroupAutocomplete(autocomplete_light.AutocompleteModelTemplate):
     search_fields = ['name']
     attrs = {
@@ -31,9 +33,10 @@ class ListGroupAutocomplete(autocomplete_light.AutocompleteModelTemplate):
     widget_attrs = {
         'class': 'mdl_autocomplete_light',
     }
+
     def choices_for_request(self):
         user = self.request.user
-        self.choices = self.choices.filter(Q(users__user=user)|Q(owner=user)).distinct()
+        self.choices = self.choices.filter(Q(users__user=user) | Q(owner=user)).distinct()
 
         return super(ListGroupAutocomplete, self).choices_for_request()
 

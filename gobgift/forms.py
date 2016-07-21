@@ -100,18 +100,20 @@ class ListeForm(autocomplete.FutureModelForm):
 
         return cleaned_data
 
+
 class GiftForm(forms.ModelForm):
     name = CharField()
     description = TextAreaField(required=False)
     price = NumField(required=False)
     siteweb = CharField(required=False)
     store = CharField(required=False)
+
     class Meta:
         model = Gift
-        fields = ['liste','name', 'photo', 'description', 'price', 'siteweb', 'store']
+        fields = ['liste', 'name', 'photo', 'description', 'price', 'siteweb', 'store']
 
     def __init__(self, liste=None, *args, **kwargs):
-        super (GiftForm, self).__init__(*args, **kwargs)
+        super(GiftForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
 
         self.liste = liste
@@ -142,16 +144,16 @@ class GiftForm(forms.ModelForm):
             photoio.save(photo_file, 'JPEG')
             photo.file = photo_file
 
-
         return cleaned_data
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['gift','user', 'text']
+        fields = ['gift', 'user', 'text']
 
     def __init__(self, gift=None, user=None, *args, **kwargs):
-        super (CommentForm, self).__init__(*args, **kwargs)
+        super(CommentForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
 
         self.gift = gift
@@ -172,19 +174,18 @@ class CommentForm(forms.ModelForm):
             cleaned_data['gift'] = self.gift
             cleaned_data['user'] = self.user
 
-
-
         return cleaned_data
 
 
 class GroupForm(forms.ModelForm):
     name = CharField()
+
     class Meta:
         model = ListGroup
         fields = ['name', 'owner']
 
     def __init__(self, user=None, *args, **kwargs):
-        super (GroupForm, self).__init__(*args, **kwargs)
+        super(GroupForm, self).__init__(*args, **kwargs)
         self.user = user
 
         self.fields['owner'].required = False
@@ -234,11 +235,10 @@ class ListGroupUserForm(forms.ModelForm):
         else:
             cleaned_data['group'] = self.listgroup
             if not cleaned_data.get('user'):
-                raise forms.ValidationError( _('Please choose an user.'))
+                raise forms.ValidationError(_('Please choose an user.'))
             if ListGroupUser.objects.filter(group=cleaned_data['group'], user=cleaned_data['user']).exists():
-                raise forms.ValidationError( _('This user is already in the group.'))
+                raise forms.ValidationError(_('This user is already in the group.'))
             elif self.listgroup.owner == cleaned_data['user']:
-                raise forms.ValidationError( _('This user is the owner of the group'))
-
+                raise forms.ValidationError(_('This user is the owner of the group'))
 
         return cleaned_data

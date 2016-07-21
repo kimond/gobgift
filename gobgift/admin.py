@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 
+
 @admin.register(Liste)
 class ListeAdmin(admin.ModelAdmin):
     pass
@@ -13,5 +14,5 @@ class ListGroupUserInline(admin.TabularInline):
 @admin.register(ListGroup)
 class ListGroupAdmin(admin.ModelAdmin):
     inlines = [
-       ListGroupUserInline,
+        ListGroupUserInline,
     ]
