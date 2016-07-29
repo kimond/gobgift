@@ -1,6 +1,6 @@
-from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+
 from .views import *
 
 urlpatterns = [
@@ -19,7 +19,7 @@ urlpatterns = [
     # List urls
     url(r'^mylists/$', mylists, name='mylists'),
     url(r'^lists/add/$', ListCreate.as_view(), name='addList'),
-    url(r'^lists/view/(?P<pk>\d+)/$', viewlist, name='viewList'),
+    url(r'^lists/view/(?P<pk>\d+)/$', view_list, name='viewList'),
     url(r'^lists/edit/(?P<pk>\d+)/$', ListEdit.as_view(), name='editList'),
     url(r'^lists/delete/(?P<pk>\d+)/$', ListDelete.as_view(), name='deleteList'),
     url(r'^lists/(?P<liste_pk>\d+)/gift/add/$', GiftCreate.as_view(), name='addGift'),
@@ -28,13 +28,13 @@ urlpatterns = [
     url(r'^gift/edit/(?P<pk>\d+)/$', GiftEdit.as_view(), name='editGift'),
     url(r'^gift/delete/(?P<pk>\d+)/$', GiftDelete.as_view(), name='deleteGift'),
     url(r'^gift/(?P<gift_pk>\d+)/comment/add/$', CommentCreate.as_view(), name='addComment'),
-    url(r'^gift/(?P<gift_pk>\d+)/purchased/$', purchasedGift, name='purchasedGift'),
-    url(r'^gift/(?P<gift_pk>\d+)/purchased/cancel/$', cancelPurchasedGift, name='cancelPurchasedGift'),
+    url(r'^gift/(?P<gift_pk>\d+)/purchased/$', purchased_gift, name='purchasedGift'),
+    url(r'^gift/(?P<gift_pk>\d+)/purchased/cancel/$', cancel_purchased_gift, name='cancelPurchasedGift'),
 
     # Group urls
     url(r'^mygroups/$', mygroups, name='mygroups'),
     url(r'^group/add/$', GroupCreate.as_view(), name='addGroup'),
-    url(r'^group/view/(?P<pk>\d+)/$', viewGroup, name='viewGroup'),
+    url(r'^group/view/(?P<pk>\d+)/$', view_group, name='viewGroup'),
     url(r'^group/edit/(?P<pk>\d+)/$', GroupEdit.as_view(), name='editGroup'),
     url(r'^group/delete/(?P<pk>\d+)/$', GroupDelete.as_view(), name='deleteGroup'),
     url(r'^group/(?P<listgroup_pk>\d+)/user/add/$', ListGroupUserCreate.as_view(), name='addGroupUser'),

@@ -1,11 +1,10 @@
 from setuptools import setup, find_packages
 
-
 setup(
     name='gobgift',
     version="1.0",
     description='A wishlist manager application',
-    #long_description=readme,
+    # long_description=readme,
     author='Kim Desrosiers',
     author_email='kimdesro@gmail.com',
     url='http://gobgift.kimond.com',

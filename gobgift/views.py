@@ -1,4 +1,4 @@
-from gobgift.decorators import render_to
+import gobgift.decorators
 from django.contrib.auth import logout as auth_logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -39,7 +39,7 @@ def context(**extra):
     }, **extra)
 
 
-@render_to('home.html')
+@gobgift.decorators.render_to('home.html')
 def home(request):
     """Home view, displays login mechanism"""
     if request.user.is_authenticated():
@@ -48,13 +48,13 @@ def home(request):
 
 
 @login_required
-@render_to('home.html')
+@gobgift.decorators.render_to('home.html')
 def done(request):
     """Login complete view, displays user data"""
     return context()
 
 
-@render_to('home.html')
+@gobgift.decorators.render_to('home.html')
 def validation_sent(request):
     return context(
         validation_sent=True,
@@ -62,40 +62,40 @@ def validation_sent(request):
     )
 
 
-@render_to('home.html')
+@gobgift.decorators.render_to('home.html')
 def require_email(request):
     backend = request.session['partial_pipeline']['backend']
     return context(email_required=True, backend=backend)
 
 
 @login_required
-@render_to('mylists.html')
+@gobgift.decorators.render_to('mylists.html')
 def mylists(request):
     user = User.objects.get(pk=request.user.pk)
-    listsList = Liste.objects.filter(owner=user)
-    return context(lists=listsList, user=user)
+    lists_list = Liste.objects.filter(owner=user)
+    return context(lists=lists_list, user=user)
 
 
 @login_required
-@render_to('mygroups.html')
+@gobgift.decorators.render_to('mygroups.html')
 def mygroups(request):
     user = User.objects.get(pk=request.user.pk)
-    groupList = ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
-    return context(groups=groupList, user=user)
+    group_list = ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
+    return context(groups=group_list, user=user)
 
 
 @login_required
-@render_to('grouplists.html')
-def viewGroup(request, pk):
+@gobgift.decorators.render_to('grouplists.html')
+def view_group(request, pk):
     listgroup = ListGroup.objects.get(id=pk)
-    listsList = listgroup.lists.all()
+    lists_list = listgroup.lists.all()
     user = User.objects.get(pk=request.user.pk)
-    return context(listgroup=listgroup, lists=listsList, user=user)
+    return context(listgroup=listgroup, lists=lists_list, user=user)
 
 
 @login_required
-@render_to('viewList.html')
-def viewlist(request, pk):
+@gobgift.decorators.render_to('viewList.html')
+def view_list(request, pk):
     """
     View that show a list
     """
@@ -108,8 +108,8 @@ def viewlist(request, pk):
 
 
 @login_required
-@render_to('viewList.html')
-def editList(request, pk):
+@gobgift.decorators.render_to('viewList.html')
+def edit_list(request, pk):
     liste = Liste.objects.get(id=pk)
     if liste.owner != request.user:
         return redirect('home')
@@ -159,7 +159,7 @@ class ListDelete(LoginRequiredMixin, DeleteView):
 
 
 @login_required
-def purchasedGift(request, gift_pk):
+def purchased_gift(request, gift_pk):
     gift = Gift.objects.get(id=gift_pk)
     if gift.purchased:
         return redirect(gift.liste.get_view_url())
@@ -174,7 +174,7 @@ def purchasedGift(request, gift_pk):
 
 
 @login_required
-def cancelPurchasedGift(request, gift_pk):
+def cancel_purchased_gift(request, gift_pk):
     gift = Gift.objects.get(id=gift_pk)
     if not gift.purchased:
         return redirect(gift.liste.get_view_url())
@@ -233,7 +233,7 @@ class GiftDelete(LoginRequiredMixin, DeleteView):
         return self.object.liste.get_view_url()
 
     def form_valid(self, form):
-        return super(GiftEdit, self).form_valid(form)
+        return super(GiftDelete, self).form_valid(form)
 
 
 class CommentCreate(LoginRequiredMixin, CreateView):
@@ -272,7 +272,7 @@ class GroupCreate(LoginRequiredMixin, CreateView):
         return reverse('mygroups')
 
     def form_valid(self, form):
-        response = super(GroupCreate, self).form_valid(form);
+        response = super(GroupCreate, self).form_valid(form)
         return response
 
 
@@ -291,7 +291,7 @@ class GroupEdit(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         # messages.success(self.request, _('The group has been created with success.'))
-        response = super(GroupEdit, self).form_valid(form);
+        response = super(GroupEdit, self).form_valid(form)
         return response
 
 

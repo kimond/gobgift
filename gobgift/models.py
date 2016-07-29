@@ -1,8 +1,7 @@
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
-import datetime
+from django.utils.translation import ugettext_lazy as _
 
 
 class ListGroup(models.Model):
@@ -28,9 +27,9 @@ class ListGroup(models.Model):
         """
         Valide if the user has admin rights
         """
-        listGroupUser = self.users.filter(user=user)
-        if len(listGroupUser) > 0:
-            return listGroupUser[0].is_admin
+        list_group_user = self.users.filter(user=user)
+        if len(list_group_user) > 0:
+            return list_group_user[0].is_admin
         else:
             return False
 

@@ -1,12 +1,13 @@
 # from django import forms
-from django.forms.models import inlineformset_factory
-from django.contrib.auth.models import User
-from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
-from django.utils.translation import ugettext_lazy as _
-from PIL import Image
 import StringIO
-from dal import autocomplete
+
 import floppyforms.__future__ as forms
+from PIL import Image
+from dal import autocomplete
+from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
+
+from .models import ListGroup, ListGroupUser, Liste, Gift, Comment
 
 
 class TextInput(forms.TextInput):
@@ -95,7 +96,6 @@ class ListeForm(autocomplete.FutureModelForm):
 
     def clean(self):
         cleaned_data = super(ListeForm, self).clean()
-        instance = getattr(self, 'instance', None)
         cleaned_data['owner'] = self.user
 
         return cleaned_data
@@ -114,7 +114,6 @@ class GiftForm(forms.ModelForm):
 
     def __init__(self, liste=None, *args, **kwargs):
         super(GiftForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
 
         self.liste = liste
         self.fields['liste'].required = False
@@ -133,15 +132,15 @@ class GiftForm(forms.ModelForm):
         if not photo:
             return cleaned_data
         photo_file = StringIO.StringIO(photo.read())
-        photoio = Image.open(photo_file)
+        photo_io = Image.open(photo_file)
         # valid if image width is grester than 1024
-        photo_width, photo_height = photoio.size
+        photo_width, photo_height = photo_io.size
         if photo_width > 1024:
             new_width = 1024
             new_height = new_width * photo_height / photo_width
-            photoio = photoio.resize((new_width, new_height), Image.ANTIALIAS)
+            photo_io = photo_io.resize((new_width, new_height), Image.ANTIALIAS)
             photo_file = StringIO.StringIO()
-            photoio.save(photo_file, 'JPEG')
+            photo_io.save(photo_file, 'JPEG')
             photo.file = photo_file
 
         return cleaned_data
@@ -154,7 +153,6 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, gift=None, user=None, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
 
         self.gift = gift
         self.user = user
@@ -220,7 +218,6 @@ class ListGroupUserForm(forms.ModelForm):
 
     def __init__(self, listgroup=None, *args, **kwargs):
         super(ListGroupUserForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
 
         self.listgroup = listgroup
         self.fields['group'].required = False
