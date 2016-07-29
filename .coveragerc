@@ -1,0 +1,7 @@
+[run]
+include =
+    gobgift/*
+    gobgift_api/*
+omit =
+    */migrations/*
+    gobgift/settings.py
