@@ -9,7 +9,7 @@ build:
     - mkdir -p shippable/codecoverage
     - sudo apt-get install -y libjpeg-dev
     - pip install -r requirements.txt
-    - coverage run manage.py test
+    - coverage run manage.py test --with-xunit --xunit-file=shippable/testresults/nosetests.xml
     - coverage xml -o shippable/codecoverage/coverage.xml
 
   on_success:

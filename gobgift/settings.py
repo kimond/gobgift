@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'coverage',
     'rest_framework',
     'oauth2_provider',
@@ -146,3 +147,5 @@ REST_FRAMEWORK = {
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
