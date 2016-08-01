@@ -5,5 +5,6 @@ python:
 
 build:
   ci:
+    - sudo apt-get install -y libjpeg-dev
     - pip install -r requirements.txt
     - coverage run manage.py test
