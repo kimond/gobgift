@@ -11,3 +11,6 @@ build:
     - pip install -r requirements.txt
     - coverage run manage.py test
     - coverage xml -o shippable/codecoverage/coverage.xml
+
+  on_success:
+    - bash <(curl -s https://codecov.io/bash) -t cf21cbda-c20b-47d1-a1c2-13df882ecf99
