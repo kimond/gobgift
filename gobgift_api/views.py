@@ -91,8 +91,8 @@ class ListGiftList(generics.ListAPIView):
     queryset = Gift.objects.all()
 
     def list(self, request, pk=None):
-        listqueryset = Liste.objects.all()
-        wishlist = get_object_or_404(listqueryset, pk=pk)
+        list_queryset = Liste.objects.all()
+        wishlist = get_object_or_404(list_queryset, pk=pk)
         queryset = Liste.objects.get(id=pk).gift_set.all()
         serializer = self.get_serializer(queryset, many=True)
         if wishlist.owner == request.user:
@@ -108,8 +108,8 @@ class GiftCommentList(generics.ListAPIView):
     queryset = Comment.objects.all()
 
     def list(self, request, pk=None):
-        giftqueryset = Gift.objects.all()
-        gift = get_object_or_404(giftqueryset, pk=pk)
+        gift_queryset = Gift.objects.all()
+        gift = get_object_or_404(gift_queryset, pk=pk)
         queryset = Gift.objects.get(pk=pk).comment_set.all()
         serializer = self.get_serializer(queryset, many=True)
         if gift.liste.owner == request.user:

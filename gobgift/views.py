@@ -26,15 +26,12 @@ class LoginRequiredMixin(object):
 
 
 def logout(request):
-    """Logs out user"""
     auth_logout(request)
     return redirect('/')
 
 
 def context(**extra):
     return dict({
-        'plus_id': getattr(settings, 'SOCIAL_AUTH_GOOGLE_PLUS_KEY', None),
-        'plus_scope': ' '.join(GooglePlusAuth.DEFAULT_SCOPE),
         'available_backends': load_backends(settings.AUTHENTICATION_BACKENDS)
     }, **extra)
 
