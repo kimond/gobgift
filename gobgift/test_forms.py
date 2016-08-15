@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from gobgift.forms import GiftForm, ListeForm
-from gobgift.models import Liste
+from .forms import GiftForm, ListeForm
+from .models import Liste
 
 
 class ListeFormTest(TestCase):

@@ -1,16 +1,27 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from rest_framework import response
+from rest_framework import schemas
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import viewsets
 from rest_framework import generics, mixins
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import detail_route, list_route, api_view, renderer_classes
 from rest_framework.response import Response
+from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
+
 from gobgift_api.serializers import (ListeSerializer, GiftSerializer,
                                      ListGroupSerializer, CommentSerializer,
                                      ListGroupUserSerializer)
 
 from django.contrib.auth.models import User
 from gobgift.models import Liste, Gift, ListGroup, ListGroupUser, Comment
+
+
+@api_view()
+@renderer_classes([OpenAPIRenderer, SwaggerUIRenderer])
+def schema_view(request):
+    generator = schemas.SchemaGenerator(title='Gobgift API')
+    return response.Response(generator.get_schema(request=request))
 
 
 class ListGroupViewSet(viewsets.ModelViewSet):

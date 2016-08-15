@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-07 11:33-0500\n"
+"POT-Creation-Date: 2016-08-10 19:40-0400\n"
 "PO-Revision-Date: 2015-10-31 14:49-0400 \n"
 "Last-Translator: Kim Desrosiers <kimdesro@gmail.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -17,205 +17,210 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:212
+#: gobgift/forms.py:235
 msgid "Please choose an user."
 msgstr "S'il vous plaît choisir un utilisateur"
 
-#: forms.py:214
+#: gobgift/forms.py:237
 msgid "This user is already in the group."
 msgstr "Cet utilisateur est déjà dans le groupe."
 
-#: forms.py:216
+#: gobgift/forms.py:239
 msgid "This user is the owner of the group"
 msgstr "Cet utilisateur est le propriétaire du group"
 
-#: models.py:73
+#: gobgift/models.py:72
 msgid "Name"
 msgstr "Nom"
 
-#: models.py:75
+#: gobgift/models.py:74
 msgid "Description"
 msgstr ""
 
-#: models.py:76
+#: gobgift/models.py:75
 msgid "Price"
 msgstr "Prix"
 
-#: models.py:78 templates/viewList.html:57
+#: gobgift/models.py:77 gobgift/templates/viewList.html:56
 msgid "Store"
 msgstr "Magasin"
 
-#: settings.py:106
+#: gobgift/settings.py:120
 msgid "French"
 msgstr "Français"
 
-#: templates/create_edit_groupuser.html:12
+#: gobgift/templates/create_edit_groupuser.html:12
 msgid "Add group user"
 msgstr "Ajouter un groupe d'utilisateur"
 
-#: templates/create_edit_groupuser.html:32 templates/create_edit_list.html:21
+#: gobgift/templates/create_edit_groupuser.html:32
+#: gobgift/templates/create_edit_list.html:21
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/create_edit_list.html:12
+#: gobgift/templates/create_edit_list.html:12
 msgid "Add List"
 msgstr "Ajout de liste"
 
-#: templates/create_group.html:11
+#: gobgift/templates/create_group.html:11
 msgid "Add Group"
 msgstr "Ajout de groupe"
 
-#: templates/deleteGift.html:6 templates/deleteGroup.html:6
-#: templates/deleteGroupUser.html:6 templates/deleteList.html:6
+#: gobgift/templates/deleteGift.html:6 gobgift/templates/deleteGroup.html:6
+#: gobgift/templates/deleteGroupUser.html:6 gobgift/templates/deleteList.html:6
 msgid "deletion"
 msgstr "suppression"
 
-#: templates/deleteGift.html:8
+#: gobgift/templates/deleteGift.html:8
 msgid "Do you want to delete the gift "
 msgstr "Voulez-vous supprimer ce cadeau "
 
-#: templates/deleteGroup.html:8
+#: gobgift/templates/deleteGroup.html:8
 msgid "Do you want to delete the group "
 msgstr "Voulez-vous supprimer le groupe "
 
-#: templates/deleteGroupUser.html:8
+#: gobgift/templates/deleteGroupUser.html:8
 msgid "Do you want to remove the user"
 msgstr "Voulez-vous retirer cet utilisateur"
 
-#: templates/deleteGroupUser.html:8
+#: gobgift/templates/deleteGroupUser.html:8
 msgid "from the group"
 msgstr "du groupe"
 
-#: templates/deleteList.html:8
+#: gobgift/templates/deleteList.html:8
 msgid "Do you want to delete the list "
 msgstr "Voulez-vous supprimer la liste "
 
-#: templates/edit_group.html:23
+#: gobgift/templates/edit_group.html:22
 msgid "User"
 msgstr "Utilisateur"
 
-#: templates/edit_group.html:24
+#: gobgift/templates/edit_group.html:23
 msgid "Administrator"
 msgstr "Administrateur"
 
-#: templates/edit_group.html:48
+#: gobgift/templates/edit_group.html:47
 msgid "add user to the group"
 msgstr "Ajout d'utilisateur au groupe"
 
-#: templates/gobgift/_layout.html:31 templates/gobgift/_layout.html.py:43
+#: gobgift/templates/gobgift/_layout.html:33
+#: gobgift/templates/gobgift/_layout.html:45
 msgid "Home"
 msgstr "Accueil"
 
-#: templates/gobgift/_layout.html:32 templates/gobgift/_layout.html.py:44
-#: templates/home.html:18 templates/mygroups.html:9
+#: gobgift/templates/gobgift/_layout.html:34
+#: gobgift/templates/gobgift/_layout.html:46 gobgift/templates/home.html:18
+#: gobgift/templates/mygroups.html:8
 msgid "My groups"
 msgstr "Mes groupes"
 
-#: templates/gobgift/_layout.html:33 templates/gobgift/_layout.html.py:45
-#: templates/home.html:19 templates/mylists.html:8
+#: gobgift/templates/gobgift/_layout.html:35
+#: gobgift/templates/gobgift/_layout.html:47 gobgift/templates/home.html:19
+#: gobgift/templates/mylists.html:7
 msgid "My lists"
 msgstr "Mes listes"
 
-#: templates/gobgift/_layout.html:34 templates/gobgift/_layout.html.py:46
+#: gobgift/templates/gobgift/_layout.html:36
+#: gobgift/templates/gobgift/_layout.html:48
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: templates/gobgift/form_layout/numinput.html:6
+#: gobgift/templates/gobgift/form_layout/numinput.html:6
 msgid "Input is not a number!"
 msgstr "L'entré n'est pas un nombre!"
 
-#: templates/grouplists.html:8
+#: gobgift/templates/grouplists.html:7
 msgid "Lists of the group"
 msgstr "Listes du groupe"
 
-#: templates/grouplists.html:9 templates/viewList.html:29
-#: templates/viewList.html.py:31
+#: gobgift/templates/grouplists.html:8 gobgift/templates/viewList.html:28
+#: gobgift/templates/viewList.html:30
 msgid "Back"
 msgstr "Retour"
 
-#: templates/home.html:10
+#: gobgift/templates/home.html:10
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: templates/home.html:12
+#: gobgift/templates/home.html:12
 msgid "Please sign in with Facebook to begin!"
 msgstr "S'il vous plaît connectez vous avec Facebook pour commencer!"
 
-#: templates/home.html:31
+#: gobgift/templates/home.html:32
 msgid "Sign in with Facebook"
 msgstr "Connexion avec Facebook"
 
-#: templates/mygroups.html:10
+#: gobgift/templates/mygroups.html:9
 msgid "Create a group"
 msgstr "Créer un groupe"
 
-#: templates/mygroups.html:21
+#: gobgift/templates/mygroups.html:20
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: templates/mygroups.html:22
+#: gobgift/templates/mygroups.html:21
 msgid "Members"
 msgstr "Membres"
 
-#: templates/mygroups.html:25
+#: gobgift/templates/mygroups.html:24
 msgid "Show lists"
 msgstr "Afficher les listes"
 
-#: templates/mygroups.html:27 templates/mylists.html:20
-#: templates/viewList.html:61
+#: gobgift/templates/mygroups.html:26 gobgift/templates/mylists.html:24
+#: gobgift/templates/viewList.html:60
 msgid "Edit"
 msgstr "Modifier"
 
-#: templates/mygroups.html:30 templates/mylists.html:21
-#: templates/viewList.html:62
+#: gobgift/templates/mygroups.html:29 gobgift/templates/mylists.html:25
+#: gobgift/templates/viewList.html:61
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/mylists.html:9
+#: gobgift/templates/mylists.html:8
 msgid "create a new list"
 msgstr "Créer une nouvelle liste"
 
-#: templates/mylists.html:17
+#: gobgift/templates/mylists.html:19
 msgid "Groups"
 msgstr "Groupes"
 
-#: templates/viewList.html:27
+#: gobgift/templates/viewList.html:26
 msgid "List"
 msgstr "Liste"
 
-#: templates/viewList.html:34
+#: gobgift/templates/viewList.html:33
 msgid "add gift"
 msgstr "ajout d'un cadeau"
 
-#: templates/viewList.html:47
+#: gobgift/templates/viewList.html:46
 msgid "Purchased by "
 msgstr "Acheté par "
 
-#: templates/viewList.html:56
+#: gobgift/templates/viewList.html:55
 msgid "Website"
 msgstr "Site web"
 
-#: templates/viewList.html:66
+#: gobgift/templates/viewList.html:65
 msgid "purchased"
 msgstr "acheté"
 
-#: templates/viewList.html:68
+#: gobgift/templates/viewList.html:67
 msgid "cancel purchase"
 msgstr "Annuler l'achat"
 
-#: templates/viewList.html:70
+#: gobgift/templates/viewList.html:69
 msgid "already purchased"
 msgstr "déjà acheté"
 
-#: templates/viewList.html:73
+#: gobgift/templates/viewList.html:72
 msgid "comments"
 msgstr "Commentaires"
 
-#: templates/viewList.html:74
+#: gobgift/templates/viewList.html:73
 msgid "hide comments"
 msgstr "Cacher les commentaires"
 
-#: templates/viewList.html:84
+#: gobgift/templates/viewList.html:83
 msgid "write a comment"
 msgstr "Écrire un commentaire"
 

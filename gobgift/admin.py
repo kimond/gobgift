@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(Liste)
 class ListeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'owner')
 
 
 class ListGroupUserInline(admin.TabularInline):
@@ -13,6 +13,7 @@ class ListGroupUserInline(admin.TabularInline):
 
 @admin.register(ListGroup)
 class ListGroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'owner')
     inlines = [
         ListGroupUserInline,
     ]

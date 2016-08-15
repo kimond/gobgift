@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from gobgift.models import ListGroup, Liste, Gift, ListGroupUser
+from .models import ListGroup, Liste, Gift, ListGroupUser
 
 
 class ListGroupTest(TestCase):

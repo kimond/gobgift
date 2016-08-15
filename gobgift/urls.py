@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from gobgift_api.views import schema_view
 from .views import *
 
 urlpatterns = [
@@ -45,7 +46,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-oauth/', include('rest_framework_social_oauth2.urls')),
     url(r'^api-oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url(r'^docs/', include('rest_framework_swagger.urls')),
+    url(r'^docs/', schema_view),
 
     # Django autocomplete light
     url(r'^user-autocomplete/$', UserAutocomplete.as_view(),
