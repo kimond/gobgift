@@ -11,7 +11,7 @@
     </div>
         <div class="mdl-grid mdl-grid--no-spacing container-grid container-grid-padding-top">
         <ul class="mdl-list" style="width:100%">
-        {% for list in lists %}
+        {% for list in object_list %}
             <div class="mdl-list__item mdl-list__item--two-line list-card" onclick="javascript:location.href='{{list.get_view_url}}'">
               <span class="mdl-list__item-primary-content">
                 <span>{{list.name}}</span>

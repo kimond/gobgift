@@ -1,21 +1,16 @@
-import gobgift.decorators
-from django.contrib.auth import logout as auth_logout, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.shortcuts import redirect
 from django.conf import settings
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
-from dal import autocomplete
-
-from .models import ListGroup, Liste, Gift, Comment, Purchase
-from .forms import *
-
-from social.backends.oauth import BaseOAuth1, BaseOAuth2
-from social.backends.google import GooglePlusAuth
+from django.shortcuts import redirect
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from social.backends.utils import load_backends
-from social.apps.django_app.utils import psa
+
+import gobgift.decorators
+from .forms import *
+from .models import Purchase
 
 
 class LoginRequiredMixin(object):
@@ -65,20 +60,22 @@ def require_email(request):
     return context(email_required=True, backend=backend)
 
 
-@login_required
-@gobgift.decorators.render_to('mylists.html')
-def mylists(request):
-    user = User.objects.get(pk=request.user.pk)
-    lists_list = Liste.objects.filter(owner=user)
-    return context(lists=lists_list, user=user)
+class MyLists(LoginRequiredMixin, ListView):
+    model = Liste
+    template_name = 'mylists.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return ListGroup.objects.filter(owner=user).distinct()
 
 
-@login_required
-@gobgift.decorators.render_to('mygroups.html')
-def mygroups(request):
-    user = User.objects.get(pk=request.user.pk)
-    group_list = ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
-    return context(groups=group_list, user=user)
+class MyGroups(LoginRequiredMixin, ListView):
+    model = ListGroup
+    template_name = 'mygroups.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
 
 
 @login_required

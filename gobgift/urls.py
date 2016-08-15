@@ -5,9 +5,6 @@ from gobgift_api.views import schema_view
 from .views import *
 
 urlpatterns = [
-    # Examples:
-    # url(r'^$', 'gobgift.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', home, name="home"),
     url(r'^login/$', home),
@@ -18,7 +15,7 @@ urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
 
     # List urls
-    url(r'^mylists/$', mylists, name='mylists'),
+    url(r'^mylists/$', MyLists.as_view(), name='mylists'),
     url(r'^lists/add/$', ListCreate.as_view(), name='addList'),
     url(r'^lists/view/(?P<pk>\d+)/$', view_list, name='viewList'),
     url(r'^lists/edit/(?P<pk>\d+)/$', ListEdit.as_view(), name='editList'),
@@ -33,7 +30,7 @@ urlpatterns = [
     url(r'^gift/(?P<gift_pk>\d+)/purchased/cancel/$', cancel_purchased_gift, name='cancelPurchasedGift'),
 
     # Group urls
-    url(r'^mygroups/$', mygroups, name='mygroups'),
+    url(r'^mygroups/$', MyGroups.as_view(), name='mygroups'),
     url(r'^group/add/$', GroupCreate.as_view(), name='addGroup'),
     url(r'^group/view/(?P<pk>\d+)/$', view_group, name='viewGroup'),
     url(r'^group/edit/(?P<pk>\d+)/$', GroupEdit.as_view(), name='editGroup'),
