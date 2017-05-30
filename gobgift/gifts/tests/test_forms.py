@@ -7,7 +7,7 @@ from gobgift.wishlists.models import Wishlist
 pytestmark = pytest.mark.django_db
 
 
-class GiftFormTest:
+class TestGiftForm:
     @pytest.fixture()
     def user(self):
         return get_user_model().objects.create_user('Tester')

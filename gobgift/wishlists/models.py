@@ -24,7 +24,7 @@ class Wishlist(models.Model):
     def get_addgift_url(self):
         return reverse('lists:addGift', kwargs={'liste_pk': self.id})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
