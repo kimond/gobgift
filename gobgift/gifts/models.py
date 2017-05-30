@@ -33,7 +33,7 @@ class Gift(models.Model):
     def get_cancelpurchased_url(self):
         return reverse('gifts:cancelPurchased', kwargs={'gift_pk': self.id})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 

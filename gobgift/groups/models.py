@@ -9,7 +9,7 @@ class ListGroup(models.Model):
     name = models.CharField(max_length=150)
     owner = models.ForeignKey(User)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_view_url(self):
@@ -43,5 +43,5 @@ class ListGroupUser(models.Model):
     def get_delete_url(self):
         return reverse('deleteGroupUser', kwargs={'pk': self.id})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.first_name + " " + self.user.last_name

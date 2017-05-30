@@ -5,7 +5,7 @@ from ..forms import WishlistForm
 pytestmark = pytest.mark.django_db
 
 
-class WishlistFormTest:
+class TestWishlistForm:
     @pytest.fixture()
     def user(self):
         return get_user_model().objects.create_user('Tester')
