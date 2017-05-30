@@ -2,6 +2,9 @@ language: python
 python:
   - "3.6"
 install:
-  - pip install pipenv
+  - pip install pipenv codecov
   - pipenv install --dev
-script: pipenv run pytest
+script: pipenv run pytest --cov
+
+after_success:
+  - codecov
