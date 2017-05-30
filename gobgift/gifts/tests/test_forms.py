@@ -1,20 +1,23 @@
+import pytest
 from django.contrib.auth import get_user_model
-from django.test import TestCase
 
 from gobgift.gifts.forms import GiftForm
 from gobgift.wishlists.models import Wishlist
 
+pytestmark = pytest.mark.django_db
 
-class GiftFormTest(TestCase):
-    def setUp(self):
-        self.user = get_user_model().objects.create_user('Tester')
-        self.wishlist = Wishlist.objects.create(name="test", owner=self.user)
 
-    def test_init(self):
-        GiftForm(wishlist=self.wishlist)
+class GiftFormTest:
+    @pytest.fixture()
+    def user(self):
+        return get_user_model().objects.create_user('Tester')
 
-    def test_valid_data(self):
-        form = GiftForm(self.wishlist, {
+    @pytest.fixture()
+    def wishlist(self, user):
+        return Wishlist.objects.create(name="test", owner=user)
+
+    def test_valid_data(self, wishlist):
+        form = GiftForm(wishlist, {
             'name': 'supergift',
             'photo': None,
             'description': 'Gift to test',
@@ -22,6 +25,6 @@ class GiftFormTest(TestCase):
             'store': None,
             'siteweb': None
         })
-        self.assertTrue(form.is_valid())
+        assert form.is_valid()
         gift = form.save()
-        self.assertEquals(gift.name, "supergift")
+        assert gift.name == "supergift"
