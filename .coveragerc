@@ -4,4 +4,4 @@ include =
     gobgift_api/*
 omit =
     */migrations/*
-    gobgift/settings.py
+    config/*

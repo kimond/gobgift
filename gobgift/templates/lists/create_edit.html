@@ -1,0 +1,25 @@
+{% extends "_layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load floppyforms %}
+{%block content%}
+<script type="text/javascript" src="{% static "lib/jquery-1.11.3.js" %}"></script>
+<script type="text/javascript" src="{% static "lib/jquery.formset-1.1/jquery.formset.min.js" %}"></script>
+{{form.media}}
+    <div class="page-header mdl-shadow--2dp">
+        <div class="mdl-grid container-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <h3 class="page-header-title">GobGift > {% trans "Add List" %}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-grid container-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form }}
+                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
+            </form>
+      </div>
+    </div>
+{% endblock %}

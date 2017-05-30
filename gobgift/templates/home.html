@@ -1,171 +1,39 @@
-{% extends "gobgift/_layout.html" %}
+{% extends "_layout.html" %}
 {% load i18n %}
-{% load backend_utils %}
+{% load socialaccount %}
 {% block content %}
+    {% providers_media_js %}
     <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--3-col"></div>
-                <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
-                    <div class="mdl-card__title">
-                        {% if user.is_authenticated %}
-                        <h2 class="mdl-card__title-text">{% trans "Welcome" %}&nbsp; <i>{{ user.first_name }} {{user.last_name}}</i> !</h2>
-                        {%else%}
-                        <h2 class="mdl-card__title-text">{% trans "Please sign in with Facebook to begin!" %}</h2>
-                        {% endif %}
-                    </div>
-                    <div class="mdl-card__supporting-text ">
-                        {% if user.is_authenticated %}
-                        <ul class="mainmenu">
-                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mygroups" %}">{% trans "My groups" %} </a></li>
-                            <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url "mylists"%}">{% trans "My lists" %} </a></li>
-                        </ul>
-                        {% endif %}
-                        {% for sublist in available_backends|social_backends %}
-                        <div class="row">
-                            {% for name, backend in sublist %}
-                            {% if name == "facebook" %}
-                            {% associated backend %}
-                            {% if association %}
-                            {% else %}
-                            <a class="mdl-button mdl-js-button facebook-btn" name="{{ backend|backend_class }}" href="{% url "social:begin" backend=name %}">
-                                <i class="fa fa-{{ name|icon_name }}"></i>
-                                {# {{ backend|backend_name }} #}
-                                {%trans "Sign in with Facebook" %}
-                            </a>
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/media/gobgift.apk">Download Android version 0.1</a> 
-                    </div>
-                </div>
-
-    {% if backend %}
-      <div id="email-required-modal" class="modal fade">
-        <form action="{% url "social:complete" backend=backend %}" method="post" role="form">{% csrf_token %}
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Email required</h4>
-              </div>
-
-              <div class="modal-body">
-                <p>An email address is required.</p>
-                <div class="form-group">
-                  <label class="control-label" for="email">Email address:</label>
-                  <input class="form-control" id="email" type="email" name="email" value="" />
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Continue</button>
-              </div>
+    <div class="mdl-cell mdl-cell--3-col"></div>
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
+        <div class="mdl-card__title">
+            {% if user.is_authenticated %}
+                <h2 class="mdl-card__title-text">{% trans "Welcome" %}&nbsp;
+                    <i>{{ user.first_name }} {{ user.last_name }}</i> !</h2>
+            {% else %}
+                <h2 class="mdl-card__title-text">{% trans "Please sign in with Facebook to begin!" %}</h2>
+            {% endif %}
+        </div>
+        <div class="mdl-card__supporting-text ">
+            {% if user.is_authenticated %}
+                <ul class="mainmenu">
+                    <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                           href="{% url "groups:mygroups" %}">{% trans "My groups" %} </a></li>
+                    <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                           href="{% url "lists:mylists" %}">{% trans "My lists" %} </a></li>
+                </ul>
+            {% endif %}
+            <div class="row">
+                <a class="mdl-button mdl-js-button facebook-btn" name="facebook"
+                   href="{% provider_login_url "facebook" method="js_sdk" %}">
+                    <i class="fa fa-facebook"></i>
+                    {% trans "Sign in with Facebook" %}
+                </a>
             </div>
-          </div>
-        </form>
-      </div>
-    {% endif %}
-
-    {# <div id="validation-sent-modal" class="modal fade"> #}
-    {#   <div class="modal-dialog"> #}
-    {#     <div class="modal-content"> #}
-    {#       <div class="modal-header"> #}
-    {#         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> #}
-    {#         <h4 class="modal-title">Email Validation Sent</h4> #}
-    {#       </div> #}
-    {#  #}
-    {#       <div class="modal-body"> #}
-    {#         <p>An email validation was sent{% if email %} to <code>{{ email }}</code>{% endif %}.</p> #}
-    {#         <p>Click the link sent to finish the authentication process.</p> #}
-    {#       </div> #}
-    {#  #}
-    {#       <div class="modal-footer"> #}
-    {#         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> #}
-    {#       </div> #}
-    {#     </div> #}
-    {#   </div> #}
-    {# </div> #}
-
-    <script type="text/javascript">
-      var signInCallback = function (result) {
-          if (result['error']) {
-            alert('An error happened:', result['error']);
-          } else {
-            $('#code').attr('value', result['code']);
-            $('#at').attr('value', result['access_token']);
-            $('#google-plus').submit();
-          }
-      };
-
-      var modalDialog = function (modalId, modalLinkName, submitHandler) {
-        var $modal;
-
-        $modal = $(modalId).modal({show: false});
-
-        $modal.on('click', '.btn-primary', submitHandler || function (event) {
-          event.preventDefault();
-          $modal.find('form').submit();
-        });
-
-        if (modalLinkName) {
-          $('a[name="' + modalLinkName + '"]').on('click', function (event) {
-            event.preventDefault();
-            $modal.modal('toggle');
-          });
-        }
-
-        return $modal;
-      };
-
-      $(function () {
-        var $validationModal, $emailRequired;
-
-        modalDialog('#livejournal-modal', 'livejournal');
-        modalDialog('#openid-modal', 'openid');
-        modalDialog('#email-modal', 'email');
-        modalDialog('#username-modal', 'username');
-        $validationModal = modalDialog('#validation-sent-modal');
-        $emailRequired = modalDialog('#email-required-modal');
-
-        modalDialog('#ajax-login-modal', 'ajax-login', function (event) {
-          var $backend, $accessToken, $accessTokenSecret, $fields, $result;
-          event.preventDefault();
-
-          $modal = $(this).closest('.modal');
-          $form = $modal.find('form');
-          $backend = $modal.find('[name="backend"]');
-          $accessToken = $modal.find('[name="access_token"]');
-          $accessTokenSecret = $modal.find('[name="access_token_secret"]');
-          $result = $modal.find('.login-result');
-
-          $.get('/ajax-auth/' + $backend.val() + '/', {
-            access_token: $accessToken.val(),
-            access_token_secret: $accessTokenSecret.val(),
-          }, function (data, xhr, response) {
-            $result.find('.user-id').html(data.id);
-            $result.find('.user-username').html(data.username);
-            $form.hide();
-            $result.show();
-            setTimeout(function () { window.location = '/'; }, 10000);
-          }, 'json')
-        });
-
-        $('.disconnect-form').on('click', 'a.btn', function (event) {
-          event.preventDefault();
-          $(event.target).closest('form').submit();
-        });
-
-        {% if validation_sent %}
-          $validationModal.modal('show');
-        {% endif %}
-
-        {% if email_required %}
-          $emailRequired.modal('show');
-        {% endif %}
-      });
-    </script>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/media/gobgift.apk">Download
+                Android version 0.1</a>
+        </div>
+    </div>
 {% endblock %}

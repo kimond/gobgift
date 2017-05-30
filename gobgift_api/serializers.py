@@ -1,12 +1,15 @@
 from rest_framework import serializers
-from gobgift.models import Liste, ListGroup, ListGroupUser, Gift, Comment
+
+from gobgift.gifts.models import Gift, Comment
+from gobgift.groups.models import ListGroup, ListGroupUser
+from gobgift.wishlists.models import Wishlist
 
 
 class ListeSerializer(serializers.ModelSerializer):
     owner = serializers.StringRelatedField()
 
     class Meta:
-        model = Liste
+        model = Wishlist
         fields = ('id', 'owner', 'name', 'groups')
 
 

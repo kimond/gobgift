@@ -4,3 +4,7 @@
 media/*
 static/*
 /.coverage
+
+# Env file
+/config/settings/.env
+/.cache/

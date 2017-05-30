@@ -1,0 +1,22 @@
+{% extends "_layout.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{%block content%}
+<script type="text/javascript">
+</script>
+    <div class="page-header mdl-shadow--2dp">
+        <div class="mdl-grid container-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <h5 class="page-header-title">GobGift > {% trans "Add Group" %}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-grid container-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form }}
+                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
+            </form>
+      </div>
+    </div>
+{% endblock %}

@@ -9,12 +9,14 @@ from rest_framework.decorators import detail_route, list_route, api_view, render
 from rest_framework.response import Response
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
+from gobgift.gifts.models import Gift, Comment
+from gobgift.groups.models import ListGroup, ListGroupUser
+from gobgift.wishlists.models import Wishlist
 from gobgift_api.serializers import (ListeSerializer, GiftSerializer,
                                      ListGroupSerializer, CommentSerializer,
                                      ListGroupUserSerializer)
 
 from django.contrib.auth.models import User
-from gobgift.models import Liste, Gift, ListGroup, ListGroupUser, Comment
 
 
 @api_view()
@@ -46,7 +48,7 @@ class ListGroupList(generics.ListAPIView):
     List the lists of a listgroup
     """
     serializer_class = ListeSerializer
-    queryset = Liste.objects.all()
+    queryset = Wishlist.objects.all()
 
     def list(self, request, pk=None):
         queryset = ListGroup.objects.get(id=pk).lists.all()
@@ -64,14 +66,14 @@ class ListeViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing list instances.
     """
     serializer_class = ListeSerializer
-    queryset = Liste.objects.none()
+    queryset = Wishlist.objects.none()
 
     def list(self, request):
         """
         List the user's lists
         """
         user = User.objects.get(pk=request.user.pk)
-        my_lists = Liste.objects.filter(owner=user)
+        my_lists = Wishlist.objects.filter(owner=user)
         serializer = self.get_serializer(my_lists, many=True)
         return Response(serializer.data)
 
@@ -102,9 +104,9 @@ class ListGiftList(generics.ListAPIView):
     queryset = Gift.objects.all()
 
     def list(self, request, pk=None):
-        list_queryset = Liste.objects.all()
+        list_queryset = Wishlist.objects.all()
         wishlist = get_object_or_404(list_queryset, pk=pk)
-        queryset = Liste.objects.get(id=pk).gift_set.all()
+        queryset = Wishlist.objects.get(id=pk).gift_set.all()
         serializer = self.get_serializer(queryset, many=True)
         if wishlist.owner == request.user:
             serializer = self.get_serializer(queryset, many=True, exclude_purchase=True)

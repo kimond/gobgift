@@ -1,0 +1,156 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "4e573c27081e14a66509ed2ca0729d57a2a5e944c4bf03ddebdbb40d927e138e"
+        },
+        "requires": {},
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "Django": {
+            "version": "==1.10.4"
+        },
+        "Jinja2": {
+            "version": "==2.9.6"
+        },
+        "Markdown": {
+            "version": "==2.6.6"
+        },
+        "MarkupSafe": {
+            "version": "==1.0"
+        },
+        "Pillow": {
+            "version": "==3.3.0"
+        },
+        "PyJWT": {
+            "version": "==1.4.2"
+        },
+        "PyYAML": {
+            "version": "==3.11"
+        },
+        "appdirs": {
+            "version": "==1.4.3"
+        },
+        "coreapi": {
+            "version": "==1.32.0"
+        },
+        "coreschema": {
+            "version": "==0.0.4"
+        },
+        "coverage": {
+            "version": "==4.2"
+        },
+        "defusedxml": {
+            "version": "==0.4.1"
+        },
+        "django-autocomplete-light": {
+            "version": "==3.1.8"
+        },
+        "django-braces": {
+            "version": "==1.9.0"
+        },
+        "django-environ": {
+            "version": "==0.4.1"
+        },
+        "django-filter": {
+            "version": "==0.14.0"
+        },
+        "django-floppyforms": {
+            "version": "==1.6.2"
+        },
+        "django-nose": {
+            "version": "==1.4.4"
+        },
+        "django-oauth-toolkit": {
+            "version": "==0.10.0"
+        },
+        "django-rest-framework-social-oauth2": {
+            "version": "==1.0.4"
+        },
+        "django-rest-swagger": {
+            "version": "==2.0.3"
+        },
+        "djangorestframework": {
+            "version": "==3.4.4"
+        },
+        "itypes": {
+            "version": "==1.1.0"
+        },
+        "nose": {
+            "version": "==1.3.7"
+        },
+        "oauthlib": {
+            "version": "==1.1.2"
+        },
+        "openapi-codec": {
+            "version": "==1.0.0"
+        },
+        "packaging": {
+            "version": "==16.8"
+        },
+        "py": {
+            "version": "==1.4.31"
+        },
+        "pyparsing": {
+            "version": "==2.2.0"
+        },
+        "pytest": {
+            "version": "==3.0.4"
+        },
+        "pytest-django": {
+            "version": "==3.1.2"
+        },
+        "python-openid": {
+            "version": "==2.2.5"
+        },
+        "python-social-auth": {
+            "version": "==0.2.20"
+        },
+        "python3-openid": {
+            "version": "==3.1.0"
+        },
+        "pytz": {
+            "version": "==2017.2"
+        },
+        "requests": {
+            "version": "==2.11.0"
+        },
+        "requests-oauthlib": {
+            "version": "==0.6.2"
+        },
+        "setuptools": {
+            "version": "==35.0.2"
+        },
+        "simplejson": {
+            "version": "==3.8.2"
+        },
+        "six": {
+            "version": "==1.10.0"
+        },
+        "social-auth-core": {
+            "version": "==1.3.0"
+        },
+        "uritemplate": {
+            "version": "==0.6"
+        }
+    },
+    "develop": {
+        "Django": {
+            "version": "==1.11.1"
+        },
+        "django-debug-toolbar": {
+            "version": "==1.8"
+        },
+        "pytz": {
+            "version": "==2017.2"
+        },
+        "sqlparse": {
+            "version": "==0.2.3"
+        }
+    }
+}
