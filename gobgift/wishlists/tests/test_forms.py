@@ -1,18 +1,17 @@
+import pytest
 from django.contrib.auth import get_user_model
-from django.test import TestCase
-
 from ..forms import WishlistForm
 
+pytestmark = pytest.mark.django_db
 
-class WishlistFormTest(TestCase):
-    def setUp(self):
-        self.user = get_user_model().objects.create_user('Tester')
 
-    def test_init(self):
-        WishlistForm(self.user)
+class WishlistFormTest:
+    @pytest.fixture()
+    def user(self):
+        return get_user_model().objects.create_user('Tester')
 
-    def test_valid_data(self):
-        form = WishlistForm(self.user, {'name': "My List"})
-        self.assertTrue(form.is_valid())
+    def test_valid_data(self, user):
+        form = WishlistForm(user, {'name': "My List"})
+        assert form.is_valid()
         wishlist = form.save()
-        self.assertEquals(wishlist.name, "My List")
+        assert wishlist.name, "My List"
