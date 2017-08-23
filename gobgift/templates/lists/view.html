@@ -2,100 +2,124 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block content  %}
-    <link type="text/css" rel="stylesheet" href="{% static "lib/animate.css" %}" />
+{% block content %}
+    <link type="text/css" rel="stylesheet" href="{% static "lib/animate.css" %}"/>
     <script type="text/javascript">
-        function show_comment_div(divId){
-            $("#hide_comment_btn_"+divId).removeClass('hide');
-            $("#show_comment_btn_"+divId).addClass('hide');
-            $("#comment_section_container_"+divId).removeClass('hide');
-            $("#comment_section_"+divId).removeClass('hide');
-            $("#comment_section_container_"+divId).addClass('animated fadeIn');
-            $("#comment_section_"+divId).addClass('animated fadeInDown');
+        function show_comment_div(divId) {
+            $("#hide_comment_btn_" + divId).removeClass('hide');
+            $("#show_comment_btn_" + divId).addClass('hide');
+            $("#comment_section_container_" + divId).removeClass('hide');
+            $("#comment_section_" + divId).removeClass('hide');
+            $("#comment_section_container_" + divId).addClass('animated fadeIn');
+            $("#comment_section_" + divId).addClass('animated fadeInDown');
         }
-        function hide_comment_div(divId){
-            $("#show_comment_btn_"+divId).removeClass('hide');
-            $("#hide_comment_btn_"+divId).addClass('hide');
-            $("#comment_section_container_"+divId).addClass('hide');
-            $("#comment_section_"+divId).addClass('hide');
+
+        function hide_comment_div(divId) {
+            $("#show_comment_btn_" + divId).removeClass('hide');
+            $("#hide_comment_btn_" + divId).addClass('hide');
+            $("#comment_section_container_" + divId).addClass('hide');
+            $("#comment_section_" + divId).addClass('hide');
         }
     </script>
     <div class="page-header mdl-shadow--2dp">
         <div class="mdl-grid container-grid">
-                <div class="mdl-cell mdl-cell--12-col">
-                    <h5 class="page-header-title">{% trans "List" %} {{liste.name}}  <small> | {{liste.owner.first_name}} {{liste.owner.last_name}}</small></h5>
-                    {% if from_group %}
-                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'groups:view' from_group %}">{% trans "Back" %}</a>
-                    {% else %}
-                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{% url 'lists:mylists' %}">{% trans "Back" %}</a>
-                    {% endif %}
-                    {% if liste.owner.pk == user.pk %}
-                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href="{{liste.get_addgift_url}}"><i class="mdi-content-add right"></i>{% trans "add gift" %}</a>
-                    {% endif %}
-                </div>
+            <div class="mdl-cell mdl-cell--12-col">
+                <h5 class="page-header-title">{% trans "List" %} {{ liste.name }}
+                    <small> | {{ liste.owner.first_name }} {{ liste.owner.last_name }}</small>
+                </h5>
+                {% if from_group %}
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                       href="{% url 'groups:view' from_group %}">{% trans "Back" %}</a>
+                {% else %}
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
+                       href="{% url 'lists:mylists' %}">{% trans "Back" %}</a>
+                {% endif %}
+            </div>
         </div>
     </div>
-        <div class="mdl-grid list_gifts_grid">
+    <div class="mdl-grid list_gifts_grid">
         {% for gift in liste.gift_set.all %}
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--top gift-card {% if liste.owner.pk != user.pk and gift.purchased %}mdl-color--yellow-50{% endif %}">
-            <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text">{{gift.name}} </h2><div class="mdl-card__title-text price-text">{% if gift.price %}{{gift.price}}${% endif %}</div>
-            </div>
-            <div class="mdl-card__supporting-text">
-                {% if liste.owner.pk != user.pk and gift.purchased %}
-                <h4>{% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{gift.purchase.first.user.last_name}}</h4>
-                {% endif %}
-                {% if gift.photo %}
-                <a href="{{gift.photo.url}}" ><img class="gift-photo" src="{{gift.photo.url}}" alt="{{gift.photo.name}}"></a>
-                {% endif %}
-                <p>{% if gift.description %}
-                    <b>Description</b> <br/>
-                    {{gift.description}}{% endif %}
-                </p>
-                <p>{% if gift.siteweb %}<b>{% trans "Website" %}:</b> <a href="{{gift.website}}">{{gift.website}}</a>{% endif %}</p>
-                <p>{% if gift.store %}<b>{% trans "Store" %}:</b> {{gift.store}}{% endif %}</p>
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                {% if liste.owner.pk == user.pk %}
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_edit_url}}">{% trans "Edit" %}</a>
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_delete_url}}">{% trans "Delete" %}</a>
-                {% endif %}
-                {% if liste.owner.pk != user.pk %}
-                {% if not gift.purchased %}
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_purchased_url}}">{% trans "purchased" %}</a>
-                {% elif gift.purchased and gift.purchase.first.user == user %}
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{gift.get_cancelpurchased_url}}">{% trans "cancel purchase" %}</a>
-                {% else %}
-                <a class="mdl-button mdl-button--colored mdl-js-button" disabled href="{{gift.get_purchased_url}}">{% trans "already purchased" %}</a>
-                {% endif %}
-                <span class="mdl-badge comment-badge" data-badge="{{gift.comment_set.count}}">
-                    <a  id="show_comment_btn_{{gift.pk}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="show_comment_div('{{gift.pk}}')">{% trans "comments" %}</a>
-                    <a id="hide_comment_btn_{{gift.pk}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect hide" onclick="hide_comment_div('{{gift.pk}}')">{% trans "hide comments" %}</a>
-                </span>
-                {% endif %}
-            </div>
-            {% if liste.owner.pk != user.pk %}
-            <div id="comment_section_container_{{gift.pk}}" class="mdl-card__supporting-text comments-section hide">
-                <div id="comment_section_{{gift.pk}}" class="hide">
-                <form method="post" action="{{gift.get_addcomment_url}}">{% csrf_token %}
-                    <div class="mdl-textfield mdl-js-textfield add-comment-input">
-                        <input class="mdl-textfield__input" type="text" name="text" id="comment_text_{{gift.pk}}" />
-                        <label class="mdl-textfield__label" for="comment_text_{{gift.pk}}">{% trans "write a comment" %}</label>
-                    </div>
-                    <button class="mdl-button mdl-js-button mdl-button--fab confirm-add-comment-btn">
-                        <i class="material-icons">add</i>
-                    </button>
-                </form>
-                {% for comment in gift.comment_set.all %}
-                <p>
-                <i>{{comment.user}} <span class="comment-date">{{comment.datetime}}</span></i><br/>
-                {{comment.text}}
-                </p>
-                {% endfor %}
+                <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">{{ gift.name }} </h2>
+                    <div class="mdl-card__title-text price-text">{% if gift.price %}{{ gift.price }}${% endif %}</div>
                 </div>
+                <div class="mdl-card__supporting-text">
+                    {% if liste.owner.pk != user.pk and gift.purchased %}
+                        <h4>
+                            {% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{ gift.purchase.first.user.last_name }}</h4>
+                    {% endif %}
+                    {% if gift.photo %}
+                        <a href="{{ gift.photo.url }}"><img class="gift-photo" src="{{ gift.photo.url }}"
+                                                            alt="{{ gift.photo.name }}"></a>
+                    {% endif %}
+                    <p>{% if gift.description %}
+                        <b>Description</b> <br/>
+                        {{ gift.description }}{% endif %}
+                    </p>
+                    <p>{% if gift.siteweb %}<b>{% trans "Website" %}:</b>
+                        <a href="{{ gift.website }}">{{ gift.website }}</a>{% endif %}</p>
+                    <p>{% if gift.store %}<b>{% trans "Store" %}:</b> {{ gift.store }}{% endif %}</p>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    {% if liste.owner.pk == user.pk %}
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                           href="{{ gift.get_edit_url }}">{% trans "Edit" %}</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                           href="{{ gift.get_delete_url }}">{% trans "Delete" %}</a>
+                    {% endif %}
+                    {% if liste.owner.pk != user.pk %}
+                        {% if not gift.purchased %}
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                               href="{{ gift.get_purchased_url }}">{% trans "purchased" %}</a>
+                        {% elif gift.purchased and gift.purchase.first.user == user %}
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                               href="{{ gift.get_cancelpurchased_url }}">{% trans "cancel purchase" %}</a>
+                        {% else %}
+                            <a class="mdl-button mdl-button--colored mdl-js-button" disabled
+                               href="{{ gift.get_purchased_url }}">{% trans "already purchased" %}</a>
+                        {% endif %}
+                        <span class="mdl-badge comment-badge" data-badge="{{ gift.comment_set.count }}">
+                    <a id="show_comment_btn_{{ gift.pk }}"
+                       class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                       onclick="show_comment_div('{{ gift.pk }}')">{% trans "comments" %}</a>
+                    <a id="hide_comment_btn_{{ gift.pk }}"
+                       class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect hide"
+                       onclick="hide_comment_div('{{ gift.pk }}')">{% trans "hide comments" %}</a>
+                </span>
+                    {% endif %}
+                </div>
+                {% if liste.owner.pk != user.pk %}
+                    <div id="comment_section_container_{{ gift.pk }}"
+                         class="mdl-card__supporting-text comments-section hide">
+                        <div id="comment_section_{{ gift.pk }}" class="hide">
+                            <form method="post" action="{{ gift.get_addcomment_url }}">{% csrf_token %}
+                                <div class="mdl-textfield mdl-js-textfield add-comment-input">
+                                    <input class="mdl-textfield__input" type="text" name="text"
+                                           id="comment_text_{{ gift.pk }}"/>
+                                    <label class="mdl-textfield__label"
+                                           for="comment_text_{{ gift.pk }}">{% trans "write a comment" %}</label>
+                                </div>
+                                <button class="mdl-button mdl-js-button mdl-button--fab confirm-add-comment-btn">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </form>
+                            {% for comment in gift.comment_set.all %}
+                                <p>
+                                    <i>{{ comment.user }} <span
+                                            class="comment-date">{{ comment.datetime }}</span></i><br/>
+                                    {{ comment.text }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-    {% endfor %}
-  </div>
+        {% endfor %}
+    </div>
+    {% if liste.owner.pk == user.pk %}
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent floating-button"
+           href="{{ liste.get_addgift_url }}"><i class="material-icons">add</i>
+        </a>
+    {% endif %}
 {% endblock %}

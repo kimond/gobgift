@@ -41,7 +41,7 @@ class ListGroupUser(models.Model):
     is_admin = models.BooleanField(default=False)
 
     def get_delete_url(self):
-        return reverse('deleteGroupUser', kwargs={'pk': self.id})
+        return reverse('groups:deleteUser', kwargs={'pk': self.id})
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name

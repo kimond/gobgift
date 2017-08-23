@@ -1,114 +1,130 @@
 /* Generic */
-.container-grid{
-    max-width:900px;
+.container-grid {
+    max-width: 900px;
     margin: 0 auto;
 }
-.container-grid-padding-top{
-    padding-top:10px !important;
+
+.container-grid-padding-top {
+    padding-top: 10px !important;
 }
 
-.hide{
-    display:none;
+.hide {
+    display: none;
 }
-.show{
-    display:block;
+
+.show {
+    display: block;
 }
+
+.floating-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    margin-bottom: 0;
+    z-index: 998;
+}
+
 /* Nav */
-.top-nav > a{
-    font-size:16px;
-    height:60px;
-    border-bottom: 5px solid rgba(0,0,0,0);
+.top-nav > a {
+    font-size: 16px;
+    height: 60px;
+    border-bottom: 5px solid rgba(0, 0, 0, 0);
 }
-.top-nav > a:hover{
-    border-bottom: 5px solid rgba(255,82,82,.80);
+
+.top-nav > a:hover {
+    border-bottom: 5px solid rgba(255, 82, 82, .80);
 }
+
 /* Page header */
-.page-header{
-    background-color:#ffffff;
+.page-header {
+    background-color: #ffffff;
 }
-.page-header-title{
-    margin-top:5px;
-    margin-bottom:5px;
+
+.page-header-title {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 /* forms */
-.form-confirm-btn{
-    margin-top:10px;
+.form-confirm-btn {
+    margin-top: 10px;
 }
-ul.errorlist{
+
+ul.errorlist {
     list-style-type: none;
-    color:#ff0000;
-    font-size:16px;
+    color: #ff0000;
+    font-size: 16px;
 }
+
 /* Main menu */
-ul.mainmenu{
+ul.mainmenu {
     list-style-type: none;
 }
 
-ul.mainmenu li{
-    margin:10px;
+ul.mainmenu li {
+    margin: 10px;
 }
 
-.mdl_autocomplete_light{
-    margin-top:25px;
+.mdl_autocomplete_light {
+    margin-top: 25px;
 }
 
 /* List gifts grid */
-.list_gifts_grid{
-    max-width:900px;
+.list_gifts_grid {
+    max-width: 900px;
     margin: 0 auto;
 }
 
-.gift-photo{
-  margin:auto;
-  max-width: 100%;
-  max-height: 200px;
+.gift-photo {
+    margin: auto;
+    max-width: 100%;
+    max-height: 200px;
 }
 
 /* Facebook button  */
-.facebook-btn{
+.facebook-btn {
     color: #ffffff;
     background-color: #337AB6;
 }
 
-.facebook-btn:hover{
+.facebook-btn:hover {
     background-color: #255c95 !important;
 }
 
-
 /* Comments section in gift card */
-.comment_date{
-  font-size:11px;
-  color:#a6a6a6;
+.comment_date {
+    font-size: 11px;
+    color: #a6a6a6;
 }
 
-.comments-section{
-    width:100%;
+.comments-section {
+    width: 100%;
     background-color: #eeeeee;
 }
 
-.confirm-add-comment-btn{
-    width:32px !important;
-    min-width:32px !important;
-    height:32px !important;
+.confirm-add-comment-btn {
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 32px !important;
 }
 
-.add-comment-input{
-    width:85%;
+.add-comment-input {
+    width: 85%;
 }
-@media (max-width: 479px){
-    .add-comment-input{
-        width:82%;
+
+@media (max-width: 479px) {
+    .add-comment-input {
+        width: 82%;
     }
 }
 
-.comment-badge{
+.comment-badge {
     margin: 0px;
-    padding:0px;
+    padding: 0px;
     color: #868686;
 }
 
-.comment-badge::after{
+.comment-badge::after {
     margin-top: 3px;
     margin-right: 8px;
 }
@@ -119,25 +135,25 @@ ul.mainmenu li{
     font-size: 1.0em;
     line-height: 24px;
     min-width: 60px;
-    color: rgba(0,0,0,.60);
+    color: rgba(0, 0, 0, .60);
 }
 
 /*  list list card  */
-.list-card{
+.list-card {
     background-color: #ffffff;
-    border-bottom: 1px solid rgba(0,0,0,.12);
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 
-.list-card:hover{
+.list-card:hover {
     background-color: #DAF1E5;
 }
 
-.list-card:active{
+.list-card:active {
     background-color: #EEEEEE;
 }
 
 .list-card .gift-badge {
-    font-size:2em;
+    font-size: 2em;
     color: #868686;
 }
 
@@ -146,6 +162,6 @@ ul.mainmenu li{
     top: -7px;
 }
 
-.list-card .phone-actions{
-    min-width:75px;
+.list-card .phone-actions {
+    min-width: 75px;
 }
