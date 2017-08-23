@@ -10,13 +10,14 @@ from rest_framework.response import Response
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
 from gobgift.gifts.models import Gift, Comment
+from gobgift.gifts.serializers import GiftSerializer, CommentSerializer
 from gobgift.groups.models import ListGroup, ListGroupUser
+from gobgift.groups.serializers import ListGroupSerializer, ListGroupUserSerializer
 from gobgift.wishlists.models import Wishlist
-from gobgift_api.serializers import (ListeSerializer, GiftSerializer,
-                                     ListGroupSerializer, CommentSerializer,
-                                     ListGroupUserSerializer)
 
 from django.contrib.auth.models import User
+
+from gobgift.wishlists.serializers import WishlistSerializer
 
 
 @api_view()
@@ -47,7 +48,7 @@ class ListGroupList(generics.ListAPIView):
     """
     List the lists of a listgroup
     """
-    serializer_class = ListeSerializer
+    serializer_class = WishlistSerializer
     queryset = Wishlist.objects.all()
 
     def list(self, request, pk=None):
@@ -61,11 +62,11 @@ class ListGroupUserViewSet(viewsets.ModelViewSet):
     queryset = ListGroupUser.objects.none()
 
 
-class ListeViewSet(viewsets.ModelViewSet):
+class WishlistViewSet(viewsets.ModelViewSet):
     """
-    A viewset for viewing and editing list instances.
+    A viewset for viewing and editing wishlist instances.
     """
-    serializer_class = ListeSerializer
+    serializer_class = WishlistSerializer
     queryset = Wishlist.objects.none()
 
     def list(self, request):

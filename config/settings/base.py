@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'gobgift.core',
+    'gobgift.api',
     'gobgift.wishlists',
     'gobgift.gifts',
     'gobgift.groups',

@@ -3,12 +3,11 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
-from django.views.static import serve
 
+from gobgift.api.views import schema_view
 from gobgift.core.views import home, logout, done
 from gobgift.groups.views import ListGroupAutocomplete
 from gobgift.groups.views import UserAutocomplete
-from gobgift_api.views import schema_view
 
 urlpatterns = [
 
@@ -24,7 +23,7 @@ urlpatterns = [
     url(r'^groups/', include('gobgift.groups.urls', namespace='groups')),
 
     # DjangoRestFramework
-    url(r'^api/', include('gobgift_api.urls', namespace='gobgift_api')),
+    url(r'^api/', include('gobgift.api.urls', namespace='gobgift_api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', schema_view),
 

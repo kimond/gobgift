@@ -1,11 +1,12 @@
 from django.conf.urls import url, include
 from rest_framework import routers
-from gobgift_api.views import (ListeViewSet, GiftViewSet, ListGroupViewSet,
+
+from gobgift.api.views import (WishlistViewSet, GiftViewSet, ListGroupViewSet,
                                CommentViewSet, ListGroupUserViewSet,
                                ListGiftList, ListGroupList, GiftCommentList)
 
 router = routers.DefaultRouter()
-router.register(r'lists', ListeViewSet)
+router.register(r'lists', WishlistViewSet)
 router.register(r'gifts', GiftViewSet)
 router.register(r'listgroups', ListGroupViewSet)
 router.register(r'listgroupusers', ListGroupUserViewSet)
