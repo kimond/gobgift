@@ -15,7 +15,7 @@ from .models import Gift, Purchase, Comment
 def purchase_gift(request, gift_pk):
     gift = Gift.objects.get(id=gift_pk)
     if gift.purchased:
-        return redirect(gift.liste.get_view_url())
+        return redirect(gift.wishlist.get_view_url())
 
     # set the gift purchased
     gift.purchased = True
@@ -23,14 +23,14 @@ def purchase_gift(request, gift_pk):
     # create the link between the purchase and an user
     purchase = Purchase(gift=gift, user=request.user)
     purchase.save()
-    return redirect(gift.liste.get_view_url())
+    return redirect(gift.wishlist.get_view_url())
 
 
 @login_required
 def cancel_purchase_gift(request, gift_pk):
     gift = Gift.objects.get(id=gift_pk)
     if not gift.purchased:
-        return redirect(gift.liste.get_view_url())
+        return redirect(gift.wishlist.get_view_url())
 
     # set the gift not purchased
     gift.purchased = False
@@ -38,11 +38,11 @@ def cancel_purchase_gift(request, gift_pk):
     # create the link between the purchase and an user
     purchase = Purchase.objects.filter(gift=gift, user=request.user).first()
     if purchase.user != request.user:
-        return redirect(gift.liste.get_view_url())
+        return redirect(gift.wishlist.get_view_url())
     else:
         purchase.delete()
 
-    return redirect(gift.liste.get_view_url())
+    return redirect(gift.wishlist.get_view_url())
 
 
 class GiftCreate(LoginRequiredMixin, CreateView):
@@ -72,7 +72,7 @@ class GiftEdit(LoginRequiredMixin, UpdateView):
     form_class = GiftForm
 
     def get_success_url(self):
-        return self.object.liste.get_view_url()
+        return self.object.wishlist.get_view_url()
 
     def form_valid(self, form):
         return super(GiftEdit, self).form_valid(form)
@@ -83,7 +83,7 @@ class GiftDelete(LoginRequiredMixin, DeleteView):
     template_name = "gifts/delete.html"
 
     def get_success_url(self):
-        return self.object.liste.get_view_url()
+        return self.object.wishlist.get_view_url()
 
     def form_valid(self, form):
         return super(GiftDelete, self).form_valid(form)
@@ -99,7 +99,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         return super(CommentCreate, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return self.gift.liste.get_view_url()
+        return self.gift.wishlist.get_view_url()
 
     def get_form_kwargs(self):
         kwargs = super(CommentCreate, self).get_form_kwargs()

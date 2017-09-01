@@ -2,57 +2,53 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load floppyforms %}
-{%block content%}
-<script type="text/javascript" src="{% static "gobgift/lib/jquery-1.11.3.js" %}"></script>
-    <div class="page-header mdl-shadow--2dp">
-        <div class="mdl-grid container-grid">
-            <div class="mdl-cell mdl-cell--12-col">
-                <h5 class="page-header-title">GobGift > Edit Group</h5>
-            </div>
-        </div>
-    </div>
-    <div class="mdl-grid container-grid">
-        <div class="mdl-cell mdl-cell--12-col">
+{% block content %}
+    <h5>Edit Group</h5>
+    <div class="divider"></div>
+    <div class="card">
+        <div class="card-content">
             <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ form }}
-                <h3>Group users</h3>
+                {{ form }}
+                <h4>Group users</h4>
                 <table id="groupuser_form" class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
-                      <thead>
-                          <tr>
-                              <th class="mdl-data-table__cell--non-numeric">{% trans "User" %}</th>
-                              <th class="mdl-data-table__cell--non-numeric">{% trans "Administrator" %}</th>
-                              <th class="mdl-data-table__cell--non-numeric"></th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          {% for groupuser in listgroup.users.all %}
-                          <tr>
-                              <td class="mdl-data-table__cell--non-numeric">
-                                  {{groupuser.user.first_name}} {{groupuser.user.last_name}}
-                              </td>
-                              <td class="mdl-data-table__cell--non-numeric">
-                                  {% if groupuser.is_admin %}
-                                      <i class="material-icons">check</i>
-                                  {% else %}
-                                      <i class="material-icons">close</i>
-                                  {% endif %}
-                              </td>
-                              <td class="mdl-data-table__cell--non-numeric">
-                                  <a class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" href="{{groupuser.get_delete_url}}"><i class="material-icons">delete</i></a>
-                              </td>
-                          </tr>
-                          {% endfor %}
-                          <tr>
-                              <td class="mdl-data-table__cell--non-numeric" colspan=3 style="text-align:center">
-                                  <a class="mdl-button mdl-js-button mdl-button--colored" href="{{listgroup.get_adduser_url}}">{% trans "add user to the group" %}</a>
-                              </td>
-                          </tr>
-                      </tbody>
+                    <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">{% trans "User" %}</th>
+                        <th class="mdl-data-table__cell--non-numeric">{% trans "Administrator" %}</th>
+                        <th class="mdl-data-table__cell--non-numeric"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for groupuser in listgroup.users.all %}
+                        <tr>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                {{ groupuser.user.first_name }} {{ groupuser.user.last_name }}
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                {% if groupuser.is_admin %}
+                                    <i class="material-icons">check</i>
+                                {% else %}
+                                    <i class="material-icons">close</i>
+                                {% endif %}
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <a class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
+                                   href="{{ groupuser.get_delete_url }}"><i class="material-icons">delete</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric" colspan=3 style="text-align:center">
+                            <a class="mdl-button mdl-js-button mdl-button--colored"
+                               href="{{ listgroup.get_adduser_url }}">{% trans "add user to the group" %}</a>
+                        </td>
+                    </tr>
+                    </tbody>
                 </table>
-                {{groupuser_form.management_form}}
+                {{ groupuser_form.management_form }}
                 <br/>
-                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="confirm" />
+                <input class="btn" type="submit" value="confirm"/>
             </form>
-      </div>
+        </div>
     </div>
 {% endblock %}

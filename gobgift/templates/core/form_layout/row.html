@@ -2,8 +2,8 @@
 {% load floppyforms floppyforms_internals %}{% block row %}{% for field in fields %}
 {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
 {% block field %}
-<div class={% if field|fieldtype != "ClearableFileInput"%}"mdl-textfield mdl-js-textfield mdl-textfield--floating-label{% endif %} {% if classes %} {{ classes }}{% endif %}">
-    {% block label %}{% if field|id %}<label class="mdl-textfield__label" for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}{% if not field.field.label_suffix|isnone %}{{ field.field.label_suffix }}{% else %}{{ form.label_suffix }}{% endif %}{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
+<div class={% if field|fieldtype != "ClearableFileInput"%}"input-field{% endif %} {% if classes %} {{ classes }}{% endif %}">
+    {% block label %}{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if label|last not in ".:!?" %}{% if not field.field.label_suffix|isnone %}{{ field.field.label_suffix }}{% else %}{{ form.label_suffix }}{% endif %}{% endif %}{% if field|id %}</label>{% endif %}{% endblock %}
     {% block widget %}{% formfield field %}{% endblock %}
     {% block help_text %}{% if help_text %}<span class="helptext">{{ help_text }}</span>{% endif %}{% endblock %}
     {% block hidden_fields %}{% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}{% endblock %}

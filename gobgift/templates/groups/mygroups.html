@@ -2,38 +2,33 @@
 {% load i18n %}
 {% load object_utils %}
 {% block content %}
-    <div class="page-header mdl-shadow--2dp">
-        <div class="mdl-grid container-grid">
-            <div class="mdl-cell mdl-cell--12-col">
-                <h5 class="page-header-title">{% trans "My groups" %}</h5>
-            </div>
-        </div>
-    </div>
+    <h4>{% trans "My groups" %}</h4>
+    <div class="divider"></div>
     {% for group in object_list %}
-        <div class="mdl-grid container-grid">
-            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col listgroup-card">
-                <div class="mdl-card__title mdl-card--expand">
-                    <h2 class="mdl-card__title-text">{{ group.name }}</h2>
+        <div class="card">
+            <div class="card-content listgroup-card">
+                <div class="card-title">
+                    <h3 class="mdl-card__title-text">{{ group.name }}</h3>
                 </div>
-                <div class="mdl-card__supporting-text">
+                <div>
                     <p><b>{% trans "Owner" %}:</b> {{ group.owner.first_name }} {{ group.owner.last_name }}</p>
                     <b>{% trans "Members" %}:</b> {{ group.users.all|join:", " }}
                 </div>
-                <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                <div class="card-action">
+                    <a class="btn"
                        href="{{ group.get_view_url }}">{% trans "Show lists" %}</a>
                     {% if group.owner == user  or group|args:user|call:"is_user_admin" %}
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                        <a class="btn"
                            href="{{ group.get_edit_url }}">{% trans "Edit" %}</a>
                     {% endif %}
                     {% if group.owner == user %}
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                        <a class="btn red"
                            href="{{ group.get_delete_url }}">{% trans "Delete" %}</a>
                     {% endif %}
                 </div>
             </div>
         </div>
     {% endfor %}
-    <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent floating-button" href="{% url "groups:add" %}"><i
+    <a class="btn-floating btn-large floating-button green" href="{% url "groups:add" %}"><i
             class="material-icons">add</i></a>
 {% endblock %}

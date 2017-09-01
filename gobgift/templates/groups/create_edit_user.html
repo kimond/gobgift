@@ -1,35 +1,28 @@
 {% extends "_layout.html" %}
 {% load i18n %}
 {% load staticfiles %}
-{%block content%}
-<script type="text/javascript" src="{% static "lib/jquery-1.11.3.js" %}"></script>
-<script type="text/javascript" src="{% static "lib/jquery.formset-1.1/jquery.formset.min.js" %}"></script>
-{{ form.media }}
-    <div class="page-header mdl-shadow--2dp">
-        <div class="mdl-grid container-grid">
-            <div class="mdl-cell mdl-cell--12-col">
-                <h5 class="page-header-title">GobGift > {% trans "Add group user" %}</h5>
-            </div>
-        </div>
-    </div>
-    <div class="mdl-grid container-grid">
-        <div class="mdl-cell mdl-cell--12-col">
-            <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+{% block content %}
+    <script type="text/javascript" src="{% static "lib/jquery.formset-1.1/jquery.formset.min.js" %}"></script>
+    {{ form.media }}
+    <h5> {% trans "Add group user" %}</h5>
+    <div class="divider"></div>
+    <div class="card-panel">
+        <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
             {{ form }}
-{#                {% formconfig row using "core/form_layout/row.html" %}#}
-{#                {% block errors %}{% if form.non_field_errors or form|hidden_field_errors %}<ul class="errorlist">#}
-{#                    {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}#}
-{#                    {% for error in form|hidden_field_errors %}<li>{{ error }}</li>{% endfor %}#}
-{#                </ul>{% endif %}{% endblock %}#}
-{#                {% formrow form.user %}#}
-{#                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="id_is_admin">#}
-{#                    <input type="checkbox" name="is_admin" id="id_is_admin" class="mdl-checkbox__input" />#}
-{#                    <span class="mdl-checkbox__label">{{form.is_admin.label}}</span>#}
-{#                </label>#}
-{#                {% endform %}#}
-                <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" type="submit" value="confirm" />
-                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent form-confirm-btn" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
-            </form>
-      </div>
+            {#                {% formconfig row using "core/form_layout/row.html" %}#}
+            {#                {% block errors %}{% if form.non_field_errors or form|hidden_field_errors %}<ul class="errorlist">#}
+            {#                    {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}#}
+            {#                    {% for error in form|hidden_field_errors %}<li>{{ error }}</li>{% endfor %}#}
+            {#                </ul>{% endif %}{% endblock %}#}
+            {#                {% formrow form.user %}#}
+            {#                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="id_is_admin">#}
+            {#                    <input type="checkbox" name="is_admin" id="id_is_admin" class="mdl-checkbox__input" />#}
+            {#                    <span class="mdl-checkbox__label">{{form.is_admin.label}}</span>#}
+            {#                </label>#}
+            {#                {% endform %}#}
+            <br/>
+            <input class="btn" type="submit" value="confirm"/>
+            <a class="btn red" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
+        </form>
     </div>
 {% endblock %}

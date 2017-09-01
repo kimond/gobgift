@@ -28,10 +28,10 @@ class Gift(models.Model):
         return reverse('gifts:addComment', kwargs={'gift_pk': self.id})
 
     def get_purchased_url(self):
-        return reverse('gifts:purchased', kwargs={'gift_pk': self.id})
+        return reverse('gifts:purchase', kwargs={'gift_pk': self.id})
 
     def get_cancelpurchased_url(self):
-        return reverse('gifts:cancelPurchased', kwargs={'gift_pk': self.id})
+        return reverse('gifts:cancelPurchase', kwargs={'gift_pk': self.id})
 
     def __str__(self):
         return self.name

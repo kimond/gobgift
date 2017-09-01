@@ -3,37 +3,37 @@
 {% load socialaccount %}
 {% block content %}
     {% providers_media_js %}
-    <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
-        <div class="mdl-card__title">
-            {% if user.is_authenticated %}
-                <h2 class="mdl-card__title-text">{% trans "Welcome" %}&nbsp;
-                    <i>{{ user.first_name }} {{ user.last_name }}</i> !</h2>
-            {% else %}
-                <h2 class="mdl-card__title-text">{% trans "Please sign in with Facebook to begin!" %}</h2>
-            {% endif %}
-        </div>
-        <div class="mdl-card__supporting-text ">
-            {% if user.is_authenticated %}
-                <ul class="mainmenu">
-                    <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                           href="{% url "groups:mygroups" %}">{% trans "My groups" %} </a></li>
-                    <li><a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent"
-                           href="{% url "lists:mylists" %}">{% trans "My lists" %} </a></li>
-                </ul>
-            {% endif %}
-            <div class="row">
-                <a class="mdl-button mdl-js-button facebook-btn" name="facebook"
-                   href="{% provider_login_url "facebook" method="js_sdk" %}">
-                    <i class="fa fa-facebook"></i>
-                    {% trans "Sign in with Facebook" %}
-                </a>
+    <div class="row">
+    <div class="col m3"></div>
+    <div class="card col m6">
+        <div class="card-content">
+            <div class="card-title">
+                {% if user.is_authenticated %}
+                    <h3 class="mdl-card__title-text">{% trans "Welcome" %}&nbsp;
+                        <i>{{ user.first_name }} {{ user.last_name }}</i> !</h3>
+                {% else %}
+                    <h3 class="mdl-card__title-text">{% trans "Please sign in with Facebook to begin!" %}</h3>
+                {% endif %}
             </div>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/media/gobgift.apk">Download
-                Android version 0.1</a>
+            <div class="">
+                {% if user.is_authenticated %}
+                    <ul class="mainmenu">
+                        <li><a class="btn" href="{% url "groups:mygroups" %}">{% trans "My groups" %} </a></li>
+                        <li><a class="btn" href="{% url "lists:mylists" %}">{% trans "My lists" %} </a></li>
+                    </ul>
+                {% endif %}
+                <div class="row">
+                    <a class="btn facebook-btn" name="facebook"
+                       href="{% provider_login_url "facebook" method="js_sdk" %}">
+                        <i class="fa fa-facebook"></i>
+                        {% trans "Sign in with Facebook" %}
+                    </a>
+                </div>
+            </div>
+            <div class="card-action">
+                <a class="btn" href="/media/gobgift.apk">Download
+                    Android version 0.1</a>
+            </div>
         </div>
     </div>
 {% endblock %}

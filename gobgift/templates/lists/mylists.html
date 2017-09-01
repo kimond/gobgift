@@ -1,43 +1,28 @@
 {% extends "_layout.html" %}
 {% load i18n %}
 {% block content %}
-    <div class="page-header mdl-shadow--2dp">
-        <div class="mdl-grid container-grid page-header">
-            <div class="mdl-cell mdl-cell--12-col">
-                <h5 class="page-header-title">{% trans "My lists" %}</h5>
-            </div>
-        </div>
-    </div>
-    <div class="mdl-grid mdl-grid--no-spacing container-grid container-grid-padding-top">
-        <ul class="mdl-list" style="width:100%">
+    <h4>{% trans "My lists" %}</h4>
+    <div class="divider"></div>
+    <div class="">
+        <div class="collection" style="width:100%">
             {% for list in object_list %}
-                <div class="mdl-list__item mdl-list__item--two-line list-card"
-                     onclick="javascript:location.href='{{ list.get_view_url }}'">
-              <span class="mdl-list__item-primary-content">
-                <span>{{ list.name }}</span>
-                <span class="mdl-list__item-sub-title">
-                  <b>{% trans "Groups" %}:</b> {{ list.groups.all|join:", " }}
-                </span>
-              </span>
-                    <span class="mdl-list__item-secondary-content">
-                <div class="mdl-layout--large-screen-only">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                   href="{{ list.get_edit_url }}">{% trans "Edit" %}</a>
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                   href="{{ list.get_delete_url }}">{% trans "Delete" %}</a>
-                </div>
-                <div class="phone-actions mdl-layout--small-screen-only">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--icon" href="{{ list.get_edit_url }}"><i
-                        class="material-icons">mode_edit</i></a>
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--icon"
-                   href="{{ list.get_delete_url }}"><i class="material-icons">delete</i></a>
-                </div>
-              </span>
+                <div class="collection-item avatar list-card" onclick="javascript:location.href='{{ list.get_view_url }}'">
+                    <span class="title">{{ list.name }}</span>
+                    <p>
+                        <b>{% trans "Groups" %}:</b> {{ list.groups.all|join:", " }}
+                    </p>
+                    <div class="secondary-content">
+                    <a class=""
+                       href="{{ list.get_edit_url }}"><i
+                            class="material-icons">mode_edit</i></a>
+                    <a class=""
+                       href="{{ list.get_delete_url }}"><i class="material-icons red-text">delete</i></a>
+                    </div>
                 </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 
-    <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent floating-button" href="{% url 'lists:add' %}"><i
+    <a class="btn-floating btn-large floating-button" href="{% url 'lists:add' %}"><i
             class="material-icons">add</i></a>
 {% endblock %}

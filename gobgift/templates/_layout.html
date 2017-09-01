@@ -2,57 +2,50 @@
 {% load staticfiles %}
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>GobGift</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{% static "lib/dialog-polyfill/dialog-polyfill.js" %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static "lib/dialog-polyfill/dialog-polyfill.css" %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static "lib/dialog-polyfill/dialog-polyfill.css" %}"
+          media="screen,projection"/>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="{% static "lib/mdl/material.min.css" %}"  media="screen,projection"/>
-    <script src="{% static "lib/mdl/material.min.js" %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{% static "lib/materialize/css/materialize.min.css" %}"
+          media="screen,projection"/>
+    <script src="{% static "lib/materialize/js/materialize.min.js" %}"></script>
     <link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  </head>
-  <body class="mdl-color--grey-100">
-      <!-- Always shows a header, even in smaller screens. -->
-      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-          <header class="mdl-layout__header">
-              <div class="mdl-layout__header-row">
-                  <!-- Title -->
-                  <span class="mdl-layout-title">GobGift</span>
-                  <!-- Add spacer, to align navigation to the right -->
-                  <div class="mdl-layout-spacer"></div>
-                  <!-- Navigation. We hide it in small screens. -->
-                  <nav class="mdl-navigation mdl-layout--large-screen-only top-nav">
-                      {% if user.is_authenticated %}
-                      <a class="mdl-navigation__link" href="{% url 'home' %}">{% trans "Home" %}</a>
-                      <a class="mdl-navigation__link" href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a>
-                      <a class="mdl-navigation__link" href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a>
-                      <a class="mdl-navigation__link" href="/logout/">{% trans "Logout" %}</a>
-                      {% endif %}
-                  </nav>
-              </div>
-          </header>
-          <div class="mdl-layout__drawer">
-              <span class="mdl-layout-title">Gobgift</span>
-              <nav class="mdl-navigation">
-                  {% if user.is_authenticated %}
-                  <a class="mdl-navigation__link" href="{% url 'home' %}">{% trans "Home" %}</a>
-                  <a class="mdl-navigation__link" href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a>
-                  <a class="mdl-navigation__link" href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a>
-                  <a class="mdl-navigation__link" href="/logout/">{% trans "Logout" %}</a>
-                  {% endif %}
-              </nav>
-          </div>
-          <main class="mdl-layout__content">
-          <div class="page-content">
-              {% block content %}
-              {% endblock %}
-          </div>
-          </main>
-      </div>
-  </body>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper light-green darken-1">
+        <a href="{% url 'home' %}" class="brand-logo">Gobgift</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            {% if user.is_authenticated %}
+                <li><a class="mdl-navigation__link" href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                <li><a class="mdl-navigation__link" href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a></li>
+                <li><a class="mdl-navigation__link" href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a></li>
+                <li><a class="mdl-navigation__link" href="/logout/">{% trans "Logout" %}</a></li>
+            {% endif %}
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            {% if user.is_authenticated %}
+                <li><a class="mdl-navigation__link" href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                <li><a class="mdl-navigation__link" href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a></li>
+                <li><a class="mdl-navigation__link" href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a></li>
+                <li><a class="mdl-navigation__link" href="/logout/">{% trans "Logout" %}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<main>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+</body>
 </html>
