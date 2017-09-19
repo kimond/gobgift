@@ -16,6 +16,10 @@ def home(request):
     return render(request, 'home.html')
 
 
+def app(request):
+    return render(request, 'app.html')
+
+
 @login_required
 def done(request):
     """Login complete view, displays user data"""
@@ -27,4 +31,3 @@ def validation_sent(request):
         validation_sent=True,
         email=request.session.get('email_validation_address')
     ))
-

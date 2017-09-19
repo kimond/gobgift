@@ -5,13 +5,14 @@ from django.contrib import admin
 from django.views import defaults as default_views
 
 from gobgift.api.views import schema_view
-from gobgift.core.views import home, logout, done
+from gobgift.core.views import home, logout, done, app
 from gobgift.groups.views import ListGroupAutocomplete
 from gobgift.groups.views import UserAutocomplete
 
 urlpatterns = [
 
     url(r'^$', home, name="home"),
+    url(r'^app/$', app, name="app"),
     url(r'^login/$', home),
     url(r'^logout/$', logout),
     url(r'^done/$', done, name='done'),
@@ -23,7 +24,7 @@ urlpatterns = [
     url(r'^groups/', include('gobgift.groups.urls', namespace='groups')),
 
     # DjangoRestFramework
-    url(r'^api/', include('gobgift.api.urls', namespace='gobgift_api')),
+    url(r'^api/', include('gobgift.api.urls', namespace='api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', schema_view),
 

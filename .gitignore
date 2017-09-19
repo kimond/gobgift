@@ -8,3 +8,8 @@ static/*
 # Env file
 /config/settings/.env
 /.cache/
+
+#front-end
+/frontend/dist/
+/node_modules/
+webpack-stats.json

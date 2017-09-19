@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'webpack_loader',
 )
 
 LOCAL_APPS = (
@@ -149,6 +150,7 @@ STATIC_ROOT = str(ROOT_DIR.path('static'))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     str(APPS_DIR.path('static')),
+    str(ROOT_DIR.path('frontend/dist')),
 )
 
 MEDIA_ROOT = str(APPS_DIR.path('media'))
@@ -166,3 +168,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
 }
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': str(ROOT_DIR.path('webpack-stats.json')),
+    }
+}
+
