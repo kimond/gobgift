@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4e573c27081e14a66509ed2ca0729d57a2a5e944c4bf03ddebdbb40d927e138e"
+            "sha256": "3b56ab70ee266def0272af17f37dff7aaffc0f11d8d32e2f72262a3f5b16c7ec"
         },
         "requires": {},
         "sources": [
@@ -33,8 +33,11 @@
         "PyYAML": {
             "version": "==3.11"
         },
-        "appdirs": {
-            "version": "==1.4.3"
+        "certifi": {
+            "version": "==2017.7.27.1"
+        },
+        "chardet": {
+            "version": "==3.0.4"
         },
         "coreapi": {
             "version": "==1.32.0"
@@ -47,6 +50,9 @@
         },
         "defusedxml": {
             "version": "==0.4.1"
+        },
+        "django-allauth": {
+            "version": "==0.33.0"
         },
         "django-autocomplete-light": {
             "version": "==3.1.8"
@@ -69,14 +75,17 @@
         "django-oauth-toolkit": {
             "version": "==0.10.0"
         },
-        "django-rest-framework-social-oauth2": {
-            "version": "==1.0.4"
-        },
         "django-rest-swagger": {
             "version": "==2.0.3"
         },
+        "django-webpack-loader": {
+            "version": "==0.5.0"
+        },
         "djangorestframework": {
             "version": "==3.4.4"
+        },
+        "idna": {
+            "version": "==2.6"
         },
         "itypes": {
             "version": "==1.1.0"
@@ -90,26 +99,17 @@
         "openapi-codec": {
             "version": "==1.0.0"
         },
-        "packaging": {
-            "version": "==16.8"
-        },
         "py": {
             "version": "==1.4.31"
-        },
-        "pyparsing": {
-            "version": "==2.2.0"
         },
         "pytest": {
             "version": "==3.0.4"
         },
+        "pytest-cov": {
+            "version": "==2.5.1"
+        },
         "pytest-django": {
             "version": "==3.1.2"
-        },
-        "python-openid": {
-            "version": "==2.2.5"
-        },
-        "python-social-auth": {
-            "version": "==0.2.20"
         },
         "python3-openid": {
             "version": "==3.1.0"
@@ -124,24 +124,24 @@
             "version": "==0.6.2"
         },
         "setuptools": {
-            "version": "==35.0.2"
+            "version": "==36.5.0"
         },
         "simplejson": {
             "version": "==3.8.2"
         },
         "six": {
-            "version": "==1.10.0"
-        },
-        "social-auth-core": {
-            "version": "==1.3.0"
+            "version": "==1.11.0"
         },
         "uritemplate": {
             "version": "==0.6"
+        },
+        "urllib3": {
+            "version": "==1.22"
         }
     },
     "develop": {
         "Django": {
-            "version": "==1.11.1"
+            "version": "==1.11.5"
         },
         "django-debug-toolbar": {
             "version": "==1.8"
