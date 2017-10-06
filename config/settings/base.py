@@ -45,13 +45,16 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'coverage',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_swagger',
     'floppyforms',
     'allauth',
     'allauth.account',
+    'rest_auth.registration',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'webpack_loader',
+    'rest_auth'
 )
 
 LOCAL_APPS = (
@@ -166,6 +169,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
 }
 
