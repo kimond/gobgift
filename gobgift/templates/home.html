@@ -21,14 +21,15 @@
                         <li><a class="btn" href="{% url "groups:mygroups" %}">{% trans "My groups" %} </a></li>
                         <li><a class="btn" href="{% url "lists:mylists" %}">{% trans "My lists" %} </a></li>
                     </ul>
+                {% else %}
+                    <div class="row">
+                        <a class="btn facebook-btn" name="facebook"
+                           href="{% provider_login_url "facebook" method="js_sdk" %}">
+                            <i class="fa fa-facebook"></i>
+                            {% trans "Sign in with Facebook" %}
+                        </a>
+                    </div>
                 {% endif %}
-                <div class="row">
-                    <a class="btn facebook-btn" name="facebook"
-                       href="{% provider_login_url "facebook" method="js_sdk" %}">
-                        <i class="fa fa-facebook"></i>
-                        {% trans "Sign in with Facebook" %}
-                    </a>
-                </div>
             </div>
             <div class="card-action">
                 <a class="btn" href="/media/gobgift.apk">Download
