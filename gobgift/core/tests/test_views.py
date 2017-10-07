@@ -17,4 +17,3 @@ class TestHome:
         request.user = user
         response = home(request)
         assert response.status_code == 302
-

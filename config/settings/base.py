@@ -45,12 +45,16 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'coverage',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_swagger',
     'floppyforms',
     'allauth',
     'allauth.account',
+    'rest_auth.registration',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'webpack_loader',
+    'rest_auth'
 )
 
 LOCAL_APPS = (
@@ -149,6 +153,7 @@ STATIC_ROOT = str(ROOT_DIR.path('static'))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     str(APPS_DIR.path('static')),
+    str(ROOT_DIR.path('frontend/dist')),
 )
 
 MEDIA_ROOT = str(APPS_DIR.path('media'))
@@ -164,5 +169,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': str(ROOT_DIR.path('webpack-stats.json')),
+    }
+}
+

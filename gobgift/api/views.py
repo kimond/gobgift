@@ -1,5 +1,7 @@
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from rest_auth.registration.views import SocialLoginView
 from rest_framework import response
 from rest_framework import schemas
 from rest_framework.exceptions import PermissionDenied
@@ -25,6 +27,10 @@ from gobgift.wishlists.serializers import WishlistSerializer
 def schema_view(request):
     generator = schemas.SchemaGenerator(title='Gobgift API')
     return response.Response(generator.get_schema(request=request))
+
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
 
 
 class ListGroupViewSet(viewsets.ModelViewSet):
