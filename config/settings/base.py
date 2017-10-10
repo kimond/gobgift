@@ -133,11 +133,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(ROOT_DIR.path('db.sqlite3')),
-    }
+    'default': env.db('DATABASE_URL', default='postgres:///gobgift'),
 }
+
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
