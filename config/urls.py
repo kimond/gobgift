@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^login/$', home),
     url(r'^logout/$', logout),
     url(r'^done/$', done, name='done'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'accounts', include('allauth.urls')),
 
     url(r'^lists/', include('gobgift.wishlists.urls', namespace='lists')),
