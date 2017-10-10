@@ -1,8 +1,4 @@
 gobgift.kimond.com {
-    redir https://gobgift.kimond.com
-}
-
-gobgift.kimond.com {
     proxy / django:5000 {
         header_upstream Host {host}
         header_upstream X-Real-IP {remote}
