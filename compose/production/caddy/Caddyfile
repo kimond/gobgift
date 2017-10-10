@@ -1,8 +1,8 @@
-www.{% raw %}{$DOMAIN_NAME}{% endraw %} {
-    redir https://{{cookiecutter.domain_name}}
+gobgift.kimond.com {
+    redir https://gobgift.kimond.com
 }
 
-{% raw %}{$DOMAIN_NAME}{% endraw %} {
+gobgift.kimond.com {
     proxy / django:5000 {
         header_upstream Host {host}
         header_upstream X-Real-IP {remote}
