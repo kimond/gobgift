@@ -1,4 +1,5 @@
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from rest_auth.registration.views import SocialLoginView
@@ -31,6 +32,10 @@ def schema_view(request):
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
+
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
 
 
 class ListGroupViewSet(viewsets.ModelViewSet):
