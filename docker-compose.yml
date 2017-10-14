@@ -29,3 +29,5 @@ services:
       - postgres_backup_local:/backups
     environment:
       - POSTGRES_USER=gobgift
+    ports:
+      - "5432:5432"

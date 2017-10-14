@@ -91,6 +91,16 @@ ul.mainmenu li {
     background-color: #255c95 !important;
 }
 
+/* Google button  */
+.google-btn {
+    color: #ffffff;
+    background-color: #DD4B39;
+}
+
+.google-btn:hover {
+    background-color: #E74B37 !important;
+}
+
 /* Comments section in gift card */
 .comment_date {
     font-size: 11px;

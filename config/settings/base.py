@@ -64,6 +64,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',
     'rest_auth.registration',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'webpack_loader',
     'rest_auth'
@@ -95,9 +96,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
-
-SOCIAL_AUTH_FACEBOOK_KEY = env.str('SOCIAL_AUTH_FACEBOOK_KEY', default='')
-SOCIAL_AUTH_FACEBOOK_SECRET = env.str('SOCIAL_AUTH_FACEBOOK_SECRET', default='')
 
 SOCIALACCOUNT_PROVIDERS = {
 }
