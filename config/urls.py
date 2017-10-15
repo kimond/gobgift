@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
-    url(r'^rest-auth/google/$', GoogleLogin.as_view(), name='google_login'),
+    url(r'^rest-auth/google/$', GoogleLogin.as_view(), name='rest_google_login'),
     url(r'^docs/', schema_view),
 
     # Django autocomplete light
