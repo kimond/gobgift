@@ -45,6 +45,9 @@ class ListGroupViewSet(viewsets.ModelViewSet):
     serializer_class = ListGroupSerializer
     queryset = ListGroup.objects.none()
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
     def list(self, request):
         """
         List the user's listgroups
@@ -79,6 +82,9 @@ class WishlistViewSet(viewsets.ModelViewSet):
     """
     serializer_class = WishlistSerializer
     queryset = Wishlist.objects.none()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
     def list(self, request):
         """
