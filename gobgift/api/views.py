@@ -10,7 +10,6 @@ from rest_framework import viewsets
 from rest_framework import generics, mixins
 from rest_framework.decorators import detail_route, list_route, api_view, renderer_classes
 from rest_framework.response import Response
-from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
 from gobgift.gifts.models import Gift, Comment
 from gobgift.gifts.serializers import GiftSerializer, CommentSerializer
@@ -21,13 +20,6 @@ from gobgift.wishlists.models import Wishlist
 from django.contrib.auth.models import User
 
 from gobgift.wishlists.serializers import WishlistSerializer
-
-
-@api_view()
-@renderer_classes([OpenAPIRenderer, SwaggerUIRenderer])
-def schema_view(request):
-    generator = schemas.SchemaGenerator(title='Gobgift API')
-    return response.Response(generator.get_schema(request=request))
 
 
 class FacebookLogin(SocialLoginView):
