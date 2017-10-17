@@ -35,7 +35,10 @@ class ListGroupViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing listgroup instances
     """
     serializer_class = ListGroupSerializer
-    queryset = ListGroup.objects.none()
+
+    def get_queryset(self):
+        user = User.objects.get(pk=self.request.user.pk)
+        return ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -73,7 +76,10 @@ class WishlistViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing wishlist instances.
     """
     serializer_class = WishlistSerializer
-    queryset = Wishlist.objects.none()
+
+    def get_queryset(self):
+        user = User.objects.get(pk=self.request.user.pk)
+        return Wishlist.objects.filter(owner=user)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
