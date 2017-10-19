@@ -94,8 +94,7 @@ class WishlistViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class GiftViewSet(mixins.RetrieveModelMixin,
-                  viewsets.GenericViewSet):
+class GiftViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing gift instances.
     """

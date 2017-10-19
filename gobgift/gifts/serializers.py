@@ -6,8 +6,8 @@ from gobgift.gifts.models import Gift, Comment
 class GiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gift
-        fields = ('id', 'liste', 'name', 'photo', 'description',
-                  'price', 'siteweb', 'store', 'purchased')
+        fields = ('id', 'wishlist', 'name', 'photo', 'description',
+                  'price', 'website', 'store', 'purchased')
 
     def __init__(self, *args, **kwargs):
         exclude_purchase = kwargs.pop('exclude_purchase', None)
