@@ -6,7 +6,7 @@ from gobgift.api.views import (WishlistViewSet, GiftViewSet, ListGroupViewSet,
                                CommentViewSet, ListGroupUserViewSet,
                                ListGiftList, ListGroupList, GiftCommentList)
 
-schema_view = get_swagger_view(title='Tiguidou API')
+schema_view = get_swagger_view(title='Gobgift API')
 
 router = routers.DefaultRouter()
 router.register(r'lists', WishlistViewSet, base_name='wishlist')
