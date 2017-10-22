@@ -190,4 +190,3 @@ WEBPACK_LOADER = {
         'STATS_FILE': str(ROOT_DIR.path('webpack-stats.json')),
     }
 }
-

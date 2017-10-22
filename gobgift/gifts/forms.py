@@ -31,7 +31,7 @@ class GiftForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
 
         if instance and instance.pk:
-            cleaned_data['wishlist'] = instance.liste
+            cleaned_data['wishlist'] = instance.wishlist
         else:
             cleaned_data['wishlist'] = self.wishlist
 
@@ -45,7 +45,7 @@ class GiftForm(forms.ModelForm):
         photo_width, photo_height = photo_io.size
         if photo_width > 1024:
             new_width = 1024
-            new_height = new_width * photo_height / photo_width
+            new_height = int(new_width * photo_height / photo_width)
             photo_io = photo_io.resize((new_width, new_height), Image.ANTIALIAS)
             photo_file = StringIO()
             photo_io.save(photo_file, 'JPEG')
