@@ -167,7 +167,7 @@ STATICFILES_DIRS = (
     str(ROOT_DIR.path('frontend/dist')),
 )
 
-MEDIA_ROOT = str(APPS_DIR.path('media'))
+MEDIA_ROOT = str(ROOT_DIR.path('media'))
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'

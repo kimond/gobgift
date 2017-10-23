@@ -13,6 +13,8 @@ services:
     depends_on:
       - postgres
       - redis
+    volumes:
+      - ./media:/app/media
     env_file: .env
     command: /gunicorn.sh
 
