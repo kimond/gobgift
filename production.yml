@@ -1,6 +1,7 @@
 version: '2'
 
 volumes:
+  media: {}
   postgres_data: {}
   postgres_backup: {}
   caddy: {}
@@ -14,7 +15,7 @@ services:
       - postgres
       - redis
     volumes:
-      - ./media:/app/media
+      - media:/app/media
     env_file: .env
     command: /gunicorn.sh
 
@@ -35,6 +36,7 @@ services:
       - django
     volumes:
       - caddy:/root/.caddy
+      - media:/var/www/gobgift/media
     env_file: .env
     ports:
       - "0.0.0.0:80:80"
