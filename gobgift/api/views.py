@@ -105,7 +105,7 @@ class GiftViewSet(viewsets.ModelViewSet):
         queryset = Gift.objects.all()
         gift = get_object_or_404(queryset, pk=pk)
         serializer = GiftSerializer(gift)
-        if gift.liste.owner == request.user:
+        if gift.wishlist.owner == request.user:
             serializer = GiftSerializer(gift, exclude_purchase=True)
 
         return Response(serializer.data)
