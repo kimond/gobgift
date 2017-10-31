@@ -9,6 +9,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework import viewsets
 from rest_framework import generics, mixins
 from rest_framework.decorators import detail_route, list_route, api_view, renderer_classes
+from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.response import Response
 
 from gobgift.gifts.models import Gift, Comment
@@ -100,6 +101,7 @@ class GiftViewSet(viewsets.ModelViewSet):
     """
     serializer_class = GiftSerializer
     queryset = Gift.objects.all()
+    parser_classes = (MultiPartParser, JSONParser)
 
     def retrieve(self, request, pk=None):
         queryset = Gift.objects.all()
