@@ -14,18 +14,18 @@
                     <p><b>{% trans "Owner" %}:</b> {{ group.owner.first_name }} {{ group.owner.last_name }}</p>
                     <b>{% trans "Members" %}:</b> {{ group.users.all|join:", " }}
                 </div>
-                <div class="card-action">
+            </div>
+            <div class="card-action">
+                <a class="btn"
+                   href="{{ group.get_view_url }}">{% trans "Show lists" %}</a>
+                {% if group.owner == user  or group|args:user|call:"is_user_admin" %}
                     <a class="btn"
-                       href="{{ group.get_view_url }}">{% trans "Show lists" %}</a>
-                    {% if group.owner == user  or group|args:user|call:"is_user_admin" %}
-                        <a class="btn"
-                           href="{{ group.get_edit_url }}">{% trans "Edit" %}</a>
-                    {% endif %}
-                    {% if group.owner == user %}
-                        <a class="btn red"
-                           href="{{ group.get_delete_url }}">{% trans "Delete" %}</a>
-                    {% endif %}
-                </div>
+                       href="{{ group.get_edit_url }}">{% trans "Edit" %}</a>
+                {% endif %}
+                {% if group.owner == user %}
+                    <a class="btn red"
+                       href="{{ group.get_delete_url }}">{% trans "Delete" %}</a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

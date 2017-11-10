@@ -140,12 +140,12 @@ ul.mainmenu li {
 }
 
 /* Gift card */
-.gift-card > .mdl-card__title > .price-text {
-    margin-left: 5px;
-    font-size: 1.0em;
-    line-height: 24px;
-    min-width: 60px;
-    color: rgba(0, 0, 0, .60);
+.gift-card {
+    width: 100%;
+}
+
+.gift-photo {
+    object-fit: cover;
 }
 
 /*  list list card  */

@@ -8,19 +8,16 @@
     <div class="divider"></div>
     <div class="card-panel">
         <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ form }}
-            {#                {% formconfig row using "core/form_layout/row.html" %}#}
-            {#                {% block errors %}{% if form.non_field_errors or form|hidden_field_errors %}<ul class="errorlist">#}
-            {#                    {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}#}
-            {#                    {% for error in form|hidden_field_errors %}<li>{{ error }}</li>{% endfor %}#}
-            {#                </ul>{% endif %}{% endblock %}#}
-            {#                {% formrow form.user %}#}
-            {#                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="id_is_admin">#}
-            {#                    <input type="checkbox" name="is_admin" id="id_is_admin" class="mdl-checkbox__input" />#}
-            {#                    <span class="mdl-checkbox__label">{{form.is_admin.label}}</span>#}
-            {#                </label>#}
-            {#                {% endform %}#}
-            <br/>
+            <div class="row">
+                <div class=input-field>
+                    {{ form.user }}
+                </div>
+            </div>
+            <div class="row">
+                <div class=input-field>
+                    {{ form.is_admin }}
+                </div>
+            </div>
             <input class="btn" type="submit" value="confirm"/>
             <a class="btn red" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
         </form>

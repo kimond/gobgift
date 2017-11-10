@@ -1,18 +1,18 @@
+import tempfile
 from io import StringIO
 
-import tempfile
 from PIL import Image
 from django import forms
 
-from gobgift.core.forms import CharField, NumField, TextAreaField
+from gobgift.core.forms import CharField, TextAreaField
 from .models import Gift, Comment
 
 
 class GiftForm(forms.ModelForm):
-    name = CharField()
+    name = forms.CharField()
     description = TextAreaField(required=False)
-    price = NumField(required=False)
-    website = CharField(required=False)
+    price = forms.DecimalField(required=False)
+    website = forms.CharField(required=False)
     store = CharField(required=False)
 
     class Meta:

@@ -47,7 +47,7 @@ def cancel_purchase_gift(request, gift_pk):
 
 class GiftCreate(LoginRequiredMixin, CreateView):
     model = Gift
-    template_name = "lists/create.html"
+    template_name = "gifts/create_edit.html"
     form_class = GiftForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -68,7 +68,7 @@ class GiftCreate(LoginRequiredMixin, CreateView):
 
 class GiftEdit(LoginRequiredMixin, UpdateView):
     model = Gift
-    template_name = "lists/create.html"
+    template_name = "gifts/create_edit.html"
     form_class = GiftForm
 
     def get_success_url(self):

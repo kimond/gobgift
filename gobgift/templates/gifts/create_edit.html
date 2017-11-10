@@ -1,0 +1,55 @@
+{% extends "_layout.html" %}
+{% block content %}
+    <h5>Add gift</h5>
+    <div class="card-panel">
+        <form role="form" action="" method="post" enctype="multipart/form-data" class="col s12">
+            <div class="row">
+                <div class="input-field">
+                    {{ form.name }}
+                    <label for="{{ form.name.id_for_label }}">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">attach_money</i>
+                    {{ form.price }}
+                    <label for="{{ form.price.id_for_label }}">Price</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Photo</span>
+                        {{ form.photo }}
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">description</i>
+                    {{ form.description }}
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">insert_link</i>
+                    {{ form.website }}
+                    <label for="{{ form.website.id_for_label }}">Website</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <i class="material-icons prefix">store</i>
+                    {{ form.store }}
+                    <label for="{{ form.store.id_for_label }}">Store</label>
+                </div>
+            </div>
+            {% csrf_token %}
+            <input class="btn" type="submit" value="confirm"/>
+        </form>
+    </div>
+{% endblock %}

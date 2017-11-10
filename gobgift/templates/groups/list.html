@@ -10,11 +10,12 @@
         <div class="collection" style="width:100%">
             {% for list in lists %}
                 <a class="collection-item avatar" href="{{ list.get_view_url }}?from_group={{ listgroup.pk }}">
+                    <i class="material-icons circle">group</i>
                     <span class="title">{{ list.name }}</span>
                     <p>
                         <b>Owner:</b> {{ list.owner.first_name }} {{ list.owner.last_name }}
                     </p>
-                    <i class="secondary-content small fa fa-gift gift-badge" data-badge={{ list.gift_set.count }}></i>
+                    <i class="secondary-content small fa fa-gift gift-badge">({{ list.gift_set.count }})</i>
                 </a>
             {% endfor %}
         </div>

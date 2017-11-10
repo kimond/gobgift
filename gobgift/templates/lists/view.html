@@ -34,49 +34,64 @@
     <div class="divider"></div>
     <div class="row">
         {% for gift in liste.gift_set.all %}
-            <div class="card col m6 gift-card {% if liste.owner.pk != user.pk and gift.purchased %}yellow lighten-5{% endif %}">
-                <div class="card-content">
-                    <div class="card-title">
-                        <h4>{{ gift.name }}</h4>
-                        <div class="price-text"> {% if gift.price %}{{ gift.price }}${% endif %}</div>
-                    </div>
-                    <div>
-                        {% if liste.owner.pk != user.pk and gift.purchased %}
-                            <span>
-                                {% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{ gift.purchase.first.user.last_name }}</span>
-                        {% endif %}
-                        {% if gift.photo %}
+            <div class="col m6">
+                <div class="card gift-card {% if liste.owner.pk != user.pk and gift.purchased %}yellow lighten-5{% endif %}">
+                    {% if gift.photo %}
+                        <div class="card-image">
                             <a href="{{ gift.photo.url }}"><img class="gift-photo" src="{{ gift.photo.url }}"
                                                                 alt="{{ gift.photo.name }}"></a>
+                        </div>
+                    {% endif %}
+                    <div class="card-content">
+                        <span class="card-title">{{ gift.name }}</span>
+                        {% if gift.price %}
+                            <div class="price-text valign-wrapper">
+                                <i class="material-icons">attach_money</i> {{ gift.price }}
+                            </div>
                         {% endif %}
-                        <p>{% if gift.description %}
-                            <b>Description</b> <br/>
-                            {{ gift.description }}{% endif %}
-                        </p>
-                        <p>{% if gift.siteweb %}<b>{% trans "Website" %}:</b>
-                            <a href="{{ gift.website }}">{{ gift.website }}</a>{% endif %}</p>
-                        <p>{% if gift.store %}<b>{% trans "Store" %}:</b> {{ gift.store }}{% endif %}</p>
+                        <div>
+                            {% if liste.owner.pk != user.pk and gift.purchased %}
+                                <span>
+                                {% trans "Purchased by " %}{{ gift.purchase.first.user.first_name }} {{ gift.purchase.first.user.last_name }}</span>
+                            {% endif %}
+                            {% if gift.website %}
+                                <div class="valign-wrapper">
+                                    <i class="material-icons">insert_link</i>
+                                    <a href="{{ gift.website }}">{{ gift.website }}</a>
+                                </div>
+                            {% endif %}
+                            {% if gift.store %}
+                                <div class="valign-wrapper">
+                                    <i class="material-icons prefix">store</i> {{ gift.store }}
+                                </div>
+                            {% endif %}
+                            {% if gift.description %}
+                                <div class="valign-wrapper">
+                                    <i class="material-icons">description</i> {{ gift.description }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="card-action">
                         {% if liste.owner.pk == user.pk %}
-                            <a class="btn" href="{{ gift.get_edit_url }}">{% trans "Edit" %}</a>
-                            <a class="btn red" href="{{ gift.get_delete_url }}">{% trans "Delete" %}</a>
+                            <a class="green-text" href="{{ gift.get_edit_url }}">{% trans "Edit" %}</a>
+                            <a class="red-text" href="{{ gift.get_delete_url }}">{% trans "Delete" %}</a>
                         {% endif %}
                         {% if liste.owner.pk != user.pk %}
                             {% if not gift.purchased %}
-                                <a class="btn" href="{{ gift.get_purchased_url }}">{% trans "purchased" %}</a>
+                                <a class="green-text" href="{{ gift.get_purchased_url }}">{% trans "purchase" %}</a>
                             {% elif gift.purchased and gift.purchase.first.user == user %}
-                                <a class="btn"
+                                <a class="red-text"
                                    href="{{ gift.get_cancelpurchased_url }}">{% trans "cancel purchase" %}</a>
                             {% else %}
                                 <a class="btn" disabled
                                    href="{{ gift.get_purchased_url }}">{% trans "already purchased" %}</a>
                             {% endif %}
                             <span class="mdl-badge comment-badge" data-badge="{{ gift.comment_set.count }}">
-                                <a id="show_comment_btn_{{ gift.pk }}" class="btn"
-                                   onclick="show_comment_div('{{ gift.pk }}')">{% trans "comments" %}</a>
+                                <a id="show_comment_btn_{{ gift.pk }}" class="blue-text"
+                                   onclick="show_comment_div('{{ gift.pk }}')">{% trans "comments" %} ({{ gift.comment_set.count }})</a>
                                 <a id="hide_comment_btn_{{ gift.pk }}"
-                                   class="btn hide"
+                                   class="blue-text hide"
                                    onclick="hide_comment_div('{{ gift.pk }}')">{% trans "hide comments" %}</a>
                             </span>
                         {% endif %}
@@ -84,7 +99,8 @@
                     {% if liste.owner.pk != user.pk %}
                         <div id="comment_section_container_{{ gift.pk }}" class="row comments-section hide">
                             <div id="comment_section_{{ gift.pk }}" class="hide">
-                                <form method="post" class="row" action="{{ gift.get_addcomment_url }}">{% csrf_token %}
+                                <form method="post" class="row"
+                                      action="{{ gift.get_addcomment_url }}">{% csrf_token %}
                                     <div class="input-field col s8 left">
                                         <input type="text" name="text" id="comment_text_{{ gift.pk }}"/>
                                         <label for="comment_text_{{ gift.pk }}">{% trans "write a comment" %}</label>

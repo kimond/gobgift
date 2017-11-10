@@ -8,7 +8,17 @@
     <h4>{% trans "Add List" %}</h4>
     <div class="card-panel">
         <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {{ form }}
+            <div class="row">
+                <div class="input-field">
+                    {{ form.name }}
+                    <label for="{{ form.name.id_for_label }}">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    {{ form.groups }}
+                </div>
+            </div>
             <input class="btn" type="submit" value="confirm"/>
             <a class="btn red" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>
         </form>
