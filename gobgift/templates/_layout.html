@@ -22,21 +22,21 @@
 <nav>
     <div class="nav-wrapper light-green darken-1">
         <a href="{% url 'home' %}" class="brand-logo">Gobgift</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             {% if user.is_authenticated %}
-                <li><a class="mdl-navigation__link" href="{% url 'home' %}">{% trans "Home" %}</a></li>
-                <li><a class="mdl-navigation__link" href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a></li>
-                <li><a class="mdl-navigation__link" href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a></li>
-                <li><a class="mdl-navigation__link" href="/logout/">{% trans "Logout" %}</a></li>
+                <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                <li><a href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a></li>
+                <li><a href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a></li>
+                <li><a href="/logout/">{% trans "Logout" %}</a></li>
             {% endif %}
         </ul>
-        <ul class="side-nav" id="mobile-demo">
+        <ul class="side-nav" id="mobile-menu">
             {% if user.is_authenticated %}
-                <li><a class="mdl-navigation__link" href="{% url 'home' %}">{% trans "Home" %}</a></li>
-                <li><a class="mdl-navigation__link" href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a></li>
-                <li><a class="mdl-navigation__link" href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a></li>
-                <li><a class="mdl-navigation__link" href="/logout/">{% trans "Logout" %}</a></li>
+                <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                <li><a href="{% url 'groups:mygroups' %}">{% trans "My groups" %}</a></li>
+                <li><a href="{% url 'lists:mylists' %}">{% trans "My lists" %}</a></li>
+                <li><a href="/logout/">{% trans "Logout" %}</a></li>
             {% endif %}
         </ul>
     </div>
@@ -47,5 +47,10 @@
         {% endblock %}
     </div>
 </main>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    });
+</script>
 </body>
 </html>
