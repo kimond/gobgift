@@ -14,9 +14,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class=input-field>
-                    {{ form.is_admin }}
-                </div>
+                {{ form.is_admin }}
+                <label for="{{ form.is_admin.id_for_label }}">Admin</label>
             </div>
             <input class="btn" type="submit" value="confirm"/>
             <a class="btn red" href="javascript:history.go(-1)">{% trans "Cancel" %}</a>

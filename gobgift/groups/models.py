@@ -28,10 +28,10 @@ class ListGroup(models.Model):
         """
         Valide if the user has admin rights
         """
-        list_group_user = self.users.filter(user=user)
-        if len(list_group_user) > 0:
-            return list_group_user[0].is_admin
-        else:
+        try:
+            group_user = self.users.get(user=user)
+            return group_user.is_admin
+        except ListGroupUser.DoesNotExist:
             return False
 
 

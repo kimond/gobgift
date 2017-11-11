@@ -34,7 +34,7 @@ class GroupForm(forms.ModelForm):
 
 
 class ListGroupUserForm(forms.ModelForm):
-    is_admin = forms.BooleanField()
+    is_admin = forms.BooleanField(required=False)
     user = forms.ModelChoiceField(
         queryset=User.objects.all(),
         widget=autocomplete.ModelSelect2(

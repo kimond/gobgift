@@ -21,7 +21,8 @@ class MyGroups(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return ListGroup.objects.filter(Q(users__user=user) | Q(owner=user)).distinct()
+        return ListGroup.objects.select_related('owner').prefetch_related('users').filter(
+            Q(users__user=user) | Q(owner=user)).distinct()
 
 
 @login_required

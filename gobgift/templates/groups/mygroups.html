@@ -18,7 +18,7 @@
             <div class="card-action">
                 <a class="btn"
                    href="{{ group.get_view_url }}">{% trans "Show lists" %}</a>
-                {% if group.owner == user  or group|args:user|call:"is_user_admin" %}
+                {% if group.owner == user  or group|method:"is_user_admin"|call_with:user %}
                     <a class="btn"
                        href="{{ group.get_edit_url }}">{% trans "Edit" %}</a>
                 {% endif %}
