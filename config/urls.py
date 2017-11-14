@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.views import defaults as default_views
 
 from gobgift.api.views import FacebookLogin, GoogleLogin
-from gobgift.core.views import home, logout, done, app
+from gobgift.core.views import home, logout, done, app, privacy_policy
 from gobgift.groups.views import ListGroupAutocomplete
 from gobgift.groups.views import UserAutocomplete
 
@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^login/$', home),
     url(r'^logout/$', logout),
     url(r'^done/$', done, name='done'),
+    url(r'^privacy/$', privacy_policy, name='privacy'),
     url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'accounts', include('allauth.urls')),
 

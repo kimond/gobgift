@@ -1,4 +1,14 @@
 /* Generic */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 .container-grid {
     max-width: 900px;
     margin: 0 auto;

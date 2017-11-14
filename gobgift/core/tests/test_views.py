@@ -17,3 +17,9 @@ class TestHome:
         request.user = user
         response = home(request)
         assert response.status_code == 302
+
+
+def test_privacy_view(client):
+    response = client.get('/privacy/')
+
+    assert response.status_code == 200
