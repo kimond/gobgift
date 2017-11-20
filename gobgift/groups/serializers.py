@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
+from gobgift.core.serializers import UserSerializer
 from gobgift.groups.models import ListGroup, ListGroupUser
 
 
 class ListGroupSerializer(serializers.ModelSerializer):
-    owner = serializers.StringRelatedField()
+    owner = UserSerializer(read_only=True)
 
     class Meta:
         model = ListGroup

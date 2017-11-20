@@ -21,7 +21,7 @@
             $("#comment_section_" + divId).addClass('hide');
         }
     </script>
-    <h5>{% trans "List" %} {{ liste.name }}
+    <h5>{{ liste.name }}
         <small> | {{ liste.owner.first_name }} {{ liste.owner.last_name }}</small>
     </h5>
     {% if from_group %}
