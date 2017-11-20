@@ -12,6 +12,7 @@ from rest_framework.decorators import detail_route, list_route, api_view, render
 from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.response import Response
 
+from gobgift.core.serializers import UserSerializer
 from gobgift.gifts.models import Gift, Comment
 from gobgift.gifts.serializers import GiftSerializer, CommentSerializer
 from gobgift.groups.models import ListGroup, ListGroupUser
@@ -29,6 +30,12 @@ class FacebookLogin(SocialLoginView):
 
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
+
+
+@api_view(['GET'])
+def current_user(request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
 
 
 class ListGroupViewSet(viewsets.ModelViewSet):

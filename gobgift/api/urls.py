@@ -4,7 +4,7 @@ from rest_framework_swagger.views import get_swagger_view
 
 from gobgift.api.views import (WishlistViewSet, GiftViewSet, ListGroupViewSet,
                                CommentViewSet, ListGroupUserViewSet,
-                               ListGiftList, ListGroupList, GiftCommentList)
+                               ListGiftList, ListGroupList, GiftCommentList, current_user)
 
 schema_view = get_swagger_view(title='Gobgift API')
 
@@ -19,6 +19,7 @@ router.register(r'comments', CommentViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'', include(router.urls)),
+    url(r'current_user/$', current_user),
     url(r'^lists/(?P<pk>\d+)/gifts', ListGiftList.as_view(),
         name='list-gift-list'),
     url(r'^listgroups/(?P<pk>\d+)/lists', ListGroupList.as_view(),
