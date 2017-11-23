@@ -6,7 +6,8 @@
     <div class="">
         <div class="collection" style="width:100%">
             {% for list in object_list %}
-                <div class="collection-item avatar list-card" onclick="javascript:location.href='{{ list.get_view_url }}'">
+                <div class="collection-item avatar list-card"
+                     onclick="javascript:location.href='{{ list.get_view_url }}'">
                     <span class="title">{{ list.name }}</span>
                     <p>
                         <b>{% trans "Groups" %}:</b> {{ list.groups.all|join:", " }}

@@ -8,6 +8,7 @@
     <div class="divider"></div>
     <div class="card-panel">
         <form role="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.non_field_errors }}
             <div class="row">
                 <div class=input-field>
                     {{ form.user }}

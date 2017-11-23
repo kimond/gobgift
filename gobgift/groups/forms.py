@@ -61,14 +61,14 @@ class ListGroupUserForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
 
         if instance and instance.pk:
-            cleaned_data['group'] = instance.listgroup
+            cleaned_data['group'] = instance.group
         else:
             cleaned_data['group'] = self.listgroup
-            if not cleaned_data.get('user'):
-                raise forms.ValidationError(_('Please choose an user.'))
-            if ListGroupUser.objects.filter(group=cleaned_data['group'], user=cleaned_data['user']).exists():
-                raise forms.ValidationError(_('This user is already in the group.'))
-            elif self.listgroup.owner == cleaned_data['user']:
-                raise forms.ValidationError(_('This user is the owner of the group'))
+        if not cleaned_data.get('user'):
+            raise forms.ValidationError(_('Please choose an user.'))
+        if ListGroupUser.objects.filter(group=cleaned_data['group'], user=cleaned_data['user']).exists():
+            raise forms.ValidationError(_('This user is already in the group.'))
+        elif self.listgroup.owner == cleaned_data['user']:
+            raise forms.ValidationError(_('This user is the owner of the group'))
 
         return cleaned_data

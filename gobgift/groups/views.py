@@ -88,9 +88,6 @@ class GroupUserDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return self.get_object().group.get_edit_url()
 
-    def form_valid(self, form):
-        return super(GroupUserDelete, self).form_valid(form)
-
 
 class ListGroupUserCreate(LoginRequiredMixin, CreateView):
     model = ListGroupUser
@@ -108,9 +105,6 @@ class ListGroupUserCreate(LoginRequiredMixin, CreateView):
         kwargs = super(ListGroupUserCreate, self).get_form_kwargs()
         kwargs['listgroup'] = self.listgroup
         return kwargs
-
-    def form_valid(self, form):
-        return super(ListGroupUserCreate, self).form_valid(form)
 
 
 class UserAutocomplete(autocomplete.Select2QuerySetView):
