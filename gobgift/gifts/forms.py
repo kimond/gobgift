@@ -47,7 +47,7 @@ class GiftForm(forms.ModelForm):
             new_width = 1024
             new_height = int(new_width * photo_height / photo_width)
             photo_io = photo_io.resize((new_width, new_height), Image.ANTIALIAS)
-            photo_file = StringIO()
+            photo_file = tempfile.TemporaryFile()
             photo_io.save(photo_file, 'JPEG')
             photo.file = photo_file
 
