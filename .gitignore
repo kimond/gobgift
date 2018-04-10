@@ -8,6 +8,7 @@ static/*
 # Env file
 .env
 /config/settings/.env
+
 /.cache/
 
 #front-end
