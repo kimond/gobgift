@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
@@ -9,7 +9,7 @@ from gobgift.wishlists.models import Wishlist
 
 
 class Gift(models.Model):
-    wishlist = models.ForeignKey(Wishlist)
+    wishlist = models.ForeignKey(Wishlist, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, verbose_name=_('Name'))
     photo = models.ImageField(upload_to='gifts', null=True, blank=True)
     description = models.TextField(null=True, blank=True, verbose_name=_("Description"))
@@ -38,12 +38,12 @@ class Gift(models.Model):
 
 
 class Purchase(models.Model):
-    gift = models.ForeignKey(Gift, related_name="purchase")
-    user = models.ForeignKey(User)
+    gift = models.ForeignKey(Gift, related_name="purchase", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):
-    gift = models.ForeignKey(Gift)
-    user = models.ForeignKey(User)
+    gift = models.ForeignKey(Gift, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.CharField(max_length=300)
     datetime = models.DateTimeField(auto_now_add=True)

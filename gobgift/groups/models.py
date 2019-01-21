@@ -1,13 +1,13 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.db import models
+from django.urls import reverse
 
 
 class ListGroup(models.Model):
     name = models.CharField(max_length=150)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -36,8 +36,8 @@ class ListGroup(models.Model):
 
 
 class ListGroupUser(models.Model):
-    group = models.ForeignKey(ListGroup, related_name="users")
-    user = models.ForeignKey(User, related_name="listgroups")
+    group = models.ForeignKey(ListGroup, related_name="users", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="listgroups", on_delete=models.CASCADE)
     is_admin = models.BooleanField(default=False)
 
     def get_delete_url(self):

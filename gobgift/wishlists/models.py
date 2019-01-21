@@ -1,14 +1,14 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.db import models
+from django.urls import reverse
 
 from gobgift.groups.models import ListGroup
 
 
 class Wishlist(models.Model):
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     groups = models.ManyToManyField(ListGroup, related_name='lists', blank=True)
 

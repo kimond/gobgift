@@ -85,7 +85,6 @@ MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -103,7 +102,7 @@ SOCIALACCOUNT_PROVIDERS = {
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/done/'
 
-ADMIN_URL = r'^admin/'
+ADMIN_URL = 'admin/'
 
 TEMPLATES = [
     {
