@@ -1,8 +1,8 @@
 {% extends "_layout.html" %}
 {% load i18n %}
-{% load socialaccount %}
+<!--{% load socialaccount %}-->
 {% block content %}
-    {% providers_media_js %}
+    <!--{% providers_media_js %}-->
     <div class="row">
         <div class="col m3"></div>
         <div class="card col m6">
@@ -22,18 +22,18 @@
                             <li><a class="btn" href="{% url "lists:mylists" %}">{% trans "My lists" %} </a></li>
                         </ul>
                     {% else %}
-                        <div class="row">
-                            <a class="btn facebook-btn" name="facebook"
-                               href="{% provider_login_url "facebook" method="js_sdk" %}">
-                                <i class="fa fa-facebook"></i>
-                                {% trans "Sign in with Facebook" %}
-                            </a>
-                            <a class="btn google-btn" name="google"
-                               href="{% provider_login_url "google" method="js_sdk" %}">
-                                <i class="fa fa-google"></i>
-                                {% trans "Sign in with Google" %}
-                            </a>
-                        </div>
+                        <!--<div class="row">-->
+                            <!--<a class="btn facebook-btn" name="facebook"-->
+                               <!--href="{% provider_login_url "facebook" method="js_sdk" %}">-->
+                                <!--<i class="fa fa-facebook"></i>-->
+                                <!--{% trans "Sign in with Facebook" %}-->
+                            <!--</a>-->
+                            <!--<a class="btn google-btn" name="google"-->
+                               <!--href="{% provider_login_url "google" method="js_sdk" %}">-->
+                                <!--<i class="fa fa-google"></i>-->
+                                <!--{% trans "Sign in with Google" %}-->
+                            <!--</a>-->
+                        <!--</div>-->
                     {% endif %}
                 </div>
             </div>

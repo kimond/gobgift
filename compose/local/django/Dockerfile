@@ -1,12 +1,10 @@
-FROM python:3.6
+FROM python:3.7
 
 ENV PYTHONUNBUFFERED 1
 
-RUN pip install pipenv --upgrade
+COPY ./requirements.txt requirements.txt
 
-COPY ./Pipfile Pipfile
-COPY ./Pipfile.lock Pipfile.lock
-RUN pipenv install --dev --system --deploy
+RUN pip install -r requirements.txt
 
 COPY ./compose/production/django/entrypoint.sh /entrypoint.sh
 RUN sed -i 's/\r//' /entrypoint.sh

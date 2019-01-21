@@ -7,7 +7,7 @@ static/*
 
 # Env file
 .env
-/config/settings/.env
+/.env
 
 /.cache/
 

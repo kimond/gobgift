@@ -2,9 +2,9 @@ from dal import autocomplete
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import ListView

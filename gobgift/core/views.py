@@ -11,8 +11,8 @@ def logout(request):
 
 def home(request):
     """Home view, displays login mechanism"""
-    if request.user.is_authenticated():
-        return redirect('done')
+    # if request.user.is_authenticated():
+    #     return redirect('done')
     return render(request, 'home.html')
 
 
