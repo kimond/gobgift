@@ -6,7 +6,7 @@ authors = ["Kim Desrosiers <kimdesro@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-django = "^2.1"
+django = "^2.2"
 django-environ = "^0.4.5"
 django-autocomplete-light = "^3.3"
 djangorestframework = "^3.9"
